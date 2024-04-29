@@ -1,0 +1,928 @@
+Responsible Reporting for Frontier AI Development
+Noam Kolt,1∗†Markus Anderljung,2Joslyn Barnhart,3Asher Brass,4
+Kevin Esvelt,5Gillian K. Hadfield,1,6Lennart Heim,2Mikel Rodriguez,3
+Jonas B. Sandbrink,7Thomas Woodside8
+1University of Toronto,2Centre for the Governance of AI,3Google DeepMind,
+4Institute for AI Policy and Strategy,5Massachusetts Institute of Technology,
+6Vector Institute for AI,7University of Oxford,
+8Center for Security and Emerging Technology
+Abstract
+Mitigating the risks from frontier AI systems requires up-to-date and reliable
+information about those systems. Organizations that develop and deploy frontier
+systems have significant access to such information. By reporting safety-critical
+information to actors in government, industry, and civil society, these organizations
+could improve visibility into new and emerging risks posed by frontier systems.
+Equipped with this information, developers could make better informed decisions
+on risk management, while policymakers could design more targeted and robust
+regulatory infrastructure. We outline the key features of responsible reporting and
+propose mechanisms for implementing them in practice.
+Evaluates information
+and decides on
+response planConsult with domain experts in government
+(e.g., experts in national security , public health)
+Solicit additional information from developer
+(e.g., design decisions, organizational processes)
+Request or conduct further safety evaluations
+(incl. in collaboration with independent auditors )
+Recommend updates to regulatory standards
+(e.g., updates to compute thresholds)Government actorOther developersEvaluate current models for novel risks
+(including risks discovered by other organizations)
+Update model safeguards and risk mitigations  
+ (e.g., revise scaling policy , security practices)
+Documents and
+reports safety
+informationDeveloper
+Domain experts in
+academia and civil society
+Figure 1: A framework for responsible reporting . Developers disclose safety-critical information
+to government actors and other developers, which decide on appropriate technical, organizational, and
+policy responses. Independent domain experts in academia and civil society receive key information
+and provide guidance to both developers and government actors.
+∗Work done at Google DeepMind.
+†Correspondence to noam.kolt@mail.utoronto.ca .arXiv:2404.02675v1  [cs.CY]  3 Apr 20241 Introduction
+Information is the lifeblood of good governance [75, 86]. Effectively responding to the new and
+emerging risks presented by frontier AI systems [2, 81] requires up-to-date and reliable information
+about those systems and their impact on society [11, 73, 88]. There is growing consensus among
+experts in AI safety and governance that reporting safety information to trusted actors in government
+and industry is key to achieving this goal [12, 46, 71]. This is particularly the case for frontier models,
+i.e., highly capable foundation models that could pose severe risks to public safety [2, 67, 90].
+Early efforts to facilitate reporting safety information made important strides. The AI Incident
+Database established by the Partnership on AI contains more than 2,000 reports of AI harms [55, 56].
+The database, however, is limited to tangible harms caused by deployed AI systems, as is the case for
+related initiatives [83]. These databases do not track anticipated risks, vulnerabilities, or near-misses
+[33, 74], and dedicate comparatively little attention to larger-scale or catastrophic risks [10, 25, 44].
+But the tide is changing. Recognizing the growing need to share information about AI safety with
+government actors, several leading developers committed to the U.S. government to “reporting their
+AI systems’ capabilities, limitations, and areas of appropriate and inappropriate use” and undertook
+to engage in “third-party discovery and reporting of vulnerabilities in their AI systems” [80]. Some
+developers made additional commitments to share information with companies and governments
+[34], including to provide actors in the UK government with “early or priority access to models
+for research and safety purposes to help build better evaluations” [24]. The UK government has
+also requested access to, and published, details concerning the safety practices of several leading AI
+companies [23].
+National governments and international institutions are also taking concrete steps to implement
+AI safety reporting. The European Union’s AI Act imposes stringent reporting obligations on the
+providers of high-risk AI systems [29]. An executive order issued by President Biden requires that
+AI developers provide the U.S. federal government with information regarding “activities related to
+training, developing, or producing dual-use foundation models,” as well as information regarding
+“the ownership and possession of the model weights” and the results of “red-team testing” [78]. These
+requirements would initially apply to any model trained using more than 1026operations, or any
+model using primarily genetic sequence data trained using 1023operations. The OECD, meanwhile,
+has convened an expert group to develop an AI incident reporting framework [62].
+Given this increasingly complex institutional context, distilling the key features of AI safety reporting
+is especially important. We aim to make headway on this challenge by clarifying the goals of
+reporting safety-related information (Section 2), describing the content of this information and
+to which actors it could be reported (Section 3), proposing institutional mechanisms to facilitate
+reporting (Section 4), and tackling potential hurdles to implementing these mechanisms in practice
+(Section 5). Taken together, these contributions complement and provide guidance for more concrete
+efforts to establish reporting frameworks, including multiple concurrent efforts being undertaken by
+actors in government, industry, and civil society.
+2 Goals of reporting
+As in other industries with long-standing reporting practices, including healthcare, finance, and
+aviation [55, 68, 83], information disclosures aim to achieve several goals. In the case of frontier AI
+systems, we focus on three main goals of reporting: (1) raising awareness among key stakeholders
+with regard to societal-scale impacts and risks from AI technologies; (2) incentivizing AI developers
+to adopt more robust risk management and safety practices; and (3) increasing regulatory visibility to
+enable policymakers to effectively respond to new risks, especially risks which government actors are
+best positioned to address.
+2.1 Risk awareness
+In its simplest form, the case for reporting information about AI risks and vulnerabilities can be
+summarized as follows: ”To make AI safer, we need to know when and how it fails” [7]. Access
+to such information is especially crucial in the case of frontier AI systems, whose risk profiles are
+continually changing due to their often unpredictable capabilities [35, 67, 87, 88, 90].
+2Regulatory visibility - enable regulators to design
+targeted and ef fective governance mechanismsIndustry practices  - incentivize developers to
+adopt more robust safety practices and standardsRisk awareness  - improve
+awareness of societal-scale
+risks from frontier systemsFigure 2: Goals of reporting safety information
+Across both industry and government, “reporting builds a norm of admitting mistakes, noticing them,
+and sharing lessons learned” [53]. Information about safety incidents and failures can offer valuable
+lessons on how and where risk mitigation measures fail [55]. Alongside improving general awareness
+of these risks, both developers and government actors, supported by independent domain experts,
+need a detailed understanding of these risks and the methods for mitigating them. We focus on each
+in turn.
+2.2 Industry practices
+Sharing information with other developers about risks from frontier AI systems and the measures
+for addressing them enables developers to design better risk management strategies and safety
+practices [9]. For example, a developer may update its safety levels [5], preparedness framework [66],
+or capabilities scaling policy [39] in response to information about new capabilities or risks [4, 58].
+Information collected via reporting could also assist developers in establishing emergency response
+plans, internal audit procedures, and customer screening processes [27, 71].
+In addition to informing particular risk management practices, reporting could foster a stronger safety
+culture across the AI industry [53, 63] and bring it closer in line with well-established reporting
+practices and norms in other industries, such as in the aviation industry [31, 52]. For instance,
+regulation that mandates reporting the results of AI safety evaluations [78] could deter developers
+from accelerating development at the expense of safety [8, 20]. By enabling external actors and
+domain experts to verify the claims made by AI developers about the safety of their systems [9,
+15, 70], reporting would subject frontier AI developers and their products to increased scrutiny.
+Consequently, less cautious actors would be incentivized to invest more in safety and adopt best
+practices employed by other organizations. As in relatively mature industries such as healthcare and
+finance, risk mitigation and safety could become an inherent and uncontroversial part of frontier AI
+development and deployment [26, 43].
+2.3 Regulatory visibility
+Reporting information about AI risks and potential mitigations is critical to informing the priorities
+and actions of policymakers. Without meaningful visibility into the technology’s design and use,
+policymakers cannot determine appropriate regulatory objectives, let alone build appropriate regula-
+tory infrastructure [2, 41]. Accurate and up-to-date information about frontier AI systems and their
+impact is key to enabling policymakers to address the risks posed by these systems.
+A reporting framework designed to furnish policymakers with safety-critical information will help
+address these concerns. Equipped with reliable and timely information about frontier AI systems,
+policymakers will be able to make better informed decisions about the goals and methods of regulation,
+and acquire the resources needed to take appropriate action [19, 89]. For example, policymakers
+will be able to design or implement standards that are more responsive to trends in AI development
+and, ideally, preempt nascent and emerging risks [6, 45, 48]. In particular, information collected
+from reporting will assist policymakers in tackling risks that government actors are best positioned to
+address, as observed by the UK government’s AI Safety Institute [72]. For instance, upon receiving
+a report concerning national security risks (e.g., new cyber capabilities or biological capabilities),
+national security experts in government could propose additional model evaluations or governance
+measures.
+33 Decision-relevant information
+The following section describes the categories of information that developers could report in the
+proposed framework, as well as the recipients of this information. The categories in Table 1 -
+development and deployment ,risks and harms , and mitigations - are designed to provide government
+actors, developers, and independent domain experts with information that will assist in deciding
+on appropriate technical, organizational, and policy responses to novel AI capabilities and risks.
+In addition, the categories broadly align with recent regulatory regimes, including the disclosure
+requirements in the U.S. executive order [78], the EU AI Act [29], and the UK proposal for AI risk
+reporting [22].
+Table 1: Information categories, content, and recipients
+Category Content
+Development and
+deployment
+/users Recipients:
+Government actorsDetails of state-of-the-art systems - copies of publicly available technical
+reports, including system and model cards, and additional information on
+training techniques, resources, and model capabilities.
+Information on current and upcoming training runs - description of
+architecture, compute, data collection, curation, filtering, and human feed-
+back, training objectives (e.g., reward functions), and training techniques.
+Current and anticipated applications - description of the domains in
+which a model is currently deployed or anticipated to be deployed, the
+range of tasks they perform or are anticipated to perform, and usage trends
+and statistics.
+Risks and harms
+/users Recipients:
+Government actors ,
+developers, and
+independent
+domain expertsPre-deployment and post-deployment risk assessments - results of
+internal and external safety evaluations, including results of red-teaming
+and bounty programs.
+Concrete harms and safety incidents - description of incidents in which
+a system caused death or serious injury, damage to critical infrastructure,
+environmental harm, cybersecurity incidents, or other concrete harms, as
+well as harms that did not materialize (“near misses”).
+Dual-use and dangerous capabilities - evidence of a system exhibiting
+the ability to perform deception or manipulation, dual-use cyber capabil-
+ities or biological capabilities, weapons development, indications of the
+ability to engage in long-term planning, power-seeking, or other dangerous
+capabilities.
+Mitigations
+/users Recipients:
+Government actors ,
+developers, and
+independent
+domain expertsModel alignment and safeguards - detailed explanation of alignment
+techniques, steps taken to prevent malicious use and other misuse (e.g.,
+out-of-domain use), safety evaluations, and monitoring procedures.
+Organizational risk management - description of security standards,
+personnel and customer screening, auditing procedures, review processes,
+or other internal governance mechanisms, including circumstances in
+which such procedures were not effective or were not adopted.
+Furnishing policymakers and domain experts with the above information is key to overcoming
+the inherent information deficit between industry and government [47]. Despite repeated calls to
+provide governments with more comprehensive and consequential information relating to frontier AI
+technologies [9, 89], regulators have often been caught off-guard, as exemplified by early drafts of
+the EU AI Act altogether failing to address foundation models.
+As in other domains [86], government actors need a deep understanding of the underlying technology,
+the resources required to build it, and the risks it may pose [2]. For example, aviation regulators are
+authorized to conduct sweeping inspections of new aircraft technologies (e.g., [32]), while financial
+regulators have privileged access to cutting-edge financial products and services in order to assess
+their anticipated impact on consumers and markets (e.g., [18]). Without comparable information
+4on frontier AI systems (including information concerning development, risks, and mitigations),
+policymakers and domain experts will be unable to assess for themselves the systems’ risk profiles or
+decide on the appropriate governance sites and mechanisms [48, 49].
+IInformation onIdevelopmentand deploymentIIInformationIIon riskIImitigationsIIInformationIIon risks andIIharmsI
+Figure 3: There is significant over-
+lap between information pertain-
+ing to development and deployment
+and information pertaining to risks,
+harms, and mitigations.Importantly, there is likely to be significant overlap between
+information pertaining to development and deployment (dis-
+closed only to government actors) and information pertaining
+to risks and risk mitigations (disclosed to government actors,
+developers, and independent domain experts). Disentangling
+these two categories is not straightforward. For example, infor-
+mation regarding state-of-the art alignment techniques is both
+a model capability as well as a risk mitigation tool, making it
+unclear whether, or to what extent, such information should
+be disclosed to developers and independent domain experts, or
+only to government actors.
+While we do not propose a precise definition distinguishing
+between the different categories, the appendices offer a con-
+crete illustration of the kind of information that could fall into
+each category. Appendices A and B, which relate to cyberse-
+curity and biosecurity, respectively, help shed light on which
+information would be disclosed to government actors only and
+which information would be disclosed to government actors,
+developers, and independent domain experts.
+4 Institutional framework
+4.1 Contributors
+Many different organizations are involved in developing and deploying frontier AI models [28].
+These include organizations in industry, academia, and civil society, and across different geographies.
+While some organizations make their models accessible only via API (e.g., OpenAI, Anthropic),
+others publicly release the model weights subject to software licenses (e.g., Meta, EleutherAI).
+Given that each of these organizations has expertise developing different models and deploying them
+in different contexts, each organization could offer valuable safety information. For example, an
+organization with extensive red-teaming experience could assist other organizations in designing
+protocols for external scrutiny of models [3]. Meanwhile, an organization that has developed methods
+to mitigate malicious use of its models could share those methods with other organizations.
+Subject to the implementation challenges addressed below (Section 5), we suggest that all developers
+of frontier models could participate in the proposed framework and that the information they contribute
+could improve visibility into AI risks and mitigations.
+4.2 Recipients
+Government actors .As in disclosure regimes in other domains [55, 68, 83], government actors are
+important recipients of the information provided under the proposed framework. Key characteristics
+for government actors include the following:
+1.Information security - capacity to protect highly sensitive information and prevent its
+proliferation or misuse.
+2.Technical competence - ability to understand, analyze, and draw conclusions from the
+information reported, including relevant domain expertise.
+3.Governance capacity - organizational resources and legal authority to design and implement
+policy responses.
+4.Independence - incentives and motivation to systematically and impartially execute policy
+responses.
+5In the United States, key actors include the U.S. Artificial Intelligence Safety Institute [84, 85],
+established through the National Institute of Standards and Technology (NIST), an agency that
+itself has significant in-house technical expertise and published an AI Risk Management Framework
+[60]. Another key actor is the White House Office of Science and Technology Policy (OSTP),
+which released a Blueprint for an AI Bill of Rights [77] and has been involved in facilitating model
+evaluations and securing voluntary commitments from leading AI developers [76, 79, 80]. Other
+relevant actors include the National Security Council (NSC), Bureau of Industry and Security (BIS),
+Federal Trade Commission (FTC), and possibly new government bodies. In the United Kingdom,
+key actors include the UK government’s AI Safety Institute, which has indicated that it will work on
+conducting evaluations of advanced AI systems and facilitating information exchange [21].
+Importantly, the combination of above characteristics is a new ‘muscle’ that governments will need
+to grow and flex. Effective reporting requires broad technical and sociotechnical capacity-building,
+which will require significant time and talent. In addition, it is worth noting that different government
+bodies might be better positioned to receive different types of information, instead of a single
+government body receiving all information disclosed under the framework. For example, dedicated
+cybersecurity agencies and biosecurity agencies might be the preferred recipients of information in
+their respective domains.
+Developer reciprocity. As to which developers receive information under the reporting framework,
+we propose a principle of reciprocity according to which only developers that contribute information
+under the proposed framework will receive information under the framework. This principle both
+incentivizes developers to participate in the framework and prevents non-participating developers
+from free-riding. As illustrated in Figure 4 and Table 1, participating developers will only receive
+information relating to risks, harms, and mitigations, not commercially sensitive information relating
+to model development and deployment - which will be disclosed to government actors only.
+Participating developer
+Participating developerParticipating developer
+New developerInformation
+on risks and
+ mitigations
+Figure 4: The principle of reciprocity incentivizes developers to join the responsible reporting
+framework by providing them with useful safety information.
+Independent domain experts .As illustrated in Figure 1, independent domain experts in academia and
+civil society play two key roles in the proposed framework. First, domain experts will receive safety-
+critical information comparable to the information provided to participating developers. Second,
+domain experts will provide guidance to government actors with regard to the categories and content of
+information that developers report within the framework. In addition to the capacity to maintain highly
+effective information security, participating domain experts should have the following characteristics:
+1.Domain-specific expertise - significant expertise in a risk-relevant field, especially a field
+or subfield in which government actors lack sufficient expertise.
+2.Security mindset - ability and inclination to identify vulnerabilities, risks, and potential
+exploitations of AI systems and the environments in which they operate.
+64.3 Documentation and disclosure
+Documentation .While there does not currently exist a dedicated government database for information
+relating to AI development and deployment [19, 83], there are many mechanisms for documenting
+such information. These include data sheets [36], model cards [57], reward reports [38], system
+cards (e.g., [64, 65]), model reports [37, 69, 82], and ecosystem graphs [13, 14]. Documentation
+may also need to be tailored to the particular model or system [61]. For example, meaningful insight
+into models using reinforcement learning from human feedback (RLHF) can only be achieved via
+granular information on the relevant human feedback, reward model, and policy [16, 50].
+Drawing on these and other documentation practices, we offer a preliminary picture of how developers
+could record and communicate information under the proposed framework - as illustrated in Table 2.
+Notably, leading developers already report some of this information (including the developers of
+GPT-4, Claude 3, Llama 2, and Gemini).
+Table 2: Developer documentation for each category of safety information
+Information
+categoriesDocumentation
+Development and
+deploymentModel cards for current models and models under development, including
+details of data collection, model training and finetuning, evaluation metrics,
+intended uses, ecosystem dependencies (e.g., compute sponsors, API
+access), and model maintenance plan.
+Risks and harmsResults of pre-deployment and post-deployment safety evaluations (includ-
+ing underlying code and data), records of all safety incidents (including
+actors involved, causes of incidents, and responses to incident), and addi-
+tional threat intelligence and impact assessments.
+MitigationsDescription of technical safeguards for preventing misuse and accident
+risks (including alignment and monitoring procedures) and organizational
+measures (e.g., documents establishing internal safety and governance
+structures).
+Although major jurisdictions increasingly mandate reporting, the precise scope and form of reporting
+remain open to interpretation. For example, the U.S. executive order requires that developers provide
+“information, reports, or records” regarding “training, developing, or producing dual-use foundation
+models” and “the ownership and possession of the model weights”, but does not specify precisely
+what information those reports must contain [78]. Nor does the executive order prescribe the exact
+form in which information should be documented, leaving these fine-grained, yet important, tasks to
+future policy instruments.
+In addition, given that developers’ safety evaluations and reporting practices are likely to evolve
+over time, policymakers will need to continually refine their governance responses to information
+received, which will require ongoing investment in both technical competence and institutional
+capacity (see Section 4.2).
+Disclosure process .In addition to carefully documenting safety information, developers will need to
+securely communicate that information to the intended recipients. Doing so is critical to preventing
+the information from being intercepted or exploited by malicious actors, especially in the case
+of information relating to dangerous dual-use capabilities. The high-level security practices that
+developers have been advised to adopt internally (e.g., [71]) should apply to external information
+disclosures as well.
+A further issue concerns the circumstances of disclosure, that is, the stages of design, development, and
+deployment in which developers report the above information. For example, should the circumstances
+of disclosure be determined by reference to a particular time (e.g. ndays or weeks prior to and/or
+following deployment) or to a certain capabilities or risk threshold (which may be harder to define)?
+Should the timing and frequency of disclosure differ between reporting information to government
+actors compared with reporting information to other developers or domain experts? To operationalize
+responsible reporting, we need sufficiently flexible, yet clear, answers to these questions.
+75 Implementation
+5.1 Challenges
+There are several challenges to successfully implementing the proposed framework for responsible
+reporting. We divide these challenges into two categories: (a) challenges facing developers that
+seek to participate in the reporting framework and (b) broader challenges concerning the overall
+effectiveness of the framework.
+Challenges for developers . Developers seeking to engage in responsible reporting are likely to
+confront four main challenges.
+1.Intellectual property . Commercially sensitive information (e.g., descriptions of new models
+or capabilities, logs of real-world incidents) could be inadvertently disclosed to, or exploited
+by, other developers and competitors.
+2.Reputational risk . Reporting safety incidents and anticipated risks or vulnerabilities could
+damage a developer’s reputation and harm their business interests.
+3.Legal liability . Disclosing certain safety information could potentially increase developers’
+exposure to legal liability. Moreover, a legal obligation to disclose the results of safety tests
+may deter some developers from conducting rigorous safety tests in the first place.
+4.Coordination among developers . Developers may be reluctant to participate in the frame-
+work and be exposed to business risks without assurances that their competitors will also
+participate and be similarly exposed to such risks.
+Broader challenges . The potential obstacles to the framework achieving its goals (set out in Section 2)
+can be grouped into four broad challenges.
+1.Evaluation, documentation, and reporting resources . Developers may lack the resources
+to effectively collect, document, and report the information required by the proposed
+framework.
+2.Misreporting . Developers may inadvertently or deliberately report information that is either
+inaccurate or incomplete, undermining its reliability and usefulness.
+3.Information hazards . Information reported under the framework could be intercepted by
+malicious actors and used for nefarious purposes, or be misused by its intended recipients.
+4.Institutional capacity . Actors that receive information under the framework may lack the
+capacity to protect, analyze, or effectively respond to the information provided.
+For further discussion of these and other challenges facing disclosure mechanisms, see [40], in-
+cluding concerns relating to firm-level and broader compliance costs, the impact of disclosure on
+design choices in AI development, and the potential for disclosures adversely impacting governance
+decisions.
+5.2 Pathways forward
+Some of the above challenges could be addressed through targeted institutional mechanisms, some
+of which are already incorporated in the proposed framework. Other challenges require broader
+structural intervention. In this section, we assess how to address the most salient concerns along two
+different pathways.
+8A. Voluntary implementation
+The first pathway involves implementing responsible reporting as part of a voluntary governance
+regime [12, 54, 55]. Developers voluntarily commit to partake in the reporting framework, whether in
+the absence of, or alongside, a broader regulatory regime. In this scenario, we propose the following
+institutional mechanisms:
+1.Differential disclosure . Concerns regarding the protection of intellectual property and
+commercially sensitive information are largely addressed by features of the framework
+already discussed. Developers disclose information pertaining to model development and
+deployment to government actors only, not to competitors or other developers. For example,
+a safety incident report would describe the hazardous use observed, but would not disclose
+the relevant model’s architecture, training methods, compute, or data. In addition, developers
+could differentially disclose information within government. For example, developers
+might disclose information about dangerous dual-use capabilities to some (rather than all)
+participating government actors.
+2.Anonymized reporting . To protect developers’ reputations, certain potentially damaging
+information disclosed under the framework could be de-identified, such that it could not be
+attributed to a particular developer and would not tarnish their reputation [15, 83]. Notably,
+effective anonymization may be difficult to achieve in some circumstances, such as where
+the developer identity can be inferred from the evaluations conducted. Anonymization is
+probably more appropriate for reporting information to participating developers and domain
+experts, not government actors. Government actors that demonstrate the characteristics
+set out above (Section 4.2), including reliable information security, should receive de-
+anonymized versions of the information disclosed under the framework.
+3.Organizational pre-commitments . Developers could collectively commit in advance to
+participate in the reporting framework. Such commitments could be supported by a bond-
+like regime in which developers make upfront payments (prior to joining the framework)
+that are incrementally returned to developers contingent on their good faith participation in
+the framework.
+B. Regulatory implementation
+The second pathway involves integrating responsible reporting into a broader purpose-built regulatory
+regime, such as the U.S. executive order [78] or EU AI Act [29]. In this scenario, we suggest the
+following institutional mechanisms will help facilitate more informative and actionable reporting:
+1.Liability safe harbors . Developers’ reluctance to disclose information that may increase
+their legal exposure could be tackled by regulation that introduces safe harbor provisions that
+protect companies from legal liability arising from participation in the reporting framework
+[1, 51]. These could be modeled on existing safe harbors in environmental regulation and
+financial regulation.
+2.Government resourcing . Under a purpose-built regulatory regime, government actors
+could be allocated resources to develop the technical and governance capacity to protect,
+analyze, and effectively respond to information disclosed under the framework (e.g., [21]).
+Equipped with these resources, government actors could also assist developers in making
+the required disclosures.
+3.Enforcement . If regulations imposed legal sanctions in the event of negligent or deliberate
+misreporting, developers would be strongly incentivized to establish organizational processes
+for ensuring good faith and effective reporting. Independent auditors approved by regulators
+could also assist in detecting misreporting [17, 30, 42, 59].
+96 Conclusion
+Improvements in AI safety and governance hinge on the information available to key stakeholders.
+Building on existing efforts in government, industry, and civil society, responsible reporting aims
+to facilitate communicating and responding to safety-critical information in a dedicated secure in-
+stitutional framework. While the implementation of responsible reporting faces several challenges,
+there are promising pathways forward. Frontier developers could begin by voluntarily reporting infor-
+mation about risks and mitigations that goes beyond current regulatory requirements. Policymakers,
+meanwhile, could integrate features of responsible reporting into emerging governance regimes.
+Acknowledgements
+For helpful comments and suggestions, we thank Conor Griffin, Lewis Ho, Séb Krier, Lucy Lim,
+Aalok Mehta, Nikhil Mulani, Cassidy Nelson, Cullen O’Keefe, Sophie Rose, Yonadav Shavit, and
+Toby Shevlane.
+10Appendices
+A Cybersecurity
+Table 3: Examples of cybersecurity information (including cyber capabilities and security vulnerabili-
+ties) that developers could report as part of the proposed framework
+Category Key items
+Development and
+deployment
+/users Recipients:
+Government actors
+only1.List of training datasets and descriptions of data sanitization or
+anonymization practices.
+2.List of training-related hardware (including processing units, networking
+hardware, and peripheral equipment).
+3. Software bill of material (SBOM) for training runs.
+4.List of known vulnerabilities in software/hardware components, prod-
+ucts, and libraries used in model development and/or deployment.
+5.List of mitigations and/or justification for using products despite known
+vulnerabilities.
+6.List of cloud providers, resources, and physical data center locations for
+training runs.
+7.Is the model intended for use in offensive cyber operations and/or defen-
+sive cybersecurity activities?
+8.Is the model intended for use in software, firmware, hardware, or crypto-
+graphic development?
+Risks and harms
+/users Recipients:
+Government actors ,
+developers, and
+independent
+domain experts1.Results of: (a) external and internal penetration tests, safety evaluations,
+and vulnerability scans; (b) bounty programs and disclosed vulnerabili-
+ties/exploits; (c) threat modeling assessments.
+2.Description of incidents in which a system: (a) discovered novel vulner-
+abilities in software, firmware, hardware, or cryptographic products; (b)
+developed malware utilized in illicit activities; (c) was used to illegally
+access private data, gain access to an unauthorized network, or exfiltrate
+sensitive information from a device or network.
+3.Complete incident reports for: (a) external breaches and unauthorized
+access of model weights or other training infrastructure; (b) insider or
+third party leaking of model weights or other training infrastructure.
+4.Evidence of a system exhibiting the ability to perform: (a) vulnerability
+and exploit discovery (including static/dynamic code analysis, protocol
+reverse-analysis, and vulnerability to exploit conversion); (b) malware
+development and deployment; (c) social engineering attacks (e.g., phish-
+ing); (d) compromise of cryptographic systems or protocols; (e) model
+self-replication.
+5. Report of cybersecurity-related capability evaluations.
+Mitigations
+/users Recipients:
+Government actors ,
+developers, and
+independent
+domain experts1.Description of security standards, personnel screening, and auditing
+procedures, including: (a) encryption standards for data at rest and in
+transit; (b) digital access controls (e.g., RBAC); (c) physical access
+controls; (d) patch management; (e) versioning controls; (f) backup
+integrity and verification.
+2.Technical description of how users can interact with the model, includ-
+ing: (a) API specifications, security standards, and auditing practices;
+(b) credential provisioning and security practices.
+11B Biosecurity
+Table 4: Examples of biosecurity information that developers could report as part of the proposed
+framework
+Category Key items
+Development and
+deployment
+/users Recipients:
+Government actors
+only1.List of all biology-related data used in training, including papers, experi-
+mental protocols, and datasets relating to any life sciences field.
+2.Description of methods to optimize for particular biological capabilities
+(e.g., host-pathogen interaction prediction, genetic sequence analysis or
+assembly, or structural outputs) or call specific biological tools.
+3.Evaluation of biological science capabilities (such as conceptual ideation,
+experimental design, knowledge pooling and teaching, laboratory standard
+operating procedures and tacit knowledge, and sequence design capabili-
+ties).
+4.Description of intended user base and deployment strategy (e.g., laypeople
+or a particular research or practitioner community, API design and deploy-
+ment).
+Risks and harms
+/users Recipients:
+Government actors ,
+developers, and
+independent
+domain experts1.Description of biorisk capability evaluations and red-teaming, including:
+(a) evaluation methodologies and information hazard risk mitigations; (b)
+team size, types of participants (including independent domain experts),
+and skillsets (including security mindset); (c) details of scaffolding and
+finetuning methods (including specialized biology or chemistry tools).
+2.Results of biorisk capability evaluations, especially evidence of dual-use
+capabilities and marginal improvements of AI models over existing (non-AI)
+methods, including the ability to: (a) provide dual-use biological informa-
+tion; (b) describe which biological agents or constructs are most hazardous
+and accessible; (c) instruct how to acquire or synthesize a controlled agent
+or a pandemic pathogen; (d) perform end-to-end synthesis of a controlled
+agent; (e) create a viable alternative structure for a controlled agent or
+enhancements mapping onto experiments of concern; (f) ideate novel bi-
+ological tools by combining concepts or natural capabilities; (g) assist in
+the weaponization of biology; (h) exhibit evidence of security mindset with
+respect to biological vulnerabilities.
+3.Records of the use of biorisk capabilities, including: (a) access to dual-use
+biorisk capabilities; (b) violations of model usage policies.
+Mitigations
+/users Recipients:
+Government actors ,
+developers, and
+independent
+domain experts1.Description of measures to reduce biorisk capabilities and harmful outputs,
+including: (a) decisions regarding the inclusion (or non-inclusion) in train-
+ing data of papers, experimental protocols, and datasets relating to dual-use
+biology; (b) finetuning and other methods that can cause a model to refrain
+from performing certain biorisk-related tasks (e.g., accessing and delivering
+controlled agents and potential pandemic pathogens); (c) preventing jail-
+breaks and other adversarial attacks; (d) decisions regarding the ability (or
+inability) of models to call third-party biological tools that have not been
+evaluated for dangerous biological capabilities during assessment.
+2.Monitoring and controlling model usage: (a) collecting know-your-customer
+(KYC) information on users who seek to access certain dual-use biorisk
+capabilities (e.g., developing novel pathogens); (b) restricting access to
+these capabilities, including plans to adhere to the principle of least privilege
+(PoLP) through user access controls.
+3.Establishment of biosecurity incident, threat alert, and escalation processes,
+including: (a) investigation procedures in the event users violate usage poli-
+cies; (b) incident reporting mechanisms for unanticipated post-deployment
+demonstration of dangerous biological capabilities; (c) response plan to
+deliberate malicious use of advanced biological capabilities.
+12References
+[1] AI Policy and Governance Working Group. Comment of the AI Policy and Governance Working
+Group on the NTIA AI Accountability Policy Request for Comment Docket NTIA-230407-0093 .
+June 12, 2023. URL:https://www.ias.edu/sites/default/files/AI%20Policy%
+20and%20Governance%20Working%20Group%20NTIA%20Comment.pdf .
+[2] Markus Anderljung, Joslyn Barnhart, Anton Korinek, Jade Leung, Cullen O’Keefe, Jess
+Whittlestone, Shahar Avin, Miles Brundage, Justin Bullock, Duncan Cass-Beggs, Ben Chang,
+Tantum Collins, Tim Fist, Gillian Hadfield, Alan Hayes, Lewis Ho, Sara Hooker, Eric Horvitz,
+Noam Kolt, Jonas Schuett, Yonadav Shavit, Divya Siddarth, Robert Trager, and Kevin Wolf.
+Frontier AI Regulation: Managing Emerging Risks to Public Safety . Nov. 7, 2023. arXiv:
+2307.03718[cs] .DOI:10.48550/arXiv.2307.03718 .
+[3] Markus Anderljung, Everett Thornton Smith, Joe O’Brien, Lisa Soder, Benjamin Bucknall,
+Emma Bluemke, Jonas Schuett, Robert Trager, Lacey Strahm, and Rumman Chowdhury.
+Towards Publicly Accountable Frontier LLMs: Building an External Scrutiny Ecosystem under
+the ASPIRE Framework . Nov. 15, 2023. arXiv: 2311.14711[cs] .DOI:10.48550/arXiv.
+2311.14711 .
+[4] Bill Anderson-Samways, Shaun Ee, Joe O’Brien, Marie Buhl, and Zoe Williams. Responsible
+Scaling: Comparing Government Guidance and Company Policy . Institute for AI Policy
+and Strategy, Mar. 11, 2024. URL:https://www.iaps.ai/research/responsible-
+scaling .
+[5] Anthropic. Anthropic’s Responsible Scaling Policy . Sept. 19, 2023. URL:https://www.
+anthropic.com/news/anthropics-responsible-scaling-policy .
+[6] Yonathan A. Arbel, Matthew Tokson, and Albert Lin. “Systemic Regulation of Artificial
+Intelligence”. In: Arizona State Law Journal . AI Safety Legal Paper Series 12-24 (forthcoming).
+URL:https://ssrn.com/abstract=4666854 .
+[7] Zachary Arnold and Helen Toner. AI Accidents: An Emerging Threat . July 2021. URL:https:
+//cset.georgetown.edu/publication/ai-accidents-an-emerging-threat/ .
+[8] Amanda Askell, Miles Brundage, and Gillian Hadfield. The Role of Cooperation in Responsible
+AI Development . July 10, 2019. arXiv: 1907.04534[cs] .DOI:10.48550/arXiv.1907.
+04534 .
+[9] Shahar Avin, Haydn Belfield, Miles Brundage, Gretchen Krueger, Jasmine Wang, Adrian
+Weller, Markus Anderljung, Igor Krawczuk, David Krueger, Jonathan Lebensold, Tegan
+Maharaj, and Noa Zilberman. “Filling gaps in trustworthy development of AI”. In: Science
+374.6573 (Dec. 10, 2021). Publisher: American Association for the Advancement of Science,
+pp. 1327–1329. DOI:10.1126/science.abi7176 .
+[10] Yoshua Bengio, Geoffrey Hinton, Andrew Yao, Dawn Song, Pieter Abbeel, Yuval Noah
+Harari, Ya-Qin Zhang, Lan Xue, Shai Shalev-Shwartz, Gillian Hadfield, Jeff Clune, Tegan
+Maharaj, Frank Hutter, Atılım Güne¸ s Baydin, Sheila McIlraith, Qiqi Gao, Ashwin Acharya,
+David Krueger, Anca Dragan, Philip Torr, Stuart Russell, Daniel Kahneman, Jan Brauner, and
+Sören Mindermann. Managing AI Risks in an Era of Rapid Progress . Nov. 12, 2023. arXiv:
+2310.17688[cs] .DOI:10.48550/arXiv.2310.17688 .
+[11] Abeba Birhane, Ryan Steed, Victor Ojewale, Briana Vecchione, and Inioluwa Deborah Raji.
+AI auditing: The Broken Bus on the Road to AI Accountability . Jan. 25, 2024. arXiv: 2401.
+14462[cs] .DOI:10.48550/arXiv.2401.14462 .
+[12] Rishi Bommasani, Kevin Klyman, Shayne Longpre, Sayash Kapoor, Nestor Maslej, Betty
+Xiong, Daniel Zhang, and Percy Liang. The Foundation Model Transparency Index . Oct. 19,
+2023. arXiv: 2310.12941[cs] .DOI:10.48550/arXiv.2310.12941 .
+[13] Rishi Bommasani, Dilara Soylu, Thomas I. Liao, Kathleen A. Creel, and Percy Liang. Ecosys-
+tem Graphs .URL:https://crfm.stanford.edu/ecosystem-graphs/index.html?
+mode=table .
+[14] Rishi Bommasani, Dilara Soylu, Thomas I. Liao, Kathleen A. Creel, and Percy Liang. Ecosys-
+tem Graphs: The Social Footprint of Foundation Models . Mar. 28, 2023. arXiv: 2303 .
+15772[cs] .DOI:10.48550/arXiv.2303.15772 .
+13[15] Miles Brundage, Shahar Avin, Jasmine Wang, Haydn Belfield, Gretchen Krueger, Gillian
+Hadfield, Heidy Khlaaf, Jingying Yang, Helen Toner, Ruth Fong, Tegan Maharaj, Pang Wei
+Koh, Sara Hooker, Jade Leung, Andrew Trask, Emma Bluemke, Jonathan Lebensold, Cullen
+O’Keefe, Mark Koren, Théo Ryffel, J. B. Rubinovitz, Tamay Besiroglu, Federica Carugati,
+Jack Clark, Peter Eckersley, Sarah de Haas, Maritza Johnson, Ben Laurie, Alex Ingerman,
+Igor Krawczuk, Amanda Askell, Rosario Cammarota, Andrew Lohn, David Krueger, Charlotte
+Stix, Peter Henderson, Logan Graham, Carina Prunkl, Bianca Martin, Elizabeth Seger, Noa
+Zilberman, Seán O hÉigeartaigh, Frens Kroeger, Girish Sastry, Rebecca Kagan, Adrian Weller,
+Brian Tse, Elizabeth Barnes, Allan Dafoe, Paul Scharre, Ariel Herbert-V oss, Martijn Rasser,
+Shagun Sodhani, Carrick Flynn, Thomas Krendl Gilbert, Lisa Dyer, Saif Khan, Yoshua Bengio,
+and Markus Anderljung. Toward Trustworthy AI Development: Mechanisms for Supporting
+Verifiable Claims . Apr. 20, 2020. arXiv: 2004.07213[cs] .DOI:10.48550/arXiv.2004.
+07213 .
+[16] Stephen Casper, Xander Davies, Claudia Shi, Thomas Krendl Gilbert, Jérémy Scheurer, Javier
+Rando, Rachel Freedman, Tomasz Korbak, David Lindner, Pedro Freire, Tony Wang, Samuel
+Marks, Charbel-Raphaël Segerie, Micah Carroll, Andi Peng, Phillip Christoffersen, Mehul
+Damani, Stewart Slocum, Usman Anwar, Anand Siththaranjan, Max Nadeau, Eric J. Michaud,
+Jacob Pfau, Dmitrii Krasheninnikov, Xin Chen, Lauro Langosco, Peter Hase, Erdem Bıyık,
+Anca Dragan, David Krueger, Dorsa Sadigh, and Dylan Hadfield-Menell. Open Problems and
+Fundamental Limitations of Reinforcement Learning from Human Feedback . Sept. 11, 2023.
+arXiv: 2307.15217[cs] .DOI:10.48550/arXiv.2307.15217 .
+[17] Stephen Casper, Carson Ezell, Charlotte Siegmann, Noam Kolt, Taylor Lynn Curtis, Benjamin
+Bucknall, Andreas Haupt, Kevin Wei, Jérémy Scheurer, Marius Hobbhahn, Lee Sharkey,
+Satyapriya Krishna, Marvin V on Hagen, Silas Alberti, Alan Chan, Qinyi Sun, Michael
+Gerovitch, David Bau, Max Tegmark, David Krueger, and Dylan Hadfield-Menell. Black-Box
+Access is Insufficient for Rigorous AI Audits . Jan. 25, 2024. arXiv: 2401.14446[cs] .DOI:
+10.48550/arXiv.2401.14446 .
+[18] CFPB. CFPB Supervision and Examination Process . Mar. 2022. URL:https://files.
+consumerfinance . gov / f / documents / cfpb _ supervision - and - examination -
+manual.pdf .
+[19] Jack Clark. “Information Markets and AI Development”. In: The Oxford Handbook of AI
+Governance . Ed. by Justin B. Bullock, Yu-Che Chen, Johannes Himmelreich, Valerie M.
+Hudson, Anton Korinek, Matthew M. Young, and Baobao Zhang. 1st ed. Oxford University
+Press, Jan. 26, 2023. ISBN : 978-0-19-757932-9. DOI:10.1093/oxfordhb/9780197579329.
+013.21 .
+[20] Allan Dafoe. “AI Governance: Overview and Theoretical Lenses”. In: The Oxford Handbook
+of AI Governance . Ed. by Justin B. Bullock, Yu-Che Chen, Johannes Himmelreich, Valerie M.
+Hudson, Anton Korinek, Matthew M. Young, and Baobao Zhang. Oxford University Press,
+June 20, 2023. ISBN : 978-0-19-757932-9. DOI:10.1093/oxfordhb/9780197579329.013.
+2.
+[21] Department for Science, Innovation & Technology. Introducing the AI Safety Institute .
+GOV.UK. URL:https : / / www . gov . uk / government / publications / ai - safety -
+institute-overview/introducing-the-ai-safety-institute .
+[22] Department for Science, Innovation and Technology. Policy paper: Emerging processes for
+frontier AI safety . GOV.UK, Oct. 27, 2023. URL:https://www.gov.uk/government/
+publications / emerging - processes - for - frontier - ai - safety / emerging -
+processes-for-frontier-ai-safety .
+[23] Department for Science, Innovation and Technology and AI Safety Institute. Policy Updates .
+AISS 2023. Sept. 19, 2023. URL:https://www.aisafetysummit.gov.uk/policy-
+updates/ .
+[24] Department for Science, Innovation and Technology, AI Safety Institute, Chloe Smith MP, and
+The Rt Hon Rishi Sunak MP. Tech entrepreneur Ian Hogarth to lead UK’s AI Foundation Model
+Taskforce . GOV.UK. June 18, 2023. URL:https://www.gov.uk/government/news/tech-
+entrepreneur-ian-hogarth-to-lead-uks-ai-foundation-model-taskforce .
+[25] Department for Science, Innovation and Technology, Foreign, Commonwealth & Develop-
+ment Office, and Prime Minister’s Office, 10 Downing Street. The Bletchley Declaration
+by Countries Attending the AI Safety Summit, 1-2 November 2023 . GOV.UK. Nov. 2023.
+14URL:https : / / www . gov . uk / government / publications / ai - safety - summit -
+2023-the-bletchley-declaration/the-bletchley-declaration-by-countries-
+attending-the-ai-safety-summit-1-2-november-2023 .
+[26] Roel I. J. Dobbe. “System Safety and Artificial Intelligence”. In: The Oxford Handbook of
+AI Governance . Ed. by Justin B. Bullock, Yu-Che Chen, Johannes Himmelreich, Valerie M.
+Hudson, Anton Korinek, Matthew M. Young, and Baobao Zhang. 1st ed. Oxford University
+Press, Oct. 20, 2022. ISBN : 978-0-19-757932-9. DOI:10.1093/oxfordhb/9780197579329.
+013.67 .
+[27] Janet Egan and Lennart Heim. Oversight for Frontier AI through a Know-Your-Customer
+Scheme for Compute Providers . Oct. 20, 2023. arXiv: 2310.13625[cs] .DOI:10.48550/
+arXiv.2310.13625 .
+[28] EPOCH. Epoch Database . Epoch. 2024. URL:https://epochai.org/data/epochdb/
+table .
+[29] European Parliament. 2021/0106(COD): Artificial Intelligence Act .URL:https://oeil.
+secure . europarl . europa . eu / oeil / popups / ficheprocedure . do ? reference =
+2021/0106(COD)&l=en .
+[30] Gregory Falco, Ben Shneiderman, Julia Badger, Ryan Carrier, Anton Dahbura, David Danks,
+Martin Eling, Alwyn Goodloe, Jerry Gupta, Christopher Hart, Marina Jirotka, Henric Johnson,
+Cara LaPointe, Ashley J. Llorens, Alan K. Mackworth, Carsten Maple, Sigurður Emil Pálsson,
+Frank Pasquale, Alan Winfield, and Zee Kin Yeong. “Governing AI safety through independent
+audits”. In: Nature Machine Intelligence 3.7 (July 2021). Publisher: Nature Publishing Group,
+pp. 566–571. ISSN : 2522-5839. DOI:10.1038/s42256-021-00370-7 .
+[31] Federal Aviation Administration. Mandatory and Voluntary Incident Reporting . Nov. 7, 2023.
+URL:https://www.faa.gov/hazmat/incident-reporting .
+[32] Federal Aviation Administration. The Inspection Process . 2023. URL:https://www.faa.
+gov/hazmat/safecargo/why_am_i_being_inspected/inspection_process .
+[33] Heather Frase and Mia Hoffmann. Adding Structure to AI Harm . July 2023. URL:https:
+//cset.georgetown.edu/publication/adding-structure-to-ai-harm/ .
+[34] Frontier Model Forum. Frontier Model Forum: Advancing frontier AI safety . Frontier Model
+Forum. URL:https://www.frontiermodelforum.org/ .
+[35] Deep Ganguli, Danny Hernandez, Liane Lovitt, Amanda Askell, Yuntao Bai, Anna Chen,
+Tom Conerly, Nova Dassarma, Dawn Drain, Nelson Elhage, Sheer El Showk, Stanislav Fort,
+Zac Hatfield-Dodds, Tom Henighan, Scott Johnston, Andy Jones, Nicholas Joseph, Jackson
+Kernian, Shauna Kravec, Ben Mann, Neel Nanda, Kamal Ndousse, Catherine Olsson, Daniela
+Amodei, Tom Brown, Jared Kaplan, Sam McCandlish, Christopher Olah, Dario Amodei, and
+Jack Clark. “Predictability and Surprise in Large Generative Models”. In: Proceedings of
+the 2022 ACM Conference on Fairness, Accountability, and Transparency . FAccT ’22. New
+York, NY, USA: Association for Computing Machinery, June 20, 2022, pp. 1747–1764. ISBN :
+978-1-4503-9352-2. DOI:10.1145/3531146.3533229 .
+[36] Timnit Gebru, Jamie Morgenstern, Briana Vecchione, Jennifer Wortman Vaughan, Hanna
+Wallach, Hal Daumé III, and Kate Crawford. Datasheets for Datasets . Dec. 1, 2021. arXiv:
+1803.09010[cs] .DOI:10.48550/arXiv.1803.09010 .
+[37] Gemini Team et al. Gemini: A Family of Highly Capable Multimodal Models . Dec. 18, 2023.
+arXiv: 2312.11805[cs] .DOI:10.48550/arXiv.2312.11805 .
+[38] Thomas Krendl Gilbert, Nathan Lambert, Sarah Dean, Tom Zick, Aaron Snoswell, and Soham
+Mehta. “Reward Reports for Reinforcement Learning”. In: Proceedings of the 2023 AAAI/ACM
+Conference on AI, Ethics, and Society . AIES ’23. New York, NY, USA: Association for
+Computing Machinery, 2023, pp. 84–130. DOI:10.1145/3600211.3604698 .
+[39] Google DeepMind. AI Safety Summit: An update on our approach to safety and responsibility .
+Google DeepMind. Oct. 27, 2023. URL:https://deepmind.google/public-policy/ai-
+summit-policies/ .
+[40] Neel Guha, Christie M Lawrence, Lindsey A Gailmard, Kit T Rodolfa, Faiz Surani, Rishi
+Bommasani, Inioluwa Deborah Raji, Mariano-Florentino Cuéllar, Colleen Honigsberg, Percy
+Liang, and Daniel E Ho. “AI Regulation Has Its Own Alignment Problem: The Technical and
+Institutional Feasibility of Disclosure, Registration, Licensing, and Auditing”. In: The George
+Washington Law Review 92 (forthcoming 2024). URL:https://dho.stanford.edu/wp-
+content/uploads/AI_Regulation.pdf .
+15[41] Gillian Hadfield, Mariano Florentino Cuéllar, and Tim O’Reilly. It’s Time to Create a National
+Registry for Large AI Models . Carnegie Endowment for International Peace. July 12, 2023.
+URL:https://carnegieendowment.org/2023/07/12/it- s- time- to- create-
+national-registry-for-large-ai-models-pub-90180 .
+[42] Lennart Heim, Tim Fist, Janet Egan, Sihao Huang, Stephen Zekany, Robert Trager, Michael
+A. Osborne, and Noa Zilberman. Governing Through the Cloud: The Intermediary Role of
+Compute Providers in AI Regulation . Mar. 26, 2024. arXiv: 2403.08501[cs] .DOI:10.
+48550/arXiv.2403.08501 .
+[43] Dan Hendrycks, Nicholas Carlini, John Schulman, and Jacob Steinhardt. Unsolved Problems in
+ML Safety . June 16, 2022. arXiv: 2109.13916[cs] .DOI:10.48550/arXiv.2109.13916 .
+[44] Dan Hendrycks, Mantas Mazeika, and Thomas Woodside. An Overview of Catastrophic AI
+Risks . Oct. 9, 2023. arXiv: 2306.12001[cs] .DOI:10.48550/arXiv.2306.12001 .
+[45] Margot E. Kaminski. “Regulating the Risks of AI”. In: Boston University Law Review
+103 (2023), pp. 1347–1411. URL:https://papers.ssrn.com/sol3/papers.cfm?
+abstract_id=4195066 .
+[46] Sayash Kapoor, Rishi Bommasani, Kevin Klyman, Shayne Longpre, Ashwin Ramaswami,
+Peter Cihon, Aspen Hopkins, Kevin Bankston, Stella Biderman, Miranda Bogen, Rumman
+Chowdhury, Alex Engler, Peter Henderson, Yacine Jernite, Seth Lazar, Stefano Maffulli,
+Alondra Nelson, Joelle Pineau, Aviya Skowron, Dawn Song, Victor Storchan, Daniel Zhang,
+Daniel E Ho, Percy Liang, and Arvind Narayanan. On the Societal Impact of Open Foundation
+Models . Research paper. Stanford Institute for Human-Centered Artificial Intelligence, Feb. 27,
+2024. URL:https://crfm.stanford.edu/open-fms/paper.pdf .
+[47] Bradley Karkkainen. “Bottlenecks and baselines: Tackling information deficits in environmen-
+tal regulation”. In: Texas Law Review 86 (June 1, 2008), pp. 1409–1444.
+[48] Noam Kolt. “Algorithmic Black Swans”. In: Washington University Law Review 101 (forth-
+coming). URL:https://papers.ssrn.com/abstract=4370566 .
+[49] Noam Kolt. Governing AI Agents . Mar. 26, 2024. URL:https://papers.ssrn.com/
+abstract=4772956 .
+[50] Nathan Lambert, Thomas Krendl Gilbert, and Tom Zick. The History and Risks of Rein-
+forcement Learning and Human Feedback . Nov. 28, 2023. arXiv: 2310.13595[cs] .DOI:
+10.48550/arXiv.2310.13595 .
+[51] Shayne Longpre, Sayash Kapoor, Kevin Klyman, Ashwin Ramaswami, Rishi Bommasani,
+Borhane Blili-Hamelin, Yangsibo Huang, Aviya Skowron, Zheng-Xin Yong, Suhas Kotha,
+Yi Zeng, Weiyan Shi, Xianjun Yang, Reid Southen, Alexander Robey, Patrick Chao, Diyi Yang,
+Ruoxi Jia, Daniel Kang, Sandy Pentland, Arvind Narayanan, Percy Liang, and Peter Henderson.
+A Safe Harbor for AI Evaluation and Red Teaming . Mar. 7, 2024. arXiv: 2403.04893[cs] .
+DOI:10.48550/arXiv.2403.04893 .
+[52] Peter Madsen, Robin L. Dillon, and Catherine H. Tinsley. “Airline Safety Improvement
+Through Experience with Near-Misses: A Cautionary Tale”. In: Risk Analysis 36.5 (Oct. 27,
+2015), pp. 1054–1066. ISSN : 1539-6924. DOI:10.1111/risa.12503 .
+[53] David Manheim. Building a Culture of Safety for AI: Perspectives and Challenges . June 26,
+2023. DOI:10.2139/ssrn.4491421 .
+[54] Gary E. Marchant and Carlos Ignacio Gutierrez. “Soft Law 2.0: An Agile and Effective
+Governance Approach for Artificial Intelligence”. In: Minnesota Journal of Law, Science and
+Technology 24 (2022), p. 375. URL:https://heinonline.org/HOL/Page?handle=hein.
+journals/mipr24&id=379&div=&collection= .
+[55] Sean McGregor. “Preventing Repeated Real World AI Failures by Cataloging Incidents: The
+AI Incident Database”. In: Proceedings of the AAAI Conference on Artificial Intelligence 35.17
+(May 18, 2021). Number: 17, pp. 15458–15463. ISSN : 2374-3468. DOI:10.1609/aaai.
+v35i17.17817 .
+[56] Sean McGregor, Kevin Paeth, and Khoa Lam. Indexing AI Risks with Incidents, Issues, and
+Variants . Nov. 18, 2022. arXiv: 2211.10384[cs] .DOI:10.48550/arXiv.2211.10384 .
+[57] Margaret Mitchell, Simone Wu, Andrew Zaldivar, Parker Barnes, Lucy Vasserman, Ben
+Hutchinson, Elena Spitzer, Inioluwa Deborah Raji, and Timnit Gebru. “Model Cards for Model
+Reporting”. In: Proceedings of the Conference on Fairness, Accountability, and Transparency .
+FAT* ’19: Conference on Fairness, Accountability, and Transparency. Atlanta GA USA: ACM,
+Jan. 29, 2019, pp. 220–229. ISBN : 978-1-4503-6125-5. DOI:10.1145/3287560.3287596 .
+16[58] Model Evaluation and Threat Research. Responsible Scaling Policies (RSPs) . Model Evaluation
+and Threat Research. Sept. 26, 2023. URL:https://metr.org/blog/2023-09-26-rsp/ .
+[59] Jakob Mökander, Jonas Schuett, Hannah Rose Kirk, and Luciano Floridi. “Auditing large
+language models: a three-layered approach”. In: AI and Ethics (May 30, 2023). ISSN : 2730-
+5961. DOI:10.1007/s43681-023-00289-2 .
+[60] National Institute of Standards and Technology. “AI Risk Management Framework”. In: NIST
+(July 12, 2021). URL:https://www.nist.gov/itl/ai-risk-management-framework .
+[61] Chris Norval, Kristin Cornelius, Jennifer Cobbe, and Jatinder Singh. “Disclosure by Design:
+Designing information disclosures to support meaningful transparency and accountability”.
+In:Proceedings of the 2022 ACM Conference on Fairness, Accountability, and Transparency .
+FAccT ’22. New York, NY, USA: Association for Computing Machinery, June 20, 2022,
+pp. 679–690. ISBN : 978-1-4503-9352-2. DOI:10.1145/3531146.3533133 .
+[62] OECD.AI Network of Experts. Expert Group on AI Incidents .URL:https://oecd.ai/en/
+/network-of-experts/working-group/10836 .
+[63] Victor Ojewale, Ryan Steed, Briana Vecchione, Abeba Birhane, and Inioluwa Deborah Raji.
+Towards AI Accountability Infrastructure: Gaps and Opportunities in AI Audit Tooling . Mar. 14,
+2024. arXiv: 2402.17861[cs] .DOI:10.48550/arXiv.2402.17861 .
+[64] OpenAI. GPT-4 System Card . OpenAI, Mar. 23, 2023. URL:https://cdn.openai.com/
+papers/gpt-4-system-card.pdf .
+[65] OpenAI. GPT-4V(ision) system card . OpenAI, Sept. 25, 2023. URL:https://openai.com/
+research/gpt-4v-system-card .
+[66] OpenAI. Preparedness . Dec. 18, 2023. URL:https : / / cdn . openai . com / openai -
+preparedness-framework-beta.pdf .
+[67] Mary Phuong, Matthew Aitchison, Elliot Catt, Sarah Cogan, Alexandre Kaskasoli, Victoria
+Krakovna, David Lindner, Matthew Rahtz, Yannis Assael, Sarah Hodkinson, Heidi Howard,
+Tom Lieberum, Ramana Kumar, Maria Abi Raad, Albert Webson, Lewis Ho, Sharon Lin,
+Sebastian Farquhar, Marcus Hutter, Gregoire Deletang, Anian Ruoss, Seliem El-Sayed, Sasha
+Brown, Anca Dragan, Rohin Shah, Allan Dafoe, and Toby Shevlane. Evaluating Frontier
+Models for Dangerous Capabilities . Mar. 20, 2024. arXiv: 2403.13793[cs] .DOI:10.48550/
+arXiv.2403.13793 .
+[68] Inioluwa Deborah Raji, Peggy Xu, Colleen Honigsberg, and Daniel Ho. “Outsider Oversight:
+Designing a Third Party Audit Ecosystem for AI Governance”. In: Proceedings of the 2022
+AAAI/ACM Conference on AI, Ethics, and Society . AIES ’22. New York, NY, USA: Association
+for Computing Machinery, July 27, 2022, pp. 557–571. ISBN : 978-1-4503-9247-1. DOI:
+10.1145/3514094.3534181 .
+[69] Machel Reid et al. Gemini 1.5: Unlocking multimodal understanding across millions of tokens
+of context . Mar. 8, 2024. arXiv: 2403.05530[cs] .DOI:10.48550/arXiv.2403.05530 .
+[70] Girish Sastry, Lennart Heim, Haydn Belfield, Markus Anderljung, Miles Brundage, Julian
+Hazell, Cullen O’Keefe, Gillian K. Hadfield, Richard Ngo, Konstantin Pilz, George Gor, Emma
+Bluemke, Sarah Shoker, Janet Egan, Robert F. Trager, Shahar Avin, Adrian Weller, Yoshua
+Bengio, and Diane Coyle. Computing Power and the Governance of Artificial Intelligence .
+Feb. 13, 2024. arXiv: 2402.08797[cs] .DOI:10.48550/arXiv.2402.08797 .
+[71] Jonas Schuett, Noemi Dreksler, Markus Anderljung, David McCaffary, Lennart Heim, Emma
+Bluemke, and Ben Garfinkel. Towards best practices in AGI safety and governance: A survey
+of expert opinion . May 11, 2023. arXiv: 2305.07153[cs] .DOI:10.48550/arXiv.2305.
+07153 .
+[72] Secretary of State for Science, Innovation and Technology. Policy paper: Introducing the AI
+Safety Institute . E03012924. ISBN: 978-1-5286-4538-6. GOV.UK, Nov. 2023. URL:https:
+//www.gov.uk/government/publications/ai- safety- institute- overview/
+introducing-the-ai-safety-institute .
+[73] Toby Shevlane, Sebastian Farquhar, Ben Garfinkel, Mary Phuong, Jess Whittlestone, Jade
+Leung, Daniel Kokotajlo, Nahema Marchal, Markus Anderljung, Noam Kolt, Lewis Ho, Divya
+Siddarth, Shahar Avin, Will Hawkins, Been Kim, Iason Gabriel, Vijay Bolina, Jack Clark,
+Yoshua Bengio, Paul Christiano, and Allan Dafoe. Model evaluation for extreme risks . Sept. 22,
+2023. arXiv: 2305.15324[cs] .DOI:10.48550/arXiv.2305.15324 .
+17[74] Kris Shrishak. “How to deal with an AI near-miss: Look to the skies”. In: Bulletin of the Atomic
+Scientists 79.3 (May 4, 2023), pp. 166–169. ISSN : 0096-3402. DOI:10.1080/00963402.
+2023.2199580 .
+[75] Matthew C. Stephenson. “Information Acquisition and Institutional Design”. In: Harvard Law
+Review 124.6 (Apr. 20, 2011), pp. 1422–1483. URL:https://harvardlawreview.org/
+print/vol-124/information-acquisition-and-institutional-design/ .
+[76] The White House. Biden-Harris Administration Launches Artificial Intelligence Cyber Chal-
+lenge to Protect America’s Critical Software . The White House. Aug. 9, 2023. URL:https:
+//www.whitehouse.gov/briefing- room/statements- releases/2023/08/09/
+biden - harris - administration - launches - artificial - intelligence - cyber -
+challenge-to-protect-americas-critical-software/ .
+[77] The White House. Blueprint for an AI Bill of Rights | OSTP . The White House. 2022. URL:
+https://www.whitehouse.gov/ostp/ai-bill-of-rights/ .
+[78] The White House. Executive Order on the Safe, Secure, and Trustworthy Development and Use
+of Artificial Intelligence . The White House, Oct. 30, 2023. URL:https://www.whitehouse.
+gov/briefing-room/presidential-actions/2023/10/30/executive-order-on-
+the- safe- secure- and- trustworthy- development- and- use- of- artificial-
+intelligence/ .
+[79] The White House. FACT SHEET: Biden-Harris Administration Announces New Actions to Pro-
+mote Responsible AI Innovation that Protects Americans’ Rights and Safety . The White House.
+May 4, 2023. URL:https://www.whitehouse.gov/briefing- room/statements-
+releases/2023/05/04/fact-sheet-biden-harris-administration-announces-
+new - actions - to - promote - responsible - ai - innovation - that - protects -
+americans-rights-and-safety/ .
+[80] The White House. FACT SHEET: Biden-Harris Administration Secures Voluntary Commit-
+ments from Leading Artificial Intelligence Companies to Manage the Risks Posed by AI . The
+White House. July 21, 2023. URL:https://www.whitehouse.gov/briefing-room/
+statements-releases/2023/07/21/fact-sheet-biden-harris-administration-
+secures - voluntary - commitments - from - leading - artificial - intelligence -
+companies-to-manage-the-risks-posed-by-ai/ .
+[81] Helen Toner, Jessica Ji, John Bansemer, and Lucy Lim. Skating to Where the Puck Is Going .
+Oct. 2023. URL:https://cset.georgetown.edu/publication/skating-to-where-
+the-puck-is-going/ .
+[82] Hugo Touvron, Louis Martin, Kevin Stone, Peter Albert, Amjad Almahairi, Yasmine Babaei,
+Nikolay Bashlykov, Soumya Batra, Prajjwal Bhargava, Shruti Bhosale, Dan Bikel, Lukas
+Blecher, Cristian Canton Ferrer, Moya Chen, Guillem Cucurull, David Esiobu, Jude Fernan-
+des, Jeremy Fu, Wenyin Fu, Brian Fuller, Cynthia Gao, Vedanuj Goswami, Naman Goyal,
+Anthony Hartshorn, Saghar Hosseini, Rui Hou, Hakan Inan, Marcin Kardas, Viktor Kerkez,
+Madian Khabsa, Isabel Kloumann, Artem Korenev, Punit Singh Koura, Marie-Anne Lachaux,
+Thibaut Lavril, Jenya Lee, Diana Liskovich, Yinghai Lu, Yuning Mao, Xavier Martinet, Todor
+Mihaylov, Pushkar Mishra, Igor Molybog, Yixin Nie, Andrew Poulton, Jeremy Reizenstein,
+Rashi Rungta, Kalyan Saladi, Alan Schelten, Ruan Silva, Eric Michael Smith, Ranjan Sub-
+ramanian, Xiaoqing Ellen Tan, Binh Tang, Ross Taylor, Adina Williams, Jian Xiang Kuan,
+Puxin Xu, Zheng Yan, Iliyan Zarov, Yuchen Zhang, Angela Fan, Melanie Kambadur, Sharan
+Narang, Aurelien Rodriguez, Robert Stojnic, Sergey Edunov, and Thomas Scialom. Llama 2:
+Open Foundation and Fine-Tuned Chat Models . July 19, 2023. arXiv: 2307.09288[cs] .DOI:
+10.48550/arXiv.2307.09288 .
+[83] Violet Turri and Rachel Dzombak. “Why We Need to Know More: Exploring the State of AI
+Incident Documentation Practices”. In: Proceedings of the 2023 AAAI/ACM Conference on AI,
+Ethics, and Society . AIES ’23. New York, NY, USA: Association for Computing Machinery,
+2023, pp. 576–583. DOI:10.1145/3600211.3604700 .
+[84] U.S. Department of Commerce. At the Direction of President Biden, Department of Commerce
+to Establish U.S. Artificial Intelligence Safety Institute to Lead Efforts on AI Safety . U.S.
+Department of Commerce. Nov. 1, 2023. URL:https://www.commerce.gov/news/
+press-releases/2023/11/direction-president-biden-department-commerce-
+establish-us-artificial .
+18[85] U.S. Department of Commerce. Biden-Harris Administration Announces First-Ever Consor-
+tium Dedicated to AI Safety . U.S. Department of Commerce. Feb. 8, 2024. URL:https://www.
+commerce.gov/news/press-releases/2024/02/biden-harris-administration-
+announces-first-ever-consortium-dedicated .
+[86] Rory Van Loo. “Regulatory Monitors: Policing Firms in the Compliance Era”. In: Columbia
+Law Review 119 (2019). URL:https : / / columbialawreview . org / content /
+regulatory-monitors-policing-firms-in-the-compliance-era/ .
+[87] Jason Wei, Yi Tay, Rishi Bommasani, Colin Raffel, Barret Zoph, Sebastian Borgeaud, Dani
+Yogatama, Maarten Bosma, Denny Zhou, Donald Metzler, Ed H. Chi, Tatsunori Hashimoto,
+Oriol Vinyals, Percy Liang, Jeff Dean, and William Fedus. Emergent Abilities of Large
+Language Models . Oct. 26, 2022. arXiv: 2206.07682[cs] .DOI:10.48550/arXiv.2206.
+07682 .
+[88] Laura Weidinger, Maribeth Rauh, Nahema Marchal, Arianna Manzini, Lisa Anne Hendricks,
+Juan Mateos-Garcia, Stevie Bergman, Jackie Kay, Conor Griffin, Ben Bariach, Iason Gabriel,
+Verena Rieser, and William Isaac. Sociotechnical Safety Evaluation of Generative AI Systems .
+Oct. 31, 2023. arXiv: 2310.11986[cs] .DOI:10.48550/arXiv.2310.11986 .
+[89] Jess Whittlestone and Jack Clark. Why and How Governments Should Monitor AI Development .
+Aug. 31, 2021. arXiv: 2108.12427[cs] .DOI:10.48550/arXiv.2108.12427 .
+[90] Thomas Woodside. Keeping Up with the Frontier: Why Congress Should Codify Reporting
+Requirements For Advanced AI Systems . Feb. 28, 2024. URL:https://cset.georgetown.
+edu/article/keeping-up-with-the-frontier/ .
+19

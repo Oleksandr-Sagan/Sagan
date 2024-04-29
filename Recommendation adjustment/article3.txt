@@ -1,0 +1,872 @@
+arXiv:2404.02798v1  [cs.CY]  3 Apr 2024AIAND PERSONALIZED LEARNING :BRIDGING THE GAP WITH
+MODERN EDUCATIONAL GOALS
+Kristjan-Julius Laak
+Institute of Computer Science
+University of Tartu
+Tartu, Estonia
+julius.laak@gmail.comJaan Aru
+Institute of Computer Science
+University of Tartu
+Tartu, Estonia
+jaan.aru@gmail.com
+April 4, 2024
+ABSTRACT
+Personalized learning (PL) aspires to provide an alternati ve to the one-size-ﬁts-all approach in ed-
+ucation. Technology-based PL solutions have shown notable effectiveness in enhancing learning
+performance. However, their alignment with the broader goa ls of modern education is inconsistent
+across technologies and research areas. In this paper, we ex amine the characteristics of AI-driven
+PL solutions in light of the OECD Learning Compass 2030 goals . Our analysis indicates a gap be-
+tween the objectives of modern education and the current dir ection of PL. We identify areas where
+most present-day PL technologies could better embrace esse ntial elements of contemporary educa-
+tion, such as collaboration, cognitive engagement, and the development of general competencies.
+While the present PL solutions are instrumental in aiding le arning processes, the PL envisioned by
+educational experts extends beyond simple technological t ools and requires a holistic change in the
+educational system. Finally, we explore the potential of la rge language models, such as ChatGPT,
+and propose a hybrid model that blends artiﬁcial intelligen ce with a collaborative, teacher-facilitated
+approach to personalized learning.
+Keywords personalized learning ·artiﬁcial intelligence ·adaptive learning systems ·educational technology ·
+intelligent tutoring systems ·large language models ·self-regulated learning
+1 Introduction
+Prominent educational researchers and organizations agre e that education must be learning-centered for every pupil t o
+reach their potential (Bransford et al., 2000; Groff, 2017; O’Brien et al., 2009; OECD, 2006; Vygotsky & Cole, 1978).
+The learning-centered paradigm stems from changes in indus try and society: The predominantly knowledge-based
+form of work requires an education system that values indivi dual differences and promotes lifelong learning skills
+(Lee, 2014). Since early experiments demonstrated the bene ﬁts of one-on-one tutoring over group-level instruction
+(Bloom, 1984; Salvin & Karweit, 1985), researchers have sou ght technological solutions to achieve cost-effective
+personalized tutoring (Lee et al., 2018). Personalized lea rning (PL) aims to achieve this goal by tailoring instructio n,
+pace, methods, and content to the interests, needs, and goal s of individual learners (Beese, 2019; US Department of
+Education, 2010; Walkington & Bernacki, 2020). Breakthrou ghs in technology and artiﬁcial intelligence (AI) have led
+to a rapid increase in the applications of PL (Chen et al., 202 0). AI-driven adaptive learning systems (Corbett et al.,
+1997; Maghsudi et al., 2021; VanLehn, 2011) have emerged to p rovide learners with individualized lesson sequences,
+content recommendations, tasks, and automated assessment s (Zawacki-Richter et al., 2019). A prevailing view in the
+application of AI to Education (AIEd) literature is that per sonalized adaptive learning systems increase access to hig h-
+quality education and are contrasted with a “traditional,” one-size-ﬁts-all approach (Tetzlaff et al., 2020; Maghsud i
+et al., 2021; St-Hilaire et al., 2022). However, previous re views have pointed to limited analysis of the educational
+underpinnings of AIEd (Chen et al., 2020; Hinojo-Lucena et a l., 2019; Zawacki-Richter et al., 2019).APREPRINT - APRIL 4, 2024
+Here, we analyze the PL approach from the perspective of the e ducational goals set by the OECD Learning Com-
+pass 2030 as a framework to support our arguments (OECD, 2019 b). In addition to core knowledge and skills, the
+framework highlights three main goals of education: focus o n general competencies, developing learners’ agency, and
+building on the Anticipation-Action-Reﬂection (AAR) cycl e. First, the AAR cycle reﬂects the need for deeper cogni-
+tive engagement before and during learning (Bransford et al ., 2000; Chi & Wylie, 2014; Dehaene, 2020), also known
+as active learning. Second, agency is a broad and interdisci plinary term that denotes the skills necessary for lifelong
+learning (Brod et al., 2023; Council of the EU, 2002; OECD, 20 06). An essential part of agency is related to self-
+directed and self-regulated learning (SRL) skills that ena ble the learner to take the initiative in leading their learn ing,
+monitor their level of understanding, setting goals, plann ing tasks, and taking action toward them, and evaluate their
+performance (Knowles, 1975; Zimmerman, 1986, 2000; Saks & L eijen, 2014; Panadero, 2017). It has been consis-
+tently shown that without proper SRL skills, learners overw helmingly choose the least effective strategies for learni ng
+(McCabe, 2011). Third, we deﬁne general competencies as per sonal attributes or behaviors developed through action,
+experience, and reﬂection (UNESCO, 2017). Examples of thes e competencies include critical thinking, collaboration
+skills, creating new value, and complex problem-solving sk ills (OECD, 2019b; UNESCO, 2022). We will expand and
+use these overarching goals in our analysis of the challenge s of personalized learning systems.
+We recognize the value of PL technologies as supportive tool s for teachers and effective knowledge acquisition, par-
+ticularly when they promote self-regulated learning, enha nce learner’s agency, and engage students cognitively (e.g .,
+Azevedo et al., 2022; Biswas et al., 2016; du Boulay, 2019; Lo ng & Aleven, 2017). The beneﬁts of AI-enabled
+PL systems are manifold, including ﬂexibility in time and lo cation, timely feedback, and faster student progression
+(Moreno-Guerrero et al., 2020; Pliakos et al., 2019), offer ing a more dynamic approach to knowledge acquisition com-
+pared to traditional methods. However, PL is described as an AI-based individualized learning approach and is often
+used synonymously with “adaptive learning” (Bernacki et al ., 2021; Maghsudi et al., 2021; Shemshack et al., 2021;
+Shemshack & Spector, 2020; Tetzlaff et al., 2021). Rather th an being the antithesis of the traditional one-size-ﬁts-al l
+approach, PL, as currently implemented, is simply a more eff ective method of knowledge acquisition. In contrast to
+the PL as currently implemented, the “ideal” personalized l earning adheres to all principles of modern learning and as-
+pires to a broader change in the school, educational strateg y, curricula, effective pedagogies, etc., in which technol ogy
+plays only a supporting role (Hopkins, 2010; Lee, 2014; Lee e t al., 2018; Miliband, 2006; Watters, 2023).
+We explore this perspective by examining how the PL literatu re emphasizes certain aspects of modern education while
+neglecting others. AIEd is still in its infancy, and there is an opportunity to guide its development in line with the
+principles of contemporary education (Shemshack et al., 20 21; Cukurova et al., 2023). In the concluding sections, we
+explore the potential of large language models (such as Chat GPT) and propose a hybrid framework that envisions a
+collaborative relationship between AI and teachers.
+2 Beneﬁts of personalized learning systems
+The framework for personalized learning was outlined in the early 1960s in Richard D. Smallwood’s dissertation on
+“teachable machines” (Smallwood, 1962). As envisioned by S mallwood, these machines would provide an individu-
+alized pace of learning, apply repetition until mastery, pr ovide immediate feedback, and record student performance
+(Smallwood, 1962, pp. 2–3 as cited by Essa 2016). The need for individualized learning was fueled by experiments
+that demonstrated higher learning gains in 1:1 tutoring tha n in traditional group instruction, named the 2-sigma prob-
+lem (Bloom, 1984; Salvin & Karweit, 1985). Today, Smallwood ’s vision is reﬂected in the widely used deﬁnition
+of the U.S. Department of Education (2010, 2017), which refe rs to PL as “instruction in which the pace of learning
+and the instructional approach are optimized for the needs o f each learner.” While this deﬁnition does not emphasize
+individualization per se, a superﬁcial understanding of PL as a technology-facilitated, individualized, and automat ed
+approach is prevalent in the AIEd literature (Lee et al., 201 8; Shemshack & Spector, 2020; Tetzlaff et al., 2021).
+The individualized approach has several advantages over gr oup-level instruction (Luckin et al., 2016). Typical PL
+systems include three core components: a content model, a st udent model, and a pedagogical model (Martin et al.,
+2020). The pedagogical model identiﬁes and sequences learn ing objectives, guides learners through individual learn-
+ing paths, and provides timely feedback and assessment (Ezz aim et al., 2022; Martin et al., 2020; Pelánek, 2017). The
+pedagogical model usually provides distributed practice u ntil the learning objective is mastered, an effective learn ing
+strategy for long-lasting comprehension and memory format ion (Dempster & Farris, 1990; Gerbier & Toppino, 2015;
+Hintzman, 1974; Soderstrom & Bjork, 2015; Srinivasan, 2022 ; Tetzlaff et al., 2021). The pedagogical model provides
+continuous corrective feedback, a highly effective teachi ng strategy for empowering learners to improve their under-
+standing (Dehaene, 2020; Hattie, 2011; Hattie & Timperley, 2007; Osakwe et al., 2022). The student model stores
+learner characteristics and tracks the learner’s evolving level of understanding (Greer & McCalla, 1991). Together
+with the pedagogical model, dynamic student models allow ta sk difﬁculty to be adapted to the individual’s zone of
+proximal development, where tasks are neither too boring no r too difﬁcult to cause discouragement, making learning
+2APREPRINT - APRIL 4, 2024
+naturally engaging and challenging (Bransford et al., 2000 ; Vygotsky & Cole, 1978). The individual learning steps
+are recommendations on the content model, a digitized, conn ected domain knowledge graph (Bartl & Belohlavek,
+2011). The presentation of appropriate levels of tasks is co ntinued until the student has mastered the topic at hand
+(Shute & Towle, 2010). In short, PL systems that monitor each student’s progress and adapt learning content, methods,
+and assessment to individuals on an ongoing basis (Shemshac k & Spector, 2020; Xie et al., 2019; Vandewaetere &
+Clarebout, 2013) are efﬁcient for mastering domain knowled ge and improving learning performance (Walkington &
+Bernacki, 2020; Cui et al., 2018; Feng et al., 2018; Steenber gen-Hu & Cooper, 2014; Urh et al., 2015).
+In addition, there are necessary theoretical guidances and empirical basis for designing learning environments that
+foster self-regulation and metacognition (for a comprehen sive overview, see Azevedo & Aleven, 2013). Scaffolding
+SRL behaviors has been an important research focus on intell igent learning environments and ITS. For instance, much
+work has been done with an ITS called MetaTutor that scaffold s SRL processes, such as goal setting, evaluation of
+learning strategies, self-monitoring of progress, and sup ports cognitive processes of learning required for long-te rm
+memory retention, e.g., note-taking, connecting prior and new knowledge, hypothesis generation (Azevedo et al.,
+2022). Extending domain-level ITS systems with metacognit ive tutoring has positively affected student help-seeking
+strategies and learning outcomes (Aleven et al., 2006; Hack er et al., 2009; Roll et al., 2007). Extensive studies
+have been done with a cognitive science tutoring system call ed Betty’s Brain, where middle-school students learn
+by teaching a virtual agent and creating causal models (Bisw as et al., 2005). For example, Leelawong & Biswas
+(2008) showed that Betty’s Brain led to higher performance a nd skill transfer to novel domains with self-regulation
+features such as self-monitoring, goal setting, and self-a ssessment. In Betty’s Brain, students must also develop and
+apply metacognitive strategies for goal setting, planning , and evaluation to make effective decisions from informati on-
+seeking to solution assessment (Biswas et al., 2016). Recen t experiments showed how scaffolding SRL behavior needs
+to be strategically tailored to speciﬁc learning contexts a nd proﬁciency levels (Munshi et al., 2023). Overall, some
+research and PL solutions elegantly apply learning science and support some of the goals of modern education.
+Nevertheless, we explicitly differentiate research-base d ITS solutions from the personalized learning platforms th at
+i) do not employ dialogue-based tutoring and ii) are not spec iﬁcally designed to develop SRL, metacognition, col-
+laboration, or other general competence. Similarly to othe r researchers, we call the PL systems that primarily focus
+on effective domain-knowledge delivery “adaptive learnin g systems” (e.g., Brod et al., 2023; Järvelä et al., 2021;
+Molenaar, 2022a).
+3 Challenges of personalized learning systems
+3.1 Individualization
+In the current approach to PL, learners interact individual ly with an adaptive learning system that sequences learning
+objectives and paces instruction according to individual n eeds (Figure 1A). Compared to traditional one-size-ﬁts-al l
+approaches, tailoring learning content to individual lear ners has been shown to increase scores and learning efﬁcienc y
+(Cui et al., 2018; St-Hilaire et al., 2022; Tetzlaff et al., 2 021). However, while adaptive learning systems enhance the
+acquisition of subject-based knowledge and skills, we ques tion the power of these systems to facilitate collaborative ,
+human-human social learning settings. The learning-cente red paradigm stems from social constructivist theory, whic h
+posits that learning occurs through social interactions (H endrick, 2020; Palincsar, 1998; Vygotsky & Cole, 1978).
+Therefore, learning requires shared knowledge constructi on and collaboration (Hadwin et al., 2018). Although AI has
+been used to support collaborative learning processes (Tan et al., 2022; Ouyang et al., 2023) and strong theoretical and
+practical foundations have been laid by the ﬁeld of Computer -Supported Collaborative Learning (Rosé & Ferschke,
+2016; Hernández-Sellés et al., 2019; Jeong et al., 2019), PL systems are speciﬁcally designed to empower independent
+problem-solving and free learning from space and time const raints (Biswas et al., 2016). Face-to-face collaborative
+learning is seldom supported by PL systems (Han et al., 2021) . Critically, PL is not about separating students to learn
+alone at their preferred pace (Miliband, 2006). Instead, th e desired learning is collaborative and exercised in social
+contexts with peers, teachers, families, and communities ( Figure 1B) (OECD, 2019c; Walkington & Bernacki, 2020).
+3.2 Focus on performance
+PL systems are predominantly subject-based platforms that dynamically adapt instruction to individual learners’ cha r-
+acteristics, such as learning style and ability, to maximiz e learning achievement (Capuano& Caballé, 2020; Kerr,
+2016). While recognizing the extensive research done by lea rning psychologists behind some ITS mentioned above
+(Azevedo & Aleven, 2013; Azevedo et al., 2022; Aleven et al., 2006; Hacker et al., 2009; Roll et al., 2007; Biswas
+et al., 2005; Leelawong & Biswas, 2008; Biswas et al., 2016; d u Boulay, 2019; Munshi et al., 2023), the adaptive
+learning/personalized learning literature has overwhelm ingly focused on learning achievements, and only a fraction
+measure other cognitive aspects such as higher-order think ing and collaboration/communication (Xie et al., 2019).
+3APREPRINT - APRIL 4, 2024
+Figure 1: aThe prevailing view of personalized learning (PL) as “indiv idualization,” where an adaptive learning
+system tailors learning content to individual learners to i mprove their performance. This approach is mainly effectiv e
+in improving the learning of subject-based knowledge. bThe goals of modern education require a collaborative
+learning environment where learners can share ideas, recei ve and give feedback, and co-regulate. Figure adapted from
+(Winter, 2018) with permission from John Wiley and Sons.
+In other words, the main goal of most PL technologies is to inc rease learning efﬁciency (Li & Wong, 2021). The
+efﬁciency of adaptive learning systems is measured by the in crease in learning gains in a given time, i.e., the differ-
+ence between pre- and post-test scores. Studies of adaptive learning platforms show their efﬁciency over non-adaptive
+approaches when measured by student scores and learning spe ed (Ma et al., 2014; Steenbergen-Hu & Cooper, 2014;
+Roschelle et al., 2016). First, the gain in efﬁciency is rema rkable. For example, students instructed by Yixue (Squirre l
+AI) scored up to 456% higher in less time than students in trad itional classrooms (Cui et al., 2018; Feng et al., 2018;
+H. Li et al., 2018). The AI-powered PL platform Korbit showed 2.5 times higher scores compared to a non-adaptive
+Moodle course (St-Hilaire et al., 2022). The Rimac physics t utoring system has been shown to produce better learning
+outcomes for high and low prior knowledge students when the s ystem has a dynamic student model compared to a
+non-adaptive one (Katz et al., 2021, p. 202). A meta-analysi s of post-test scores found that intelligent tutoring syste ms
+for medical practice and physics had the same effect size as 1 :1 human tutors (VanLehn, 2011). While the efﬁcient
+acquisition of foundational knowledge is certainly commen dable, it is essential to recognize that modern education
+aims to achieve more than just higher scores in less time. Con versely, a focus on performance is often associated with
+traditional, teaching-centered classrooms, where factor s such as learner self-regulation, agency, well-being, and con-
+ceptual understanding may not be given the same level of prio rity. Notably, there is a major concern with the exclusive
+focus on learning performance.
+A century of experimentation has shown that it is critical to distinguish learning - the long-term ability to exhibit new
+behaviors and knowledge - from performance - temporary ﬂuct uations in knowledge and behavior measured during
+acquisition (Metcalfe et al., 1994). An integrative review illustrates why performance is a highly imperfect index
+of long-term learning (Soderstrom & Bjork, 2015). First, th e authors provide extensive evidence that learning can
+occur without changes in performance. For example, accordi ng to a well-documented psychological phenomenon
+called “latent learning,” learning often becomes visible o nly after a reward or incentive is provided (Tolman & Honzik,
+1930). These early results have been conﬁrmed in human studi es and suggest that latent learning, i.e., learning that
+does not improve performance, may be more effective than lea rning in which rewards (e.g., scores) are given at the
+beginning of the learning experience. Second, Sonderstrom and Bjork show how changes in performance may not
+correspond to changes in understanding. For example, repea ting the same content over and over (massing) improves
+short-term performance but does not improve long-term lear ning. Lastly, the authors show that errors and mistakes are
+often interpreted as a decrease in performance but actually improve long-term retention and transfer (Soderstrom &
+Bjork, 2015). In summary, measures of performance during ac quisition may not be indicative of lasting learning, and
+measures that show degraded performance during learning ma y improve long-term retention and transfer (Metcalfe et
+al., 1994).
+4APREPRINT - APRIL 4, 2024
+3.3 Domain-speciﬁc knowledge
+The predominant focus of adaptive learning platforms is on s peciﬁc subjects, such as computer science and engineering
+(35%), mathematics (20%), and foreign languages (10%) (Ezz aim et al., 2022; Zawacki-Richter et al., 2019; Zhang
+& Aslan, 2021). Some ITS have enabled learning by doing in STE M subjects and provided students with elaborate
+problem-solving opportunities (Koedinger et al., 2015). H owever, even these innovative solutions remain subject-
+speciﬁc because of their architecture and reliance on the do main content model (Doignon & Falmagne, 2012; Zhang
+& Aslan, 2021). The domain model serves as a knowledge space, forming a connected graph of domain-speciﬁc
+knowledge components (Bartl & Belohlavek, 2011). However, given the quantitative nature of these knowledge graphs,
+these learning systems are signiﬁcantly constrained in the breadth and depth of what could be effectively learned (Essa ,
+2016). Consequently, PL can only support the effective acqu isition of foundational knowledge and skills (Pedaste &
+Leijen, 2018). Although core knowledge forms the essential building blocks of understanding, the evolving demands
+of the modern world also necessitate the cultivation of non- epistemic competencies (UNESCO, 2022).
+It is not apparent how these non-epistemic competencies, of ten labeled as 21st-century skills, ﬁt into the model of
+mastery-based adaptive learning (Tuomi, 2023). From the pe rspective of knowledge graphs, the concept of optimizing
+“soft skills” and the feasibility of their assessment throu gh error-correcting and automated assessment remains an op en
+challenge (Shemshack & Spector, 2020). For example, what qu estions would effectively gauge a student’s mastery of
+critical thinking and creating new value? Incorporating co mpetencies, such as critical thinking, into knowledge spac es
+can be a formidable undertaking. Adaptive learning systems are inherently limited to machine-assessable knowl-
+edge and skills. To unlock their potential, learners must cr eatively extend their learning outside the subject domain
+(UNESCO, 2017). Developing creative and novel ideas requir es opportunities for experimentation, exploration, and
+problem-solving beyond the boundaries of the majority of th e existing adaptive learning systems (Stanley & Lehman,
+2015; Turner, 2014).
+Technically, the purportedly “personalized” learning pat hs fall short of delivering the freedom and choice behind PL
+(see Hopkins, 2010). Precisely because being limited to the same underlying knowledge spaces, AI-recommended
+learning paths are merely different routes for mastering th e same knowledge at an individualized order and pace. In
+that regard, PL systems seem to optimize the traditional edu cational system without providing learners much agency
+and customization for setting their goals outside the provi ded task and existing subject domain.
+3.4 Limited agency and learning skills
+Rather than blindly following the predeﬁned sequence of lea rning objectives, OECD Learning Compass 2030 em-
+phasizes the need for learners to navigate unfamiliar conte xts and ﬁnd direction through their own agency (OECD,
+2019c). Learners with agency and proﬁcient SRL skills can se t learning goals, choose actions toward them, and adjust
+their strategies when needed (Jarvis, 2004; UNESCO, 2017; W inne, 2017; World Economic Forum, 2021). Numer-
+ous studies have shown the importance of self-regulation fo r effective learning in distant, e-learning, digital, or ot her
+self-directed learning situations (Barnard-Brak et al., 2 010; Bail et al., 2008; Hofer & Yu, 2003; Azevedo et al., 2009;
+Puzziferro, 2008). Hence, there is a strong consensus that s upporting learners’ agency and ability to self-regulate
+should be the priority of adaptive learning systems (Brod et al., 2023; Järvelä et al., 2021).
+As described above, great ITS exist that speciﬁcally develo p student self-regulation, agency, and other more generic
+competencies besides subject-domain expertise. However, even the most sophisticated adaptive learning solutions
+(not the ITS mentioned above) do not support learners’ agenc y and self-regulation (Molenaar, 2022a). Moreover, PL
+requires students to possess self-regulated learning skil ls to effectively learn individually. Recognizing this iss ue, one
+K-12 adaptive platform allows students lacking self-regul ated learning training to override the platform’s suggesti ons
+(Cukurova et al., 2023). Notably, a recent study of a well-st udied learning platform showed a signiﬁcant decline in
+students’ self-regulated learning skills while working wi th the system (Harati et al., 2021).
+Dignath and Veenman (2021) bring out four essential precond itions that enhance SRL: self-direction (decision-making
+freedom), cooperative learning (students work together), constructive learning principles (e.g., problems have sev eral
+solutions), and fostering transfer (learning is integrate d into a real-life context). Similarly, information-theor etically, a
+system is autonomous when (i) it is not determined by its envi ronment and (ii) it determines its own goals (Bertschinger
+et al., 2008). Because recommendation engines effectively control learning goals, content, sequence of tasks, etc., t hey
+potentially reduce the learner’s agency and take away the fr eedom required for developing healthy SRL skills. The
+need for agency over one’s learning can be illustrated by the classic experiment (Figure 2A) in which only the kitten
+that could exhibit self-directed movements developed norm al vision (Held & Hein, 1963). Similarly, if the learner
+is passively moved along the prescribed learning path, he or she may not acquire normal learning and self-regulation
+(Figure 2B). The lack of support for learner’s learning skil ls in some adaptive learning systems has been mentioned
+previously (Pedaste & Leijen, 2018). Although a framework f or the adaptive assignment of agency (Brod et al., 2023)
+5APREPRINT - APRIL 4, 2024
+Figure 2: aAdapted illustration of the experimental setup of Held and H ein (1963) in which two kittens were reared
+in darkness from birth and learned to see the world only in a ca rousel. While kitten P was passively moved around
+in a casket, kitten A could rotate around on its own. Signiﬁca ntly, only kitten A, exhibiting self-directed movement,
+developed normal vision. bIllustration of two learners in an open educational ﬁeld. Le arner P is moved by an
+adaptive learning system (the cross with attached strings) along a prescribed learning path (light gray line) consisti ng
+of knowledge bits (darker gray dots) in the ﬁxed knowledge sp ace (circle). Learner A, not bound to the ﬁxed knowledge
+space, is self-directed and freely explores the educationa l ﬁeld, leaving a record of past activities (black dotted lin e).
+Like the kittens, only learner A would develop agency and sel f-regulated learning skills.
+and a prototype for the transition from AI regulation to self -regulation in adaptive learning systems (Molenaar, 2022a )
+has been proposed, real-world implementation of these appr oaches is needed to improve learning outcomes and keep
+learners motivated and engaged (Ryan & Deci, 2020).
+3.5 Engagement and motivation from gamiﬁcation
+Decades of research have shown that learning occurs when the learner’s mind is actively engaged in the learning
+process (Dehaene, 2020). Broadly, to activate their minds, learners need to be behaviorally and cognitively engaged
+in their actions: taking notes while reading, writing summa ries, participating in discussions, and solving problems
+(Bonwell & Eison, 1991). According to the ICAP framework, th e more cognitively and behaviorally engaged learners
+are during learning, the more they learn (Chi & Wylie, 2014). Some adaptive learning systems, such as Korbit,
+promote active learning by alternating instruction with in teractive problem-solving exercises, coding exercises, p roject-
+based learning, Socratic tutoring, and video lectures (St- Hilaire et al., 2022). However, a common misconception in
+the adaptive learning literature is that these systems must incorporate gamiﬁcation, the application of game design
+elements such as leaderboards, badges, levels, and points, in non-game settings to increase engagement (Dicheva et
+al., 2015; Maghsudi et al., 2021).
+In this context, an important distinction has been made betw een extrinsic and intrinsic motivation (Buckley & Doyle,
+2016; Mekler et al., 2017; Ryan & Deci, 2000). Extrinsic moti vation stems from extrinsic rewards (e.g., badges, points,
+or even grades), whereas intrinsic motivation is an inheren t interest and enjoyment in anticipating and obtaining new
+information (Ryan & Deci, 2000). Decades of research have sh own that students must be intrinsically motivated to be
+engaged for extended periods (Deci et al., 2001; Oudeyer et a l., 2016). Furthermore, direct attempts to control learn-
+ing outcomes through extrinsic rewards and evaluations typ ically result in lower-quality motivation and performance
+(Ryan & Deci, 2020).
+In principle, when designed according to the principles of c ognitive psychology, educational games can effectively
+support intrinsic motivation by directing children’s atte ntion to the content and stimuli (Dehaene, 2020). Games can
+give students the freedom to fail, choose their next actions , provide rapid feedback, and often offer social engagement ,
+all of which support learning (Dicheva et al., 2015). For exa mple, adding quests to a foreign language course elicited
+long-term intrinsic motivation and made the course more enj oyable, challenging, and meaningful (Philpott & Son,
+2022). However, the effect of game elements on learner motiv ation in educational settings varies greatly depending on
+the speciﬁc gamiﬁcation element (Sailer & Homner, 2020).
+Firstly, much evidence suggests that rewards, incentives, and competition can decrease intrinsic motivation (Deci
+et al., 2001; Hanus & Fox, 2015; Ryan & Deci, 2020). For exampl e, a comparison of a social networking site
+6APREPRINT - APRIL 4, 2024
+and a gamiﬁed learning management system found that gamiﬁca tion increased competition and decreased student
+collaboration, sharing, and participation (de-Marcos et a l., 2014). Courses gamiﬁed with leaderboards and badges
+have been shown to lower ﬁnal exam scores and decrease intrin sic motivation compared to non-gamiﬁed classes
+(Hanus & Fox, 2015). An experiment examining the speciﬁc eff ects of individual gamiﬁcation elements showed that
+points, leaderboards, and levels did not affect intrinsic m otivation and only increased the performance quantity (Mek ler
+et al., 2017). A meta-analysis found psychological effects of gamiﬁcation, such as increasing enjoyment, fostering
+enthusiasm, and satisfying learners’ need for recognition while providing no additional beneﬁt and sometimes causing
+anxiety and jealousy (Bai et al., 2020). In summary, some gam iﬁcation elements, such as leaderboards and badges,
+may decrease intrinsic motivation while providing no addit ional beneﬁt.
+Secondly, while there is sufﬁcient evidence that gamiﬁcati on impacts learning outcomes, there is a paucity of data
+on the long-term beneﬁts of gamiﬁcation applied in educatio nal settings (Dichev & Dicheva, 2017). At the short-
+term performance level, two recent meta-analyses found a po sitive medium correlation between gamiﬁcation and
+learning outcomes (Huang et al., 2020; Sailer & Homner, 2020 ). However, the impact of individual gamiﬁcation
+elements on learning has been less studied (Dicheva et al., 2 015). One of the more recent meta-analyses showed how
+including game ﬁction/storytelling and collaborative soc ial interactions has a small positive effect on behavioral, but
+not cognitive and motivational, learning outcomes (Sailer & Homner, 2020). The second meta-analysis showed large
+effect sizes when collaboration and quests/missions/modu les were included in the intervention and more signiﬁcant
+effects when some elements, such as leaderboards and timed a ctivities, were excluded (Huang et al., 2020).
+Taken together, a scarcity of theoretical foundations mark s the application of gamiﬁcation in education, inconsisten t
+empirical ﬁndings, and poor experimental design (Seaborn & Fels, 2015). In addition, a recent longitudinal study
+showed that even well-designed educational games may not ha ve sustained beneﬁts for educational goals (Potier
+Watkins & Dehaene, 2023). Hence, designers of PL technologi es need to exercise caution when considering integrating
+both gamiﬁcation elements and games into computer-based le arning environments. As an alternative to gamiﬁcation,
+solid evidence supports active learning methods’ effectiv eness in eliciting intrinsic motivation and enhancing deep
+understanding, motivation, and creativity (Chi & Wylie, 20 14).
+4 Beyond adaptive learning systems
+Our analysis of adaptive learning systems reveals a mismatc h with the educational goals set out in the OECD Learning
+Compass 2030 (OECD, 2019b). While adaptive learning approa ches effectively foster foundational knowledge and
+skills, they are limited in enhancing learners’ agency, gen eral competencies and activating learners’ minds. However ,
+recent advances in Large Language Models (LLMs, such as Chat GPT) may address some of these issues and enable a
+reset of personalized learning approaches (Kasneci et al., 2023).
+4.1 Potential of LLMs
+The potential of LLMs to play a pivotal role in supporting the goals of contemporary education is demonstrated by
+research on intelligent tutoring systems (ITS), a sub-cate gory of adaptive learning systems that provide personalize d
+instruction through natural language (speech or text) dial ogues inspired by human tutoring strategies (VanLehn, 2006 ;
+Nye et al., 2014). While ITS are fundamentally limited to dom ain-speciﬁc knowledge and suffer from some of the
+same problems as other adaptive learning systems (VanLehn, 2011; Mousavinasab et al., 2021), some ITS solutions are
+speciﬁcally developed to foster more general competencies (Benvenuti et al., 2023). Speciﬁcally, much research has
+been done on ITS that promote student self-regulation and me tacognition (Duffy & Azevedo, 2015; Jones & Castellano,
+2017; Azevedo et al., 2022; Roll et al., 2007; Daradoumis & Ar guedas, 2020), especially when accompanied by open
+learner models that tacitly invite learners to regulate lea rning (Long & Aleven, 2017; Winne, 2021). Other ITS
+solutions have been shown to improve argumentation skills ( Wambsganss et al., 2021) and facilitate collaborative
+learning (Haq et al., 2020; Diziol et al., 2010; Han et al., 20 21).
+Extending the promising potential of LLMs in education, the ir domain-agnostic architecture and natural language com-
+prehension offer opportunities to address the limitations of adaptive learning systems and facilitate modern learnin g
+experiences. By prompt engineering LLMs (Peng et al., 2023) , the models could be used in educational settings to
+provide more general personal tutoring (Jeon & Lee, 2023; Ka sneci et al., 2023). Speciﬁcally, ITS has been using cu-
+rated content and predeﬁned dialogues (e.g., Azevedo et al. , 2022), which could be improved by having more dynamic
+content and feedback to students (e.g., Abdelghani, Wang, e t al., 2022). With proper instructions, LLM-based chat
+and voice bots could promote learners’ self-regulation and enhance conceptual understanding (Abdelghani, Oudeyer
+et al., 2022). Similarly to speciﬁc ITS solutions, LLMs coul d act as pedagogical agents and prompt learners to engage
+in speciﬁc cognitive and metacognitive self-regulation st rategies that increase learning effectiveness beyond simp le
+knowledge acquisition (Dever et al., 2022; Azevedo et al., 2 022; Wu et al., 2023). LLMs-based pedagogical agents
+7APREPRINT - APRIL 4, 2024
+could be tailored to guide learners through the Anticipatio n-Action-Reﬂection cycle by asking them to anticipate the
+consequences critically and reﬂect on their actions (Brod e t al., 2018; OECD, 2019a).
+While research on LLMs is ongoing, several examples offer pr omising conﬁrmation of their potential. For example,
+prompt responses to students’ questions using a ChatGPT-ba sed solution have been shown to support self-regulated
+progress and knowledge construction and increase intrinsi c motivation and behavioral engagement compared to tra-
+ditional Google searches (Wu et al., 2023). Another recent G PT-3-driven conversational agent helped learners gen-
+erate more divergent questions and increased their intrins ic motivation compared to manually predeﬁned curiosity-
+prompting systems (Abdelghani, Wang et al., 2022). Perhaps we are no longer “a long way from systems being able to
+have natural language dialogues with learners about their i nterests in a topic and their potential willingness to put ef fort
+in that day” (du Boulay, 2019). LLMs-based AI assistants cou ld play a learning-enhancing role if they focus on activat-
+ing learners’ minds, developing learners’ self-regulatio n skills, and supporting collaborative learning rather tha n being
+a homework-solving tool. In other words, LLMs could be a “for ce multiplier” for student learning if implemented
+carefully and thoughtfully in the service of evidence-base d learning practices (Mollick & Mollick, 2023).
+Another promising avenue for LLMs could be assisting teache rs and promoting personalized learning activities in more
+collaborative settings. LLMs could help teachers orchestr ate collaborative learning activities (Hadwin & Oshige, 20 11;
+Kasepalu et al., 2022) by supporting learner-learner and tu tor-group interactions (Walker & Ogan, 2016; Haq et al.,
+2020; Mena-Guacas et al., 2023). A recent study showed how te achers use OpenAI’s ChatGPT as a partner for students
+in interactive role-playing, recommending and differenti ating learning materials, acting as a teaching assistant (e .g.,
+correcting grammar), and preparing and evaluating tests (J eon & Lee, 2023). A recent study showed how to integrate
+ChatGPT into realistic K-12 classroom learning settings wh ere students are positioned as active agents in their learni ng,
+building upon each other’s ideas to advance collective unde rstanding and solve authentic problems (Chen & Zhu, 2023).
+In addition, ChatCPT could support evidence-based teachin g strategies, including revealing student misconceptions ,
+distributed practice, continuous testing, and assessment of student learning (Mollick & Mollick, 2023). In summary,
+LLMs have promising potential to support both learners and t eachers in personalizing learning content in scientiﬁcall y
+proven ways.
+4.2 Towards a hybrid model
+The future of formal education is likely to be a hybrid model o f reciprocal interactions between humans and AI rather
+than a fully automated system (Molenaar, 2022b). In order to effectively self-direct their learning and keep learning
+throughout life (e.g., using ChatGPT), learners must have t he relevant self-regulation skills that enable them to lear n
+independently (Sutarni et al., 2021; Theobald, 2021; van Al ten et al., 2020). The paramount importance of self-
+regulation skills was exposed during distance learning pro mpted by the COVID-19 pandemic. Findings indicate a
+positive correlation between an individual’s self-regula tion skills and satisfaction, well-being, performance, an d self-
+efﬁcacy during distance learning (Jia, 2022; Peteros et al. , 2022; Sutarni et al., 2021). We recognize that a system-wid e
+effort to support self-regulated learning is needed for the hybrid model (Hopkins, 2010; Molenaar, 2022b). Resources
+should be directed towards training children in SRL skills a s early as possible, preferably in the preschool years, whic h
+is the most inﬂuential period for such training (Dignath et a l., 2008; Kochanska et al., 2001; Mofﬁtt et al., 2011; Muir
+et al., 2023).
+Because SRL skills develop with age (Panadero, 2017), the yo unger the learner, the more collaborative and socially
+rooted the learning environment should be. Conversely, the older the learner, the more effectively they could use AI
+assistants for their learning (Figure 3). In the early years , learning should be more social, involving interactions wi th
+peers, parents, teachers, and the community to develop SRL s kills (Zimmerman, 2000). Collaborative learning is at
+the heart of learning-centered education and is part of deve loping general competencies such as critical thinking and
+complex problem-solving skills (Hadwin et al., 2018; Hendr ick, 2020). One could also imagine that because LLMs
+are neither transparent nor robust, the less self-regulato ry a learner is (i.e., less critical thinking, self-monitor ing, etc.),
+the more important a teacher’s role is in detecting errors th at LLMs unknowingly create (Hlosta et al., 2022). Because
+the need for relatedness, i.e., a sense of connection and bel onging, is fundamental to human motivation, wellness,
+and academic performance, there will always be a portion of l earning that needs to be grounded in social interactions
+(white portion of Figure 3; Ryan & Deci, 2020).
+5 Conclusion
+This paper explored the AI-driven approach to personalized learning, particularly the adaptive learning systems that
+focus primarily on effective domain knowledge acquisition . Our analysis focused on the goals of modern learning-
+centered education set out in the OECD Learning Compass 2030 : fostering students’ agency and self-regulation skills
+for lifelong learning, developing general competencies (s uch as creating new value), and cognitive activation of the
+8APREPRINT - APRIL 4, 2024
+Figure 3: Human instructors are needed to support learners w ith limited self-regulated learning skills. Younger stu-
+dents require more guidance and a social learning environme nt, while older students require less assistance. AI assis-
+tants can be most effective for learners who exhibit speciﬁc self-regulation skills.
+learners’ minds (OECD, 2019b). Although much research has b een done to develop educationally sound ITS, these
+research areas are largely neglected in the literature on AI Ed for personalized learning. Moreover, even the best ITS
+have limited value in the modern classroom. In examining the existing PL literature, we identiﬁed ﬁve discrepancies
+between the educational goals and the current technologica l approach to PL. First, PL is predominantly used as a
+synonym for individualization, whereas modern education a spires to be highly collaborative and social. Second,
+although laudable, the goal of education is not to improve st udent performance but to foster long-term conceptual
+understanding through methods that cognitively engage wit h the learner’s mind. While many speciﬁc ITS solutions
+are based on educational psychology and are designed to fost er self-regulation, metacognition, collaboration, etc.,
+most adaptive learning systems are limited to predeﬁned sub ject-based knowledge, limiting learner creativity and the
+development of more general competencies. Fourth, by recom mending learning paths without a deliberate focus on
+learner autonomy, PL systems could inhibit the development of healthy learning skills required for lifelong learning.
+Finally, we pointed out the need to cognitively engage with t he learners’ minds rather than using gamiﬁcation as a
+motivational basis.
+Taken together, we recognize a misalignment between the edu cational goals outlined in the OECD Learning Compass
+2030 and the current AIEd solutions for personalized learni ng. While adaptive learning systems have proven effec-
+tive for effectively acquiring domain knowledge and skills , their limitations become apparent when fostering learner
+agency, developing general competencies, and promoting co llaboration. The main impetus behind the technology-
+based approach to PL is to provide each student with a virtual tutor similar to human tutoring to solve Bloom’s
+2-sigma problem (1984). However, the aspirations of modern education have moved beyond effective knowledge de-
+livery, emphasizing the need for developing broader compet encies and skills necessary for lifelong learning, transfe r,
+and well-being. From that perspective, PL is not a juxtaposi tion to the traditional one-size-ﬁts-all approach but a mor e
+efﬁcient knowledge delivery method.
+Why the current approach to PL is highly limited to adaptive l earning requires further analysis. However, it may be
+that it is simply more proﬁtable for the multi-billion dolla r market of AIEd (Guan et al., 2020; Holmes et al., 2019;
+Miao et al., 2021) to apply existing recommendation systems (e.g., those in YouTube, Amazon, TikTok, etc.) rather
+than investing in solving serious educational needs and pro blems (Holmes et al., 2022; Reeves & Lin, 2020; Zawacki-
+Richter et al., 2019). We are concerned that applying AI with out a deeper consideration of its educational value could
+slow educational progress by diverting focus and resources from scientiﬁcally proven changes that need to be made
+in education systems. For example, as we have argued above, m oving learners along a prescribed learning path can
+rob them of opportunities for playful discovery, limit thei r agency, and ultimately become a barrier to innovation,
+creativity, and even happiness (Stanley & Lehman, 2015). As noted nearly a decade ago, AIEd should start with
+education goals and then choose the appropriate technology to support PL, not the other way around (Vandewaetere &
+Clarebout, 2014).
+9APREPRINT - APRIL 4, 2024
+References
+Abdelghani, R., Oudeyer, P.-Y ., Law, E., de Vulpillières, C ., & Sauzéon, H. (2022). Conversational agents for
+fostering curiosity-driven learning in children. International Journal of Human-Computer Studies ,167, 102887.
+https://doi.org/10.1016/j.ijhcs.2022.102887
+Abdelghani, R., Wang, Y .-H., Yuan, X., Wang, T., Sauzéon, H. , & Oudeyer, P.-Y . (2022). GPT-3-
+driven pedagogical agents for training children’s curious question-asking skills (arXiv:2211.14228). arXiv.
+https://doi.org/10.48550/arXiv.2211.14228
+Aleven, V ., McLaren, B., Roll, I., & Koedinger, K. (2006). To ward Meta-cognitive Tutoring: A Model of Help Seeking
+with a Cognitive Tutor. International Journal of Artiﬁcial Intelligence in Educat ion,16(2), 101–128.
+Azevedo, R., & Aleven, V . (Eds.). (2013). International Handbook of Metacognition and Learning Tech nologies (V ol.
+28). Springer. https://doi.org/10.1007/978-1-4419-554 6-3
+Azevedo, R., Bouchet, F., Duffy, M., Harley, J., Taub, M., Tr evors, G., Cloude, E., Dever, D., Wiedbusch, M., Wortha,
+F., & Cerezo, R. (2022). Lessons Learned and Future Directio ns of MetaTutor: Leveraging Multichannel Data to
+Scaffold Self-Regulated Learning With an Intelligent Tuto ring System. Frontiers in Psychology ,13.
+Azevedo, R., Witherspoon, A., Chauncey, A., Burkett, C., & F ike, A. (2009). MetaTutor: A MetaCognitive tool for
+enhancing self-regulated learning. AAAI Fall Symposium Series .
+Bai, S., Hew, K. F., & Huang, B. (2020). Does gamiﬁcation impr ove student learning outcome? Evidence from a
+meta-analysis and synthesis of qualitative data in educati onal contexts. Educational Research Review ,30, 100322.
+https://doi.org/10.1016/j.edurev.2020.100322
+Bail, F. T., Zhang, S., & Tachiyama, G. T. (2008). Effects of a Self-Regulated Learning Course on the Academic
+Performance and Graduation Rate of College Students in an Ac ademic Support Program. Journal of College Reading
+and Learning ,39(1), 54–73. https://doi.org/10.1080/10790195.2008.108 50312
+Barnard-Brak, L., Lan, W. Y ., & Paton, V . O. (2010). Proﬁles i n Self-Regulated Learning in the Online Learning
+Environment. International Review of Research in Open and Distributed Le arning ,11(1), 1–181.
+Bartl, E., & Belohlavek, R. (2011). Knowledge spaces with gr aded knowledge states. Information Sciences ,181(8),
+1426–1439. https://doi.org/10.1016/j.ins.2010.11.040
+Beese, E. B. (2019). A process perspective on research and de sign issues in educational personalization. Theory and
+Research in Education ,17(3), 253–279. https://doi.org/10.1177/147787851989396 3
+Benvenuti, M., Cangelosi, A., Weinberger, A., Mazzoni, E., Benassi, M., Barbaresi, M., & Orsoni, M. (2023). Artiﬁ-
+cial intelligence and human behavioral development: A pers pective on new skills and competences acquisition for the
+educational context. Computers in Human Behavior ,148, 107903. https://doi.org/10.1016/j.chb.2023.107903
+Bernacki, M. L., Greene, M. J., & Lobczowski, N. G. (2021). A S ystematic Review of Research on Personalized
+Learning: Personalized by Whom, to What, How, and for What Pu rpose(s)? Educational Psychology Review ,33(4),
+1675–1715. https://doi.org/10.1007/s10648-021-09615- 8
+Bertschinger, N., Olbrich, E., Ay, N., & Jost, J. (2008). Aut onomy: An information theoretic perspective. Biosystems ,
+91(2), 331–345. https://doi.org/10.1016/j.biosystems.20 07.05.018
+Biswas, G., Leelawong, K., Schwartz, D., Vye, N., & The Teach able Agents Group at Vanderbilt. (2005). Learning
+by Teaching: A New Agent Paradigm for Educational Software. Applied Artiﬁcial Intelligence ,19(3–4), 363–392.
+https://doi.org/10.1080/08839510590910200
+Biswas, G., Segedy, J. R., & Bunchongchit, K. (2016). From De sign to Implementation to Practice a Learning
+by Teaching System: Betty’s Brain. International Journal of Artiﬁcial Intelligence in Educat ion,26(1), 350–364.
+https://doi.org/10.1007/s40593-015-0057-9
+Bloom, B. S. (1984). The 2 Sigma Problem: The Search for Metho ds of Group Instruction as Effective as One-to-One
+Tutoring. Educational Researcher ,13(6), 4–16. https://doi.org/10.3102/0013189X013006004
+Bonwell, C. C., & Eison, J. A. (1991). Active Learning: Creating Excitement in the Classroom. 199 1 ASHE-ERIC
+Higher Education Reports . ERIC Clearinghouse on Higher Education, The George Washin gton University, One
+Dupont Circle, Suite 630, Washington, DC 20036-1183 ($17. h ttps://eric.ed.gov/?id=ED336049
+Bransford, J., National Research Council (U.S.), & Nationa l Research Council (U.S.) (Eds.). (2000). How people
+learn: Brain, mind, experience, and school (Expanded ed). National Academy Press.
+10APREPRINT - APRIL 4, 2024
+Brod, G., Hasselhorn, M., & Bunge, S. A. (2018). When generat ing a prediction boosts learning: The element of
+surprise. Learning and Instruction ,55, 22–31. https://doi.org/10.1016/j.learninstruc.2018. 01.013
+Brod, G., Kucirkova, N., Shepherd, J., Jolles, D., & Molenaa r, I. (2023). Agency in Educational Technology:
+Interdisciplinary Perspectives and Implications for Lear ning Design. Educational Psychology Review ,35(1), 25.
+https://doi.org/10.1007/s10648-023-09749-x
+Buckley, P., & Doyle, E. (2016). Gamiﬁcation and student mot ivation. Interactive Learning Environments ,24(6),
+1162–1175. https://doi.org/10.1080/10494820.2014.964 263
+Capuano, N., & Caballé, S. (2020). Adaptive Learning Techno logies. AI Magazine ,41(2), Article 2.
+https://doi.org/10.1609/aimag.v41i2.5317
+Chen, X., Xie, H., Zou, D., & Hwang, G.-J. (2020). Applicatio n and theory gaps during the rise
+of Artiﬁcial Intelligence in Education. Computers and Education: Artiﬁcial Intelligence ,1, 100002.
+https://doi.org/10.1016/j.caeai.2020.100002
+Chen, B., & Zhu, X. (2023). Integrating generative AI in know ledge building. Computers and Education: Artiﬁcial
+Intelligence , 100184. https://doi.org/10.1016/j.caeai.2023.100184
+Chi, M. T. H., & Wylie, R. (2014). The ICAP Framework: Linking Cognitive Engagement to Active Learning Out-
+comes. Educational Psychologist ,49(4), 219–243. https://doi.org/10.1080/00461520.2014.9 65823
+Corbett, A. T., Koedinger, K. R., & Anderson, J. R. (1997). In telligent Tutoring Systems. In M. G. Helander, T.
+K. Landauer, & P. V . Prabhu (Eds.), Handbook of Human-Computer Interaction (Second Edition) (pp. 849–874).
+North-Holland. https://doi.org/10.1016/B978-04448186 2-1.50103-5
+Council of the EU. (2002). Council Resolution of 27 June 2002 on lifelong learning . Publications Ofﬁce of the EU.
+https://op.europa.eu/en/publication-detail/-/public ation/0bf0f197-5b35-4a97-9612-19674583cb5b
+Cui, W., Xue, Z., & Thai, K.-P. (2018). Performance Comparis on of an AI-Based Adaptive Learning System in China.
+2018 Chinese Automation Congress (CAC) , 3170–3175. https://doi.org/10.1109/CAC.2018.8623327
+Cukurova, M., Miao, X., & Brooker, R. (2023). Adoption of Art iﬁcial Intelligence in Schools: Unveiling Factors
+Inﬂuencing Teachers’ Engagement. In N. Wang, G. Rebolledo- Mendez, N. Matsuda, O. C. Santos, & V . Dimitrova
+(Eds.), Artiﬁcial Intelligence in Education (pp. 151–163). Springer Nature Switzerland. https://doi. org/10.1007/978-
+3-031-36272-9_13
+Daradoumis, T., & Arguedas, M. (2020). Cultivating Student s’ Reﬂective Learning in Metacognitive Activities
+through an Affective Pedagogical Agent. Journal of Educational Technology & Society ,23(2), 19–31.
+Dever, D. A., Sonnenfeld, N. A., Wiedbusch, M. D., & Azevedo, R. (2022). Pedagogical Agent Support and Its
+Relationship to Learners’ Self-regulated Learning Strate gy Use with an Intelligent Tutoring System. In M. M. Rodrigo,
+N. Matsuda, A. I. Cristea, & V . Dimitrova (Eds.), Artiﬁcial Intelligence in Education (pp. 332–343). Springer
+International Publishing. https://doi.org/10.1007/978 -3-031-11644-5_27
+de-Marcos, L., Domínguez, A., Saenz-de-Navarrete, J., & Pa gés, C. (2014). An empirical study
+comparing gamiﬁcation and social networking on e-learning . Computers & Education ,75, 82–91.
+https://doi.org/10.1016/j.compedu.2014.01.012
+Deci, E. L., Koestner, R., & Ryan, R. M. (2001). Extrinsic Rew ards and Intrinsic Motivation in Education: Reconsid-
+ered Once Again. Review of Educational Research ,71(1), 1–27. https://doi.org/10.3102/00346543071001001
+Dehaene, S. (2020). How We Learn: The New Science of Education and the Brain . Penguin UK.
+Dempster, F. N., & Farris, R. (1990). The spacing effect: Res earch and practice. Journal of Research & Development
+in Education ,23, 97–101.
+Dichev, C., & Dicheva, D. (2017). Gamifying education: What is known, what is believed and what remains
+uncertain: a critical review. International Journal of Educational Technology in Higher Education ,14(1), 9.
+https://doi.org/10.1186/s41239-017-0042-5
+Dicheva, D., Dichev, C., Agre, G., & Angelova, G. (2015). Gam iﬁcation in Education: A Systematic Mapping Study.
+Journal of Educational Technology & Society ,18(3), 75–88.
+Dignath, C., Buettner, G., & Langfeldt, H.-P. (2008). How ca n primary school students learn self-regulated learning
+strategies most effectively?: A meta-analysis on self-reg ulation training programmes. Educational Research Review ,
+3(2), 101–129. https://doi.org/10.1016/j.edurev.2008.0 2.003
+11APREPRINT - APRIL 4, 2024
+Dignath, C., & Veenman, M. V . J. (2021). The Role of Direct Str ategy Instruction and Indirect Activation of
+Self-Regulated Learning—Evidence from Classroom Observa tion Studies. Educational Psychology Review ,33(2),
+489–533.https://doi.org/10.1007/s10648-020-09534-0
+Diziol, D., Walker, E., Rummel, N., & Koedinger, K. R. (2010) . Using Intelligent Tutor Technology
+to Implement Adaptive Support for Student Collaboration. Educational Psychology Review ,22(1), 89–102.
+https://doi.org/10.1007/s10648-009-9116-9
+Doignon, J.-P., & Falmagne, J.-C. (2012). Knowledge Spaces . Springer Science & Business Media.
+du Boulay, B. (2019). Escape from the Skinner Box: The case fo r contemporary intelligent learning environments.
+British Journal of Educational Technology ,50(6), 2902–2919. https://doi.org/10.1111/bjet.12860
+Duffy, M. C., & Azevedo, R. (2015). Motivation matters: Inte ractions between achievement goals and agent scaf-
+folding for self-regulated learning within an intelligent tutoring system. Computers in Human Behavior ,52, 338–348.
+https://doi.org/10.1016/j.chb.2015.05.041
+Essa, A. (2016). A possible future for next generation adapt ive learning systems. Smart Learning Environments ,3(1),
+16. https://doi.org/10.1186/s40561-016-0038-y
+Ezzaim, A., Kharroubi, F., Dahbi, A., Aqqal, A., & Haidine, A . (2022). Artiﬁcial intelligence in educa-
+tion—State of the art. International Journal of Computer Engineering and Data Sci ence (IJCEDS) ,2(2), Article
+2. http://www.ijceds.com/ijceds/article/view/37
+Feng, M., Cui, W., & Wang, S. (2018). Adaptive Learning Goes t o China. In C. Penstein Rosé, R. Martínez-
+Maldonado, H. U. Hoppe, R. Luckin, M. Mavrikis, K. Porayska- Pomsta, B. McLaren, & B. du Boulay (Eds.), Artiﬁcial
+Intelligence in Education (pp. 89–93). Springer International Publishing. https:// doi.org/10.1007/978-3-319-93846-
+2_17
+Gerbier, E., & Toppino, T. C. (2015). The effect of distribut ed practice: Neuroscience, cognition, and education.
+Trends in Neuroscience and Education ,4(3), 49–59. https://doi.org/10.1016/j.tine.2015.01.00 1
+Greer, J. E., & McCalla, G. I. (1991). Student Modelling: The Key to Individualized Knowledge-Ba sed Instruction .
+Springer Science & Business Media.
+Groff, J. S. (2017). The State of the Field & Future Direction s.Center for Curriculum Redesign , 47.
+Guan, C., Mou, J., & Jiang, Z. (2020). Artiﬁcial intelligenc e innovation in education: A twenty-year data-driven histo r-
+ical analysis. International Journal of Innovation Studies ,4(4), 134–147. https://doi.org/10.1016/j.ijis.2020.09. 001
+Hacker, D. J., Dunlosky, J., & Graesser, A. C. (2009). Handbook of Metacognition in Education . Routledge.
+Hadwin, A., Järvelä, S., & Miller, M. (2018). Self-regulati on, co-regulation, and shared regulation in collaborative
+learning environments. In Handbook of self-regulation of learning and performance, 2 nd ed (pp. 83–106). Rout-
+ledge/Taylor & Francis Group. https://doi.org/10.4324/9 781315697048-6
+Hadwin, A., & Oshige, M. (2011). Self-Regulation, Coregula tion, and Socially Shared Regulation: Explor-
+ing Perspectives of Social in Self-Regulated Learning Theo ry. Teachers College Record ,113(2), 240–264.
+https://doi.org/10.1177/016146811111300204
+Han, J., Kim, K. H., Rhee, W., & Cho, Y . H. (2021). Learning ana lytics dashboards for adaptive support in face-to-face
+collaborative argumentation. Computers & Education ,163, 104041. https://doi.org/10.1016/j.compedu.2020.1040 41
+Hanus, M. D., & Fox, J. (2015). Assessing the effects of gamiﬁ cation in the classroom: A longitudinal study on
+intrinsic motivation, social comparison, satisfaction, e ffort, and academic performance. Computers & Education ,80,
+152–161. https://doi.org/10.1016/j.compedu.2014.08.0 19
+Hattie, J. (2011). Visible Learning for Teachers: Maximizing Impact on Learni ng. Routledge.
+https://doi.org/10.4324/9780203181522
+Hattie, J., & Timperley, H. (2007). The Power of Feedback. Review of Educational Research ,77(1), 81–112.
+https://doi.org/10.3102/003465430298487
+Haq, I. U., Anwar, A., Basharat, I., & Sultan, K. (2020). Inte lligent Tutoring Supported Collaborative Learning
+(ITSCL): A Hybrid Framework. International Journal of Advanced Computer Science and App lications (IJACSA) ,
+11(8), Article 8. https://doi.org/10.14569/IJACSA.2020.0 110866
+12APREPRINT - APRIL 4, 2024
+Harati, H., Sujo-Montes, L., Tu, C.-H., Armﬁeld, S. J. W., & Y en, C.-J. (2021). Assessment and Learning in Knowl-
+edge Spaces (ALEKS) Adaptive System Impact on Students’ Per ception and Self-Regulated Learning Skills. Educa-
+tion Sciences ,11(10), Article 10. https://doi.org/10.3390/educsci11100 603
+Held, R., & Hein, A. (1963). Movement-produced stimulation in the development of visually guided behavior. Journal
+of Comparative and Physiological Psychology ,56, 872–876. https://doi.org/10.1037/h0040546
+Hendrick, P. K., Carl. (2020). How Learning Happens: Seminal Works in Educational Psychol ogy and What They
+Mean in Practice . Routledge. https://doi.org/10.4324/9780429061523
+Hernández-Sellés, N., Pablo-César Muñoz-Carril, & Gonzál ez-Sanmamed, M. (2019). Computer-supported collabo-
+rative learning: An analysis of the relationship between in teraction, emotional support and online collaborative too ls.
+Computers & Education ,138, 1–12. https://doi.org/10.1016/j.compedu.2019.04.012
+Hinojo-Lucena, F.-J., Aznar-Díaz, I., Cáceres-Reche, M.- P., & Romero-Rodríguez, J.-M. (2019). Artiﬁcial Intelli-
+gence in Higher Education: A Bibliometric Study on its Impac t in the Scientiﬁc Literature. Education Sciences ,9(1),
+Article 1. https://doi.org/10.3390/educsci9010051
+Hintzman, D. L. (1974). Theoretical implications of the spa cing effect. In Theories in cognitive psychology: The
+Loyola Symposium (pp. xi, 386–xi, 386). Lawrence Erlbaum.
+Hlosta, M., Herodotou, C., Papathoma, T., Gillespie, A., & B ergamin, P. (2022). Predictive learning analytics in
+online education: A deeper understanding through explaini ng algorithmic errors. Computers and Education: Artiﬁcial
+Intelligence , 100108. https://doi.org/10.1016/j.caeai.2022.100108
+Hofer, B. K., & Yu, S. L. (2003). Teaching Self-Regulated Lea rning Through a ‘Learning to Learn’ Course. Teaching
+of Psychology ,30(1), 30–33. https://doi.org/10.1207/S15328023TOP3001_ 05
+Holmes, W., Bialik, M., & Fadel, C. (2019). Artiﬁcial intelligence in education: Promises and implica tions for
+teaching and learning .
+Holmes, W., Persson, J., Chounta, I.-A., Wasson, B., & Dimit rova, V . (2022). Artiﬁcial intelligence and education: A
+critical view through the lens of human rights, democracy an d the rule of law . Council of Europe.
+Hopkins, D. (2010). Personalized Learning in School Age Edu cation. In International Encyclopedia of Education (pp.
+227–232). Elsevier. https://doi.org/10.1016/B978-0-08 -044894-7.01073-3
+Huang, R., Ritzhaupt, A. D., Sommer, M., Zhu, J., Stephen, A. , Valle, N., Hampton, J., & Li, J. (2020). The impact of
+gamiﬁcation in educational settings on student learning ou tcomes: A meta-analysis. Educational Technology Research
+and Development ,68(4), 1875–1901. https://doi.org/10.1007/s11423-020-09 807-z
+Järvelä, S., Malmberg, J., Haataja, E., Sobocinski, M., & Ki rschner, P. A. (2021). What multimodal data
+can tell us about the students’ regulation of their learning process? Learning and Instruction ,72, 101203.
+https://doi.org/10.1016/j.learninstruc.2019.04.004
+Jarvis, P. (2004). Adult Education and Lifelong Learning: Theory and Practice (3rd ed.). Routledge.
+https://doi.org/10.4324/9780203561560
+Jeon, J., & Lee, S. (2023). Large language models in educatio n: A focus on the complementary relationship between
+human teachers and ChatGPT. Education and Information Technologies . https://doi.org/10.1007/s10639-023-11834-1
+Jeong, H., Hmelo-Silver, C. E., & Jo, K. (2019). Ten years of C omputer-Supported Collaborative Learning:
+A meta-analysis of CSCL in STEM education during 2005–2014. Educational Research Review ,28, 100284.
+https://doi.org/10.1016/j.edurev.2019.100284
+Jia, M. (2022). The inﬂuence of distance learning during COV ID-19 pandemic on student’s self-regulated learning
+in higher education: A qualitative study. Proceedings of the 5th International Conference on Digital Technology in
+Education , 47–52. https://doi.org/10.1145/3488466.3488492
+Jones, A., & Castellano, G. (2018). Adaptive Robotic Tutors that Support Self-Regulated Learning: A Longer-
+Term Investigation with Primary School Children. International Journal of Social Robotics ,10(3), 357–370.
+https://doi.org/10.1007/s12369-017-0458-z
+Kasepalu, R., Prieto, L. P., Ley, T., & Chejara, P. (2022). Te acher Artiﬁcial Intelligence-Supported Peda-
+gogical Actions in Collaborative Learning Coregulation: A Wizard-of-Oz Study. Frontiers in Education ,7.
+https://www.frontiersin.org/articles/10.3389/feduc. 2022.736194
+13APREPRINT - APRIL 4, 2024
+Kasneci, E., Seßler, K., Küchemann, S., Bannert, M., Dement ieva, D., Fischer, F., Gasser, U., Groh, G., Günnemann,
+S., Hüllermeier, E., Krusche, S., Kutyniok, G., Michaeli, T ., Nerdel, C., Pfeffer, J., Poquet, O., Sailer, M., Schmidt, A.,
+Seidel, T., . . . Kasneci, G. (2023). ChatGPT for Good? On Opportunities and Challenges of Large L anguage Models
+for Education [Preprint]. EdArXiv. https://doi.org/10.35542/osf.io/ 5er8f
+Katz, S., Albacete, P., Chounta, I.-A., Jordan, P., McLaren , B. M., & Zapata-Rivera, D. (2021). Linking Dialogue with
+Student Modelling to Create an Adaptive Tutoring System for Conceptual Physics. International Journal of Artiﬁcial
+Intelligence in Education ,31(3), 397–445. https://doi.org/10.1007/s40593-020-0022 6-y
+Kerr, P. (2016). Adaptive learning. ELT Journal ,70(1), 88–93. https://doi.org/10.1093/elt/ccv055
+Knowles, M. S. (1975). Self-Directed Learning: A Guide for Learners and Teachers . Association Press, 291 Broadway,
+New York.
+Kochanska, G., Coy, K. C., & Murray, K. T. (2001). The Develop ment of Self-Regulation in the First Four Years of
+Life. Child Development ,72(4), 1091–1111. https://doi.org/10.1111/1467-8624.003 36
+Koedinger, K. R., Kim, J., Jia, J. Z., McLaughlin, E. A., & Bie r, N. L. (2015). Learning is Not a Spectator Sport:
+Doing is Better than Watching for Learning from a MOOC. Proceedings of the Second (2015) ACM Conference on
+Learning @ Scale , 111–120. https://doi.org/10.1145/2724660.2724681
+Lee, D. (2014). How to Personalize Learning in K-12 Schools: Five Essential Design Features. Educational Technol-
+ogy,54(3), 12–17.
+Lee, D., Huh, Y ., Lin, C.-Y ., & Reigeluth, C. M. (2018). Techn ology functions for personalized learn-
+ing in learner-centered schools. Educational Technology Research and Development ,66(5), 1269–1302.
+https://doi.org/10.1007/s11423-018-9615-9
+Leelawong, K., & Biswas, G. (2008). Designing Learning by Te aching Agents: The Betty’s Brain System. Interna-
+tional Journal of Artiﬁcial Intelligence in Education ,18(3), 181–208.
+Li, H., Cui, W., Xu, Z., Zhu, Z., & Feng, M. (2018). Yixue Adapt ive Learning System and Its Promise on Improv-
+ing Student Learning: Proceedings of the 10th International Conference on Comput er Supported Education , 45–52.
+https://doi.org/10.5220/0006689800450052
+Li, K. C., & Wong, B. T.-M. (2021). Features and trends of pers onalised learning: A re-
+view of journal publications from 2001 to 2018. Interactive Learning Environments ,29(2), 182–195.
+https://doi.org/10.1080/10494820.2020.1811735
+Long, Y ., & Aleven, V . (2017). Enhancing learning outcomes t hrough self-regulated learning support with an Open
+Learner Model. User Modeling and User-Adapted Interaction ,27(1), 55–88. https://doi.org/10.1007/s11257-016-
+9186-6
+Luckin, R., & Cukurova, M. (2019). Designing educational te chnologies in the age of AI: A learning sciences-driven
+approach. British Journal of Educational Technology ,50(6), 2824–2838. https://doi.org/10.1111/bjet.12861
+Luckin, R., Holmes, W., Grifﬁths, M., Corcier, L. B., & Pears on (Firm), U. C., London. (2016). Intelligence
+unleashed: An argument for AI in education . https://www.pearson.com/content/dam/corporate/glob al/pearson-dot-
+com/ﬁles/innovation/Intelligence-Unleashed-Publicat ion.pdf
+Ma, W., Adesope, O. O., Nesbit, J. C., & Liu, Q. (2014). Intell igent tutoring systems and learning outcomes: A
+meta-analysis. Journal of Educational Psychology ,106(4), 901–918. https://doi.org/10.1037/a0037123
+Maghsudi, S., Lan, A., Xu, J., & van der Schaar, M. (2021). Per sonalized Education in the Artiﬁcial Intelligence Era:
+What to Expect Next. IEEE Signal Processing Magazine ,38(3), 37–50. https://doi.org/10.1109/MSP.2021.3055032
+Martin, F., Chen, Y ., Moore, R. L., & Westine, C. D. (2020). Sy stematic review of adaptive learning research designs,
+context, strategies, and technologies from 2009 to 2018. Educational Technology Research and Development ,68(4),
+1903–1929. https://doi.org/10.1007/s11423-020-09793- 2
+McCabe, J. (2011). Metacognitive awareness of learning str ategies in undergraduates. Memory & Cognition ,39(3),
+462–476. https://doi.org/10.3758/s13421-010-0035-2
+Mekler, E. D., Brühlmann, F., Tuch, A. N., & Opwis, K. (2017). Towards understanding the effects of individ-
+ual gamiﬁcation elements on intrinsic motivation and perfo rmance. Computers in Human Behavior ,71, 525–534.
+https://doi.org/10.1016/j.chb.2015.08.048
+14APREPRINT - APRIL 4, 2024
+Mena-Guacas, A. F., Rodríguez, J. A. U., Trujillo, D. M. S., G ómez-Galán, J., & López-Meneses, E. (2023). Collab-
+orative learning and skill development for educational gro wth of artiﬁcial intelligence: A systematic review. Contem-
+porary Educational Technology ,15(3), ep428. https://doi.org/10.30935/cedtech/13123
+Miao, F., Holmes, W., Ronghuai, H., & Hui, Z. (2021). AI and education: Guidance for policy-makers . UNESCO.
+https://unesdoc.unesco.org/ark:/48223/pf0000376709
+Miliband, D. (2006). Choice and voice in personalised learn ing. In Schooling for tomorrow: Personalising education
+(pp. 21–30). OECD Publishing.
+Mofﬁtt, T. E., Arseneault, L., Belsky, D., Dickson, N., Hanc ox, R. J., Harrington, H., Houts, R., Poulton, R.,
+Roberts, B. W., Ross, S., Sears, M. R., Thomson, W. M., & Caspi , A. (2011). A gradient of childhood self-control
+predicts health, wealth, and public safety. Proceedings of the National Academy of Sciences ,108(7), 2693–2698.
+https://doi.org/10.1073/pnas.1010076108
+Molenaar, I. (2022a). The concept of hybrid human-AI regula tion: Exemplifying how to support
+young learners’ self-regulated learning. Computers and Education: Artiﬁcial Intelligence ,3, 100070.
+https://doi.org/10.1016/j.caeai.2022.100070
+Molenaar, I. (2022b). Towards hybrid human-AI learning tec hnologies. European Journal of Education ,57(4),
+632–645. https://doi.org/10.1111/ejed.12527
+Mollick, E. R., & Mollick, L. (2023). Using AI to Implement Effective Teaching Strategies in Clas srooms: Five
+Strategies, Including Prompts (SSRN Scholarly Paper No. 4391243). https://doi.org/10.2 139/ssrn.4391243
+Mousavinasab, E., Zarifsanaiey, N., R. Niakan Kalhori, S., Rakhshan, M., Keikha, L., & Ghazi Saeedi, M. (2021).
+Intelligent tutoring systems: A systematic review of chara cteristics, applications, and evaluation methods. Interactive
+Learning Environments ,29(1), 142–163. https://doi.org/10.1080/10494820.2018.1 558257
+Muir, R. A., Howard, S. J., & Kervin, L. (2023). Intervention s and Approaches Targeting Early Self-Regulation
+or Executive Functioning in Preschools: A Systematic Revie w. Educational Psychology Review ,35(1), 27.
+https://doi.org/10.1007/s10648-023-09740-6
+Munshi, A., Biswas, G., Baker, R., Ocumpaugh, J., Hutt, S., & Paquette, L. (2023). Analysing adaptive scaffolds that
+help students develop self-regulated learning behaviours .Journal of Computer Assisted Learning ,39(2), 351–368.
+https://doi.org/10.1111/jcal.12761
+Nguyen, A., Ngo, H. N., Hong, Y ., Dang, B., & Nguyen, B.-P. T. ( 2022). Ethical principles for artiﬁcial intelligence
+in education. Education and Information Technologies . https://doi.org/10.1007/s10639-022-11316-w
+Nye, B. D., Graesser, A. C., & Hu, X. (2014). AutoTutor and Fam ily: A Review of 17 Years of Natural Language Tu-
+toring. International Journal of Artiﬁcial Intelligence in Educat ion, 24(4), 427–469. https://doi.org/10.1007/s40593-
+014-0029-5
+O’Brien, J. G., Millis, B. J., & Cohen, M. W. (2009). The Course Syllabus: A Learning-Centered Approach . John
+Wiley & Sons.
+OECD. (2006). Personalising Education . OECD. https://doi.org/10.1787/9789264036604-en
+OECD. (2019a). Anticipation-Action-Reﬂection cycle for 2030 . OECD Publishing.
+OECD. (2019b). OECD Learning Compass 2030 . OECD Publishing.
+OECD. (2019c). Student agency for 2030 . OECD Publishing.
+OECD. (2019d). Transformative competencies for 2030 . OECD Publishing.
+Osakwe, I., Chen, G., Whitelock-Wainwright, A., Gaševi ´c, D., Pinheiro Cavalcanti, A., & Ferreira Mello, R. (2022).
+Towards automated content analysis of educational feedbac k: A multi-language study. Computers and Education:
+Artiﬁcial Intelligence ,3, 100059. https://doi.org/10.1016/j.caeai.2022.100059
+Oudeyer, P.-Y ., Gottlieb, J., & Lopes, M. (2016). Chapter 11 - Intrinsic motivation, curiosity, and learning: Theory
+and applications in educational technologies. In B. Studer & S. Knecht (Eds.), Progress in Brain Research (V ol. 229,
+pp. 257–284). Elsevier. https://doi.org/10.1016/bs.pbr .2016.05.005
+Ouyang, F., Xu, W., & Cukurova, M. (2023). An artiﬁcial intel ligence-driven learning analytics method to examine
+the collaborative problem-solving process from the comple x adaptive systems perspective. International Journal of
+Computer-Supported Collaborative Learning ,18(1), 39–66. https://doi.org/10.1007/s11412-023-09387- z
+15APREPRINT - APRIL 4, 2024
+Palincsar, A. S. (1998). Social Constructivist Perspectiv es on Teaching and Learning. Annual Review of Psychology ,
+49(1), 345–375. https://doi.org/10.1146/annurev.psych.4 9.1.345
+Panadero, E. (2017). A Review of Self-regulated Learning: S ix Models and Four Directions for Research. Frontiers
+in Psychology ,8. https://www.frontiersin.org/articles/10.3389/fpsyg .2017.00422
+Pedaste, M., & Leijen, Ä. (2018). How Can Advanced Technolog ies Support the Contemporary Learning
+Approach? 2018 IEEE 18th International Conference on Advanced Learni ng Technologies (ICALT) , 21–23.
+https://doi.org/10.1109/ICALT.2018.00011
+Pelánek, R. (2017). Bayesian knowledge tracing, logistic m odels, and beyond: An overview of learner modeling
+techniques. User Modeling and User-Adapted Interaction ,27(3), 313–350. https://doi.org/10.1007/s11257-017-9193 -
+2
+Peng, B., Li, C., He, P., Galley, M., & Gao, J. (2023). Instruction Tuning with GPT-4 (arXiv:2304.03277). arXiv.
+https://doi.org/10.48550/arXiv.2304.03277
+Peteros, E. D., Lucino, R. V . A., Yagong, J. H., Bacus, M. J. D. , de Vera, J. V ., Alcantara, G. A., & Fulgencio,
+M. D. (2022). SELF-REGULATION, SELF-EFFICACY AND STUDENTS’ MATH PERFOR MANCE IN MODULAR
+DISTANCE LEARNING DURING THE COVID-19 PANDEMIC .04(03).
+Philpott, A., & Son, J.-B. (2022). Quest-based learning and motivation in an EFL context. Computer Assisted Lan-
+guage Learning ,0(0), 1–25. https://doi.org/10.1080/09588221.2022.2033 790
+Potier Watkins, C., & Dehaene, S. (2023). Can a Tablet Game Th at Boosts Kindergarten Phonics Advance 1st Grade
+Reading? The Journal of Experimental Education , 1–24. https://doi.org/10.1080/00220973.2023.2173129
+Puzziferro, M. (2008). Online Technologies Self-Efﬁcacy a nd Self-Regulated Learning as Predictors of Final
+Grade and Satisfaction in College-Level Online Courses. American Journal of Distance Education ,22(2), 72–89.
+https://doi.org/10.1080/08923640802039024
+Reeves, T. C., & Lin, L. (2020). The research we have is not the research we need. Educational Technology Research
+and Development ,68(4), 1991–2001. https://doi.org/10.1007/s11423-020-09 811-3
+Roll, I., Aleven, V ., McLaren, B. M., & Koedinger, K. R. (2007 ). Designing for metacognition—Applying
+cognitive tutor principles to the tutoring of help seeking. Metacognition and Learning ,2(2), 125–140.
+https://doi.org/10.1007/s11409-007-9010-0
+Roschelle, J., Feng, M., Murphy, R. F., & Mason, C. A. (2016). Online Mathematics Homework Increases Student
+Achievement. AERA Open , 2(4), 2332858416673968. https://doi.org/10.1177/2332 858416673968
+Rosé, C. P., & Ferschke, O. (2016). Technology Support for Di scussion Based Learning: From Computer Supported
+Collaborative Learning to the Future of Massive Open Online Courses. International Journal of Artiﬁcial Intelligence
+in Education ,26(2), 660–678. https://doi.org/10.1007/s40593-016-0107 -y
+Ryan, R. M., & Deci, E. L. (2000). Intrinsic and Extrinsic Mot ivations: Classic Deﬁnitions and New Directions.
+Contemporary Educational Psychology ,25(1), 54–67. https://doi.org/10.1006/ceps.1999.1020
+Ryan, R. M., & Deci, E. L. (2020). Intrinsic and extrinsic mot ivation from a self-determination theory perspec-
+tive: Deﬁnitions, theory, practices, and future direction s.Contemporary Educational Psychology ,61, 101860.
+https://doi.org/10.1016/j.cedpsych.2020.101860
+Sailer, M., & Homner, L. (2020). The Gamiﬁcation of Learning : A Meta-analysis. Educational Psychology Review ,
+32(1), 77–112. https://doi.org/10.1007/s10648-019-09498 -w
+Saks, K., & Leijen, Ä. (2014). Distinguishing Self-directe d and Self-regulated Learning and Mea-
+suring them in the E-learning Context. Procedia - Social and Behavioral Sciences ,112, 190–198.
+https://doi.org/10.1016/j.sbspro.2014.01.1155
+Salvin, R. E., & Karweit, N. L. (1985). Effects of Whole Class , Ability Grouped, and Individual-
+ized Instruction on Mathematics Achievement. American Educational Research Journal ,22(3), 351–367.
+https://doi.org/10.3102/00028312022003351
+Seaborn, K., & Fels, D. I. (2015). Gamiﬁcation in theory and a ction: A survey. International Journal of Human-
+Computer Studies ,74, 14–31. https://doi.org/10.1016/j.ijhcs.2014.09.006
+Shemshack, A., Kinshuk, & Spector, J. M. (2021). A comprehen sive analysis of personalized learning components.
+Journal of Computers in Education ,8(4), 485–503. https://doi.org/10.1007/s40692-021-0018 8-7
+16APREPRINT - APRIL 4, 2024
+Shemshack, A., & Spector, J. M. (2020). A systematic literat ure review of personalized learning terms. Smart Learning
+Environments ,7(1), 33. https://doi.org/10.1186/s40561-020-00140-9
+Shute, V ., & Towle, B. (2003). Adaptive E-Learning. Educational Psychologist ,38(2), 105–114.
+https://doi.org/10.1207/S15326985EP3802_5
+Smallwood, R. D. (1962). A decision structure for teaching machines .
+Soderstrom, N. C., & Bjork, R. A. (2015). Learning Versus Per formance: An Integrative Review. Perspectives on
+Psychological Science ,10(2), 176–199. https://doi.org/10.1177/174569161556900 0
+Srinivasan, V . (2022). AI & learning: A preferred future. Computers and Education: Artiﬁcial Intelligence ,3, 100062.
+https://doi.org/10.1016/j.caeai.2022.100062
+Stanley, & Lehman. (2015). Why Greatness Cannot Be Planned | SpringerLink .
+https://link.springer.com/book/10.1007/978-3-319-15 524-1
+Steenbergen-Hu, S., & Cooper, H. (2014). A meta-analysis of the effectiveness of intelligent tutor-
+ing systems on college students’ academic learning. Journal of Educational Psychology ,106, 331–347.
+https://doi.org/10.1037/a0034752
+St-Hilaire, F., Vu, D. D., Frau, A., Burns, N., Faraji, F., Po tochny, J., Robert, S., Roussel, A., Zheng, S., Glazier, T.,
+Romano, J. V ., Belfer, R., Shayan, M., Smofsky, A., Delarosb il, T., Ahn, S., Eden-Walker, S., Sony, K., Ching, A.
+O., . . . Kochmar, E. (2022). A New Era: Intelligent Tutoring S ystems Will Transform Online Learning for Millions.
+ArXiv:2203.03724 [Cs] . http://arxiv.org/abs/2203.03724
+Sutarni, N., Ramdhany, M. A., Hufad, A., & Kurniawan, E. (202 1). Self-regulated learning and digital learning envi-
+ronment: Its’ effect on academic achievement during the pan demic. Jurnal Cakrawala Pendidikan ,40(2), 374–388.
+https://doi.org/10.21831/cp.v40i2.40718
+Tan, S. C., Lee, A. V . Y ., & Lee, M. (2022). A systematic review of artiﬁcial intelligence techniques for col-
+laborative learning over the past two decades. Computers and Education: Artiﬁcial Intelligence ,3, 100097.
+https://doi.org/10.1016/j.caeai.2022.100097
+Tetzlaff, L., Schmiedek, F., & Brod, G. (2021). Developing P ersonalized Education: A Dynamic Framework. Educa-
+tional Psychology Review ,33(3), 863–882. https://doi.org/10.1007/s10648-020-0957 0-w
+Theobald, M. (2021). Self-regulated learning training pro grams enhance university students’ academic performance,
+self-regulated learning strategies, and motivation: A met a-analysis. Contemporary Educational Psychology ,66,
+101976. https://doi.org/10.1016/j.cedpsych.2021.1019 76
+Tolman, E. C., & Honzik, C. H. (1930). Introduction and remov al of reward, and maze performance in rats. University
+of California Publications in Psychology ,4, 257–275.
+Tuomi, I. (2023). Beyond Mastery: Toward a Broader Understa nding of AI in Education. International Journal of
+Artiﬁcial Intelligence in Education . https://doi.org/10.1007/s40593-023-00343-4
+Turner, M. (2014). The Origin of Ideas: Blending, Creativity, and the Human Spa rk. Oxford University Press.
+UNESCO. (2017). Education for Sustainable Development Goals: Learning obj ectives—UNESCO Digital Library .
+https://unesdoc.unesco.org/ark:/48223/pf0000247444
+UNESCO. (2022). Reimagining education: The international science and evid ence based education assessment .
+https://unesdoc.unesco.org/ark:/48223/pf0000380985/ PDF/380985eng.pdf.multi
+Urh, M., Vukovic, G., Jereb, E., & Pintar, R. (2015). The Mode l for Introduction of Gamiﬁca-
+tion into E-learning in Higher Education. Procedia - Social and Behavioral Sciences ,197, 388–397.
+https://doi.org/10.1016/j.sbspro.2015.07.154
+US Department of Education. (2010). Transforming American education: Learning powered by tech nology | VOCED-
+plus, the international tertiary education and research da tabase . https://www.voced.edu.au/content/ngv:46439
+US Department of Education. (2017). Reimagining the role of technology in higher education: A su pplement
+to the national education technology plan . US Department of Education, Ofﬁce of Educational Technolo gy.
+https://tech.ed.gov/netp/
+van Alten, D. C. D., Phielix, C., Janssen, J., & Kester, L. (20 20). Self-regulated learning sup-
+port in ﬂipped learning videos enhances learning outcomes. Computers & Education ,158, 104000.
+https://doi.org/10.1016/j.compedu.2020.104000
+17APREPRINT - APRIL 4, 2024
+Vandewaetere, M., & Clarebout, G. (2014). Advanced Technol ogies for Personalized Learning, Instruction, and Per-
+formance. In J. M. Spector, M. D. Merrill, J. Elen, & M. J. Bish op (Eds.), Handbook of Research on Educational
+Communications and Technology (pp. 425–437). Springer. https://doi.org/10.1007/978-1 -4614-3185-5_34
+VanLehn, K. (2006). The Behavior of Tutoring Systems. International Journal of Artiﬁcial Intelligence in Educat ion,
+16(3), 227–265.
+VanLehn, K. (2011). The Relative Effectiveness of Human Tut oring, Intelligent Tutoring Systems, and Other Tutoring
+Systems. Educational Psychologist ,46(4), 197–221. https://doi.org/10.1080/00461520.2011.6 11369
+VanLehn, K. (2011). The Relative Effectiveness of Human Tut oring, Intelligent Tutoring Systems, and Other Tutoring
+Systems. Educational Psychologist ,46(4), 197–221. https://doi.org/10.1080/00461520.2011.6 11369
+Vygotsky, L. S., & Cole, M. (1978). Mind in Society: Development of Higher Psychological Proce sses. Harvard
+University Press.
+Walker, E., & Ogan, A. (2016). We’re in this Together: Intent ional Design of Social Relationships with AIED Systems.
+International Journal of Artiﬁcial Intelligence in Educat ion,26(2), 713–729. https://doi.org/10.1007/s40593-016-
+0100-5
+Walkington, C., & Bernacki, M. L. (2020). Appraising resear ch on personalized learning: Deﬁnitions, theoretical
+alignment, advancements, and future directions. Journal of Research on Technology in Education ,52(3), 235–252.
+https://doi.org/10.1080/15391523.2020.1747757
+Wambsganss, T., Kueng, T., Soellner, M., & Leimeister, J. M. (2021). ArgueTutor: An Adaptive Dialog-Based
+Learning System for Argumentation Skills. Proceedings of the 2021 CHI Conference on Human Factors in Co mputing
+Systems , 1–13. https://doi.org/10.1145/3411764.3445781
+Watters, A. (2023). Teaching Machines: The History of Personalized Learning .
+Winne, P. H. (2017). Learning Analytics for Self-Regulated Learning. In Handbook of Learning Analytics (pp.
+241–249). Society for Learning Analytics Research. 10.186 08/hla17.021
+Winne, P. H. (2021). Open Learner Models Working in Symbiosi s With Self-Regulating Learners: A Research Agenda.
+International Journal of Artiﬁcial Intelligence in Educat ion, 31(3), 446–459. https://doi.org/10.1007/s40593-020-
+00212-4
+Winter, J. w. (2018). Analysis of knowledge construction du ring group space activities in a ﬂipped learning course.
+Journal of Computer Assisted Learning ,34(6), 720–730. https://doi.org/10.1111/jcal.12279
+World Economic Forum. (2021). Building a Common Language for Skills at Work A Global Taxono my.
+Wu, T.-T., Lee, H.-Y ., Li, P.-H., Huang, C.-N., & Huang, Y .-M . (2023). Promoting Self-Regulation Progress and
+Knowledge Construction in Blended Learning via ChatGPT-Ba sed Learning Aid. Journal of Educational Computing
+Research , 07356331231191125. https://doi.org/10.1177/07356331 231191125
+Xie, H., Chu, H.-C., Hwang, G.-J., & Wang, C.-C. (2019). Tren ds and development in technology-enhanced adap-
+tive/personalized learning: A systematic review of journa l publications from 2007 to 2017. Computers & Education ,
+140, 103599. https://doi.org/10.1016/j.compedu.2019.1035 99
+Zawacki-Richter, O., Marín, V . I., Bond, M., & Gouverneur, F . (2019). Systematic review of research on artiﬁcial intel-
+ligence applications in higher education – where are the edu cators? International Journal of Educational Technology
+in Higher Education ,16(1), 39. https://doi.org/10.1186/s41239-019-0171-0
+Zhang, K., & Aslan, A. B. (2021). AI technologies for educati on: Recent research & future directions. Computers
+and Education: Artiﬁcial Intelligence ,2, 100025. https://doi.org/10.1016/j.caeai.2021.100025
+Zimmerman, B. J. (1986). Becoming a self-regulated learner : Which are the key subprocesses? Contemporary Educa-
+tional Psychology ,11(4), 307–313. https://doi.org/10.1016/0361-476X(86)90 027-5
+Zimmerman, B. J. (2000). Chapter 2 - Attaining Self-Regulat ion: A Social Cognitive Perspective. In M.
+Boekaerts, P. R. Pintrich, & M. Zeidner (Eds.), Handbook of Self-Regulation (pp. 13–39). Academic Press.
+https://doi.org/10.1016/B978-012109890-2/50031-7
+18

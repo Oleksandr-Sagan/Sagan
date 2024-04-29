@@ -1,0 +1,488 @@
+arXiv:2404.02822v1  [cs.CY]  3 Apr 2024Published as a conference paper at ICLR 2024
+IDENTIFYING CLIMATE TARGETS IN NATIONAL LAWS
+AND POLICIES USING MACHINE LEARNING
+Matyas Juhasz∗
+Climate Policy RadarTina Marchand†Roshan Melwani
+Climate Policy Radar
+Kalyan Dutia
+Climate Policy RadarSarah Goodenough
+Climate Policy RadarHarrison Pim
+Climate Policy RadarHenry Franks
+Climate Policy Radar
+ABSTRACT
+Quantiﬁed policy targets are a fundamental element of clima te policy, typically
+characterised by domain-speciﬁc and technical language. C urrent methods for
+curating comprehensive views of global climate policy targ ets entail signiﬁ-
+cant manual effort. At present there are few scalable method s for extracting
+climate targets from national laws or policies, which limit s policymakers’
+and researchers’ ability to (1) assess private and public se ctor alignment with
+global goals and (2) inform policy decisions. In this paper w e present an
+approach for extracting mentions of climate targets from na tional laws and
+policies. We create an expert-annotated dataset identifyi ng three categories of
+target (’Net Zero’, ’Reduction’ and ’Other’ (e.g. renewabl e energy targets))
+and train a classiﬁer to reliably identify them in text. We in vestigate bias and
+equity impacts related to our model and identify speciﬁc yea rs and country
+names as problematic features. Finally, we investigate the characteristics of
+the dataset produced by running this classiﬁer on the Climat e Policy Radar
+(CPR) dataset of global national climate laws and policies a nd UNFCCC sub-
+missions, highlighting the potential of automated and scal able data collection
+for existing climate policy databases and supporting furth er research. Our
+work represents a signiﬁcant upgrade in the accessibility o f these key cli-
+mate policy elements for policymakers and researchers. We p ublish our model at
+https://huggingface.co/ClimatePolicyRadar/national- climate-targets
+and related dataset at https://huggingface.co/datasets/ClimatePolicyRadar/ national-climate- 
+1 I NTRODUCTION
+Climate law and policy are a primary lever for national and in ternational climate action. Effective
+laws and policies are typically formulated with reference t o (1) what has already been implemented
+across different jurisdictions, and (2) policy adequacy an d effectiveness, including in comparison to
+global trends and international frameworks such as the Pari s Agreement. Targets – quantiﬁed, mea-
+surable expressions of prospective policy outcomes – are a c ornerstone of effective climate policy.
+Targets bolster the credibility of countries’ commitments by setting quantiﬁable objectives, and in-
+form policy design, implementation and monitoring (Nachma ny & Mangan (2018), Andersen et al.
+(2021), Haarstad (2020)). This is true of economy-wide Gree nhouse Gas (GHG) targets, such as
+those in Nationally Determined Contributions (NDCs) submi tted under the UN Framework Con-
+vention on Climate Change (UNFCCC), and of sector-speciﬁc t argets such as in transportation or
+agriculture. Data on existing targets addressing climate c hange is invaluable for policy analysis, and
+actors engaged in the design or evaluation of national laws a nd policies often look to targets as a
+ﬁrst ‘port of call’ to establish national and international progress and ambition in addressing climate
+change. There follows a need for effective tools to support t he creation of climate target datasets.
+Analysis of existing laws and policies is constrained by the (often limited) resources and expertise
+at the disposal of relevant actors. Common barriers include : (1) key information buried within
+∗dsci@climatepolicyradar.org
+†Was afﬁliated with Climate Policy Radar when this work was ca rried out.
+1Published as a conference paper at ICLR 2024
+lengthy, difﬁcult-to-parse documents, and (2) policies an d targets being written in many different
+languages and terminologies (e.g. ”reduce emissions by 50% by 2030, against a 2005 baseline”
+versus ”double energy production from renewable sources in the next 5 years”). These constraints on
+time and resources affect all actors working to understand a nd improve the efﬁcacy of climate laws
+and policies, including policymakers, academics, NGOs and UN bodies, and are especially acute for
+those operating under resource constraints, including in l ow-income countries and communities.
+In this paper we present an approach for extracting mentions of targets from national cli-
+mate laws and policies, using paragraph-level classiﬁcati on. We publish our model at
+https://huggingface.co/models/ANONYMISED-FOR-REVIEW and related dataset at
+https://huggingface.co/datasets/ANONYMISED-FOR-REVI EW.
+2 R ELATED WORK
+Existing databases, including Net Zero Tracker (Lang et al. (2023)), Climate Change Laws of the
+World (CCLW, Grantham Research Institute at the London Scho ol of Economics; Climate Policy Radar
+(2023)), ClimateWatch (World Resources Institute (2022)) , and Climate Action Tracker
+(Climate Action Tracker (2021)) rely on manual extraction o f targets (in some cases relying
+on volunteers), limiting their scalability and consuming s igniﬁcant organisational resources. As
+a result, many only collect targets from NDCs and focus only o n economy-wide targets (and not
+on other types of targets like sectoral targets). This resul ts in a fundamental gap in the analysis of
+global public and private sector commitments.
+Machine Learning (ML) systems are an attractive solution su pporting the automated extraction of
+structured information at scale and facilitating a more eff ective, exhaustive, and rigorous analysis
+than what is attainable via the application of human labour. Natural Language Processing (NLP)
+has recently been applied successfully in a variety of resea rch contexts including climate and policy
+(e.g. Cody et al. (2015), Sietsma et al. (2023), Bingler et al . (2022)), rendering analysis of the global
+policy landscape tractable (Biesbroek et al. (2020)). NLP i s especially applicable here as stakehold-
+ers must ﬁlter, analyse, and manage vast amounts of unstruct ured text (Stede & Patz (2021)). The
+advent of transformers (Vaswani et al. (2017)), which subst antially improve the power of models in
+natural language understanding, has opened up signiﬁcant n ew avenues for the application of NLP to
+the climate policy domain: identifying nuanced language fe atures in large scale (n >100,000) docu-
+ment datasets (Callaghan et al. (2021)), quantifying regul atory climate risk disclosures (K¨ olbel et al.
+(2020), or analysing sustainability reports (Luccioni et a l. (2020)). Text classiﬁcation has also
+been used to facilitate analysis of government and corporat e climate policy (K¨ olbel et al. (2020),
+Stammbach et al. (2022), Spokoyny et al. (2023)).
+NLP has been applied to extract climate-related targets bef ore (Schimanski et al. (2023)), but with-
+out addressing individual GHGs or economic sectors. Our wor k extends existing contributions by (1)
+extending the deﬁnitions of emissions reduction and net-ze ro targets to include those also addressing
+individual GHGs and sectors of the economy, as these more spe ciﬁc targets are an important com-
+ponent of a country’s ambition and ability to achieve its eco nomy-wide emissions reduction targets
+(IPCC (2023)); (2) introducing a new ’Other’ category of tar gets to capture quantiﬁed targets made
+by governments with mitigation or adaptation objectives th at do not explicitly mention emissions
+reduction, such as reducing deforestation or scaling up ren ewable energy capacity; and (3) curating
+a multi-label dataset, enabling each instance to be associa ted with zero, one, or multiple designated
+categories.
+3 D ATA
+The data used for this project was sourced from the Climate Po licy Radar (CPR) database
+Climate Policy Radar (2024) of national laws and policies an d UNFCCC submissions containing
+over 4,000 documents published by every single national gov ernment. We assign the target types
+”Net Zero”, ”Reduction” or ”Other” to paragraphs in a multi- label classiﬁcation setting. A target
+satisﬁes three criteria: it (1) contains an aim to achieve a s peciﬁc outcome, (2) is quantiﬁable, and
+(3) has been given a deadline. We consider targets set by gove rnments focusing on their speciﬁc
+national objectives and actions, rather than referring to a collective regional or global goal. Reduc-
+tion targets refer to a reduction of GHG emissions. They can b e economy-wide or sector-speciﬁc,
+2Published as a conference paper at ICLR 2024
+Net Zero Reduction Other No annotation Total paragraphs
+203 359 631 1584 2610
+Table 1: Counts of labels in the ﬁnal dataset. ’No annotation ’ counts paragraphs where no target
+was found.
+and refer to different types of GHGs. Net Zero targets consti tute a commitment to balance GHG
+emissions with removal, effectively reducing the net emiss ions to zero. ”Other” targets are those
+that do not ﬁt into the Reduction or Net Zero category, yet sat isfy the three criteria, for example
+renewable energy targets. See Appendix A.2 for detailed deﬁ nitions.
+The low relative frequency of targets renders sampling for a nnotation a chal-
+lenge. Our approach took CCLW’s manually written target sum maries
+(Grantham Research Institute at the London School of Econom ics; Climate Policy Radar (2023))
+as seeds, matching them to paragraphs in the corresponding d ocuments. Stratiﬁed sampling was
+employed to oversample for underrepresented regions and ma chine translated documents. Negative
+sampling was used to adjust the label ratio. Three domain-ex pert annotators labelled a 2,610
+paragraphs containing 1,193 targets (Table 1) using the fol lowing process: after initial labelling,
+a subset of the dataset labels underwent a review, and inter- annotator agreement was measured
+throughout the process to ensure consistency. Subsequentl y, we employed rounds of active learning
+to sample and annotate additional examples.
+4 C LASSIFIER TRAINING
+Class metric value ( σ)
+NZTprecision 0.777 (0.043)
+recall 0.911 (0.042)
+f1 0.837 (0.023)
+Reductionprecision 0.827 (0.063)
+recall 0.914 (0.045)
+f1 0.867 (0.036)
+Otherprecision 0.801 (0.022)
+recall 0.889 (0.016)
+f1 0.842 (0.008)
+allprecision 0.803 (0.020)
+recall 0.900 (0.003)
+f1 0.849 (0.012)
+Table 2: Classiﬁer performance on the three an-
+notation classes: net zero target, reduction target
+and other target.To accommodate a signiﬁcant overlap across la-
+bels, we used a multi-label text-classiﬁcation
+approach. We ran a number of experiments
+to select the most appropriate base model for
+our text classiﬁcation task. We report results of
+our comparison in Appendix A.3. Selecting cli-
+mateBERT (Webersinke et al. (2022)), we ran a
+grid-search to identify the optimal hyperparam-
+eters for ﬁne-tuning, set out in Appendix A.4.
+Our model effectively predicts all 3 labels with
+an overall f1 score of 0.849 (Table 2). The
+lower performance of the NZT label is due to
+the low prevalence of such targets in climate
+text, entailing a low volume of training data.
+This category is particularly prone to the model
+learning erroneous relationships, as discussed
+in Section 5.
+5 I MPACTS
+& E QUITY CONSIDERATIONS
+Biases toward countries and round years.
+Despite the stratiﬁed sampling, targets are less
+prevalent for documents authored by countries
+in the global south. Models trained on the
+dataset subsequently attribute higher probabil-
+ities to a paragraph containing targets referencing speciﬁ c country names.
+Targets frequently reference years that are multiples of 5 ( e.g. 2035 or 2050), and models trained on
+the dataset can learn these features as predictors. We hypot hesise a bias towards round dates in the
+pretrained RoBERTa model: when predicting masked years, bo th distilRoBERTa and climateBERT
+consistently predicted round years more conﬁdently than no n-round years. Our analysis shows that
+3Published as a conference paper at ICLR 2024
+”2020”, ”2021”, ”2030” and ”2050” (and no others between 202 0 and 2100) are single tokens in
+distilRoBERTa’s vocabulary, potentially biasing model be haviour.
+The effect of machine translation. Our dataset contains English paragraphs, sourced from Engl ish
+documents (65.29%) and Google Cloud Translation API (Googl e) translated documents (34.71%)
+from 37 source languages. While there is a drop in Overall F1 s core associated with classifying
+machine translated text (Table 3), this is small (0.023). La bels are disproportionately impacted with
+a bigger drop in ”Net Zero” (0.078), medium in ”Reduction” (0 .041) and insigniﬁcant (0.001) in
+”Other”. It would be valuable to investigate whether balanc ing translated text and original language
+in the training data could address the observed drops in perf ormance.
+Net Zero Reduction Other Overall
+count F1 count F1 count F1 count F1
+Original language 153 0.856 257 0.880 401 0.843 811 0.857
+English 50 0.778 102 0.839 230 0.842 382 0.834
+Table 3: Classiﬁer performance on original language vs mach ine-translated text. Column ‘count’ is
+the number of test samples for each class and in total.
+6 M ODEL APPLICATION
+To investigate potential applications of this model we prod uced a dataset by running the model across
+all the text of all the CPR laws, policies and UNFCCC submissi ons the labelled data was sampled
+from. We did so at a threshold which mapped to 80% precision an d 80% recall, as evaluated against
+the validation set. The resulting dataset contained 24,583 target mentions published by 201 national
+governments, broken down into 5,223 net zero, 7,019 reducti on and 13,617 ’Other’ types.
+We further applied topic modelling using BERTopic (Grooten dorst (2022), see Appendix A.5) over
+the paragraphs with target type ’Other’. The most common top ics we found relate to speciﬁc systems
+and sectors of the economy: Renewables (general) (31.4% of ’ Other’ target mentions); Agriculture,
+Forests & Fisheries (13.4%); Miscellaneous (12.1%); Trans port (11.2%); and Electricity, Infras-
+tructure and Energy Efﬁciency (11.0%). Using automaticall y extracted targets, practitioners can
+therefore identify and compare trends, gaps and opportunit ies for national climate action between
+speciﬁc systems or sectors.
+7 C ONCLUSION
+In this paper we present an approach for extracting targets f rom climate law and policy documents,
+by identifying Net Zero, Reduction, and/or Other types of ta rget. We further probe our dataset and
+model for underlying bias and equity concerns. Supporting s calable analysis of climate law, policy
+and UN submissions is key to helping governments enact effec tive laws and policies and to support
+the evaluation and accountability of global climate action . Our approach to classifying targets within
+law, policy and UN submission documents allows for rapid ide ntiﬁcation of target language in large
+document corpora, which can play a role in improving collect ive understanding of the gaps and
+opportunities for enhancing national ambition and efﬁcacy in addressing climate change.
+Our model enables much more detailed analysis of climate tar gets than was previously possible,
+through extending previous work to include targets related to speciﬁc GHGs, sectors, and a large
+number of non-GHG-related targets. We analyse a dataset pro duced by running this model across a
+large dataset of climate laws and policies, demonstrating i ts utility to policymakers and researchers
+to assess areas such as targets speciﬁc to high-emitting sec tors and technologies, such as agriculture
+and transport.
+This work enables automated data collection for existing, m anually curated climate databases, as
+well as further research applying machine learning to aid cl imate policy analysis. An important
+avenue of climate policy analysis that this work enables is i dentifying discrepancies between the
+ambition of targets set by national governments in their sub missions to the UN Climate Change
+4Published as a conference paper at ICLR 2024
+Secretariat (most commonly in their Nationally Determined Contributions (NDCs)), and of the tar-
+gets in their national laws and policies. This ”implementat ion gap” is an important (Fransen et al.
+(2023)) but previously time consuming and manual research c hallenge. Other future work includes
+(1) predicting targets made by other actors such as companie s and cities, states and regions, (2) fur-
+ther NLP analysis of large, machine-produced datasets such as the one presented in this work, and
+(3) extracting structured representations of targets for a dditional analysis, such as extracting target
+deadlines or segmenting by speciﬁc GHG references.
+REFERENCES
+Inger Andersen, Naoko Ishii, Thomas Brooks, Cynthia Cummis , Gustavo Fonseca, Astrid Hillers,
+Nicholas Macfarlane, Nebojsa Nakicenovic, Kevin Moss, Joh an Rockstr¨ om, Andrew Steer, Do-
+minic Waughray, and Caroline Zimm. Deﬁning ‘science-based targets’. 8(7), July 2021. doi:
+10.1093/nsr/nwaa186. URL https://doi.org/10.1093/nsr/nwaa186 .
+Robbert Biesbroek, Shashi Badloe, and Ioannis N Athanasiad is. Machine learning for research on
+climate change adaptation policy integration: an explorat ory uk case study. Regional Environ-
+mental Change , 20(3):85, 2020.
+Julia Anna Bingler, Mathias Kraus, Markus Leippold, and Nic olas Webersinke. Cheap talk and
+cherry-picking: What climatebert has to say on corporate cl imate risk disclosures. Finance Re-
+search Letters , 47:102776, 2022.
+Max Callaghan, Carl-Friedrich Schleussner, Shruti Nath, Q uentin Lejeune, Thomas R Knutson,
+Markus Reichstein, Gerrit Hansen, Emily Theokritoff, Mari na Andrijevic, Robert J Brecha, et al.
+Machine-learning-based evidence and attribution mapping of 100,000 climate impact studies. Na-
+ture climate change , 11(11):966–972, 2021.
+Climate Action Tracker. Climate action tracker. https://climateactiontracker.org ,
+2021.
+Climate Policy Radar. Climate policy radar database. Onlin e, 2024. URL
+https://app.climatepolicyradar.org .
+Emily M. Cody, Andrew J. Reagan, Lewis Mitchell, Peter Sheri dan Dodds, and Christo-
+pher M. Danforth. Climate change sentiment on twitter: An un solicited public opin-
+ion poll. PLOS ONE , 10(8):1–18, 08 2015. doi: 10.1371/journal.pone.0136092 . URL
+https://doi.org/10.1371/journal.pone.0136092 .
+Taryn Fransen, Jonas Meckling, Anna St¨ unzi, Tobias S. Schm idt, Florian Egli, Nicolas Schmid, and
+Christopher Beaton. Taking stock of the implementation gap in climate policy. Nature Climate
+Change , 13(8):752–755, August 2023. ISSN 1758-6798. doi: 10.1038 /s41558-023-01755-9.
+URLhttps://doi.org/10.1038/s41558-023-01755-9 .
+Google. Google cloud translate api. https://cloud.google.com/translate . Accessed:
+January 24, 2024.
+Grantham Research Institute at the London School of Economi cs; Climate Policy Radar. Climate
+change laws of the world. Online, 2023. URL https://climate-laws.org . Sourced pri-
+marily from the Grantham Research Institute at the London Sc hool of Economics. Made available
+under the Creative Commons CC-BY licence.
+Maarten Grootendorst. Keybert: Minimal keyword extractio n with bert., 2020. URL
+https://doi.org/10.5281/zenodo.4461265 .
+Maarten Grootendorst. Bertopic: Neural topic modeling wit h a class-based tf-idf procedure. arXiv
+preprint arXiv:2203.05794 , 2022.
+H. Haarstad. Do Climate Targets Matter? The Accountability of Target-se tting in Urban Climate
+and Energy Policy . Palgrave Pivot, Cham, 2020. doi: 10.1007/978-3-030-2689 1-66. URL
+https://doi.org/10.1007/978-3-030-26891-6_6 .
+IPCC. Summary for policymakers. pp. 1–34, 2023. doi: 10.593 27/IPCC/AR6-9789291691647.001.
+5Published as a conference paper at ICLR 2024
+Julian F K¨ olbel, Markus Leippold, Jordy Rillaerts, and Qia n Wang. Ask bert: How regulatory
+disclosure of transition and physical climate risks affect s the cds term structure. Swiss Finance
+Institute Research Paper , (21-19), 2020.
+John Lang, Camilla Hyslop, Natasha Lutz, Richard Black, Pet er Chalkley, Thomas Hale, Frederic
+Hans, Nick Hay, Niklas H¨ ohne, Angel Hsu, Takeshi Kuramochi , Silke Mooldijk, and Steve Smith.
+Net zero tracker, 2023.
+Yinhan Liu, Myle Ott, Naman Goyal, Jingfei Du, Mandar Joshi, Danqi Chen, Omer Levy, Mike
+Lewis, Luke Zettlemoyer, and Veselin Stoyanov. Roberta: A r obustly optimized BERT pretraining
+approach. CoRR , abs/1907.11692, 2019. URL http://arxiv.org/abs/1907.11692 .
+Alexandra Luccioni, Emily Baylor, and Nicolas Duchene. Ana lyzing sustainability reports using
+natural language processing. arXiv preprint arXiv:2011.08073 , 2020.
+Ines Montani, Matthew Honnibal, Adriane Boyd, Soﬁe Van Land eghem, and Henning Peters. spaCy,
+October 2023. URL https://doi.org/10.5281/zenodo.10009823 .
+Michal Nachmany and Emily Mangan. Aligning national and int ernational climate targets, 2018.
+Available at www.lse.ac.uk/GranthamInstitute/publications .
+Victor Sanh, Lysandre Debut, Julien Chaumond, and Thomas Wo lf. Distilbert, a distilled version of
+bert: smaller, faster, cheaper and lighter. ArXiv , abs/1910.01108, 2019.
+Tobias Schimanski, Julia Bingler, Mathias Kraus, Camilla H yslop, and Markus Leippold.
+Climatebert-netzero: Detecting and assessing net zero and reduction targets. In Proceedings of
+the 2023 Conference on Empirical Methods in Natural Languag e Processing , pp. 15745–15756,
+2023.
+Anne J Sietsma, Rick W Groenendijk, and Robbert Biesbroek. P rogress on climate action: a multi-
+lingual machine learning analysis of the global stocktake. Climatic Change , 176(12):173, 2023.
+Daniel Spokoyny, Tanmay Laud, Tom Corringham, and Taylor Be rg-Kirkpatrick. Towards answer-
+ing climate questionnaires from unstructured climate repo rts. arXiv e-prints , pp. arXiv–2301,
+2023.
+Dominik Stammbach, Nicolas Webersinke, Julia Anna Bingler , Mathias Kraus, and Markus Leip-
+pold. A dataset for detecting real-world environmental cla ims. Center for Law & Economics
+Working Paper Series , 2022(07), 2022.
+Manfred Stede and Ronny Patz. The climate change debate and n atural language processing. In
+Proceedings of the 1st Workshop on NLP for Positive Impact , pp. 8–18, 2021.
+Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit , Llion Jones, Aidan N. Gomez,
+Lukasz Kaiser, and Illia Polosukhin. Attention is all you ne ed.CoRR , abs/1706.03762, 2017.
+URLhttp://arxiv.org/abs/1706.03762 .
+Nicolas Webersinke, Mathias Kraus, Julia Bingler, and Mark us Leippold. ClimateBERT: A Pre-
+trained Language Model for Climate-Related Text. 2022. doi : https://doi.org/10.48550/arXiv.
+2212.13631.
+World Resources Institute. Climate watch. https://www.climatewatchdata.org , 2022.
+A A PPENDIX
+A.1 T RAINING DATA COLLECTION
+A.2 M ETHODOLOGY USED FOR LABELLING
+The deﬁnitions used for labelling are based on existing work by Net Zero Tracker (Lang et al.
+(2023)) and ClimateBERT-NetZero (Schimanski et al. (2023) ) to identify net zero and emissions
+6Published as a conference paper at ICLR 2024
+reduction targets. We extend these deﬁnitions to include a n ew class – ‘Other’ – to capture all other
+quantiﬁed targets made by national governments in climate p olicy documents.
+We also expand the net zero and emissions reduction targets d eﬁnitions to include targets for dif-
+ferent greenhouse gases (as well as general greenhouse gas t argets) and to include sector-speciﬁc
+targets (such as emissions reduction targets for the transp ort sector).
+A.2.1 D EFINITION OF A TARGET
+A target is
+An aim to achieve something , rather than stating something concrete about the future.
+Often this means that the phrase indicates a level of uncerta inty.
+Examples
+•/checkFood waste reduced by 10% by 2022 and another 20% by 2030
+•/checkNot less than 25,000 new jobs created in 5 years
+•/checkThe Government will endeavour to reach a minimum level of 10% of electrical
+energy supplied to the grid to be from NRE by a process of facil itation including
+access to green funding such as CDM.
+•✗It is anticipated that industrial production will increase by a minimum 4.6% annu-
+ally.
+•✗Life expectancy of our people by 2040 will be 80 years due to qu ality care for older
+generation, a decent level of pension beneﬁts and a high degr ee of family care.
+•✗The Startup & CSI Development Flagship Programme is expecte d to create about
+4,700 additional jobs in existing CSIs, Startups and new CSI s within the 12th FYP
+period.
+•✗It is anticipated that industrial production will increase by a minimum 4.6% annu-
+ally.
+Quantiﬁable : it contains a reference to a measurable quantitative value . This may be
+numeric or non-numeric. For example, words like all, every, double, halve, eradicate, no,
+none and independent of refer to measurable quantities.
+Examples
+•/checkreduce emissions by 68% by 2030
+•/checkprovide piped water supply to all rural households by 2024
+•✗Credit Guarantee Enhancement Corporation to be set up in 201 9-2020.
+•✗signiﬁcantly decrease food waste to reduce emissions by the next decade
+Given a deadline : it aims to achieve something quantiﬁable by a certain point in time. It
+can be expressed through a speciﬁc end date or some other repr esentation of an end date in
+reference to planning cycles or number of years.
+•/checkreduce emissions by 68% by 2030
+•/checkin the next ten years, we will add 100km of new bicycle lanes
+•/checkincrease renewable energy capacity by 20% by the end of the cu rrent national 5
+year planning cycle
+•✗increase amount of protected areas by a minimum of 4.6%
+•✗reach energy efﬁciency savings of at least 2% on an annual bas is
+A target is not
+• A policy action or a commitment to perform one (e.g. ”Publish the government’s low
+carbon transition plan for the period 2020-2025. ” ).
+• An abstract reference with no information about what the ta rget is (e.g. ”Montenegro’s
+compliance schedule will run parallel to that of EU members i n the 2020-2030 decade
+so as to, jointly, reach the international targets establis hed for 2030. ” ).
+7Published as a conference paper at ICLR 2024
+• An analysis of a target (e.g. ”It can be seen from Figure 10-3 that while the average
+RE cost of the MEPU 40% target is higher than the average RE cos t of the MEPU
+35% target, the average system cost for the 40% target is only marginally higher than
+the 35% target. ” ).
+• A commitment to set up a vague target in the future (e.g. ”This assumes that the
+tighter EU ETS cap agreed as part of an EU deal on moving to a 30% target would
+continue at the same rate of reduction beyond 2020. ” ).
+• A commitment to achieve a target based on the fulﬁlment of ce rtain conditions (e.g.
+”if we receive international ﬁnance, then we would be ready t o achieve further GHG
+emissions reduction of 35% by 2040, compared to 2005 levels. ”).
+A.2.2 T ARGET TYPES
+Reduction
+An emissions reduction target is a claim made by a public inst itution that refers to a re-
+duction in GHG emissions by a certain point in time. It can be e xpressed as an absolute
+or relative reduction of GHG emissions, sometimes benchmar ked against a baseline year
+or a business as usual (BAU) scenario to which the reduction t arget is compared. It can
+also be expressed as an emissions intensity reduction targe t where emissions act as the nu-
+merator and something else (typically population, GDP, or r evenue) as the denominator.
+The emissions reduction target can be economy-wide or secto ral, and it can also refer to
+different types of GHGs (e.g. carbon dioxide, CO 2eq, methane). Must be a national target,
+not global.
+Net zero
+A net-zero target is a special type of emissions reduction ta rget where a public institution
+states to bring its emissions balance down to no additional n et emissions by a certain year.
+The net-zero target can be economy-wide or sectoral. We take particular care with mentions
+of net-zero technologies, they are not net-zero sectoral ta rgets. Must be a national target,
+not global. To be considered a net-zero target, the emission s reduction target must contain
+reference to this scoped language:
+• Net zero
+• Carbon neutral(ity)
+• GHG neutral(ity)
+• Greenhouse gas neutral(ity)
+• Carbon negative
+• Net negative
+• Carbon free
+• Zero (or 0) emissions
+• Zero (or 0) carbon
+• Fully decarbonise
+• Climate neutral
+• Climate positive
+• 100% emissions reduction
+Other
+Refers to cases where a public institution aims to achieve so mething concrete that is both
+quantiﬁable and has a deadline. This could include, but not l imited to, non-climate mit-
+igation (emissions reduction or net zero) targets, such as a n adaptation, nature-based or
+renewable energy target. It could also include a policy meas ure, such as a quantiﬁable in-
+crease in carbon pricing by a certain time as a way to support t he achievement of an overall
+emissions reduction target. Must be a national target, not g lobal.
+A.3 M ODEL PERFORMANCE COMPARISONS
+The models investigated were RoBERTa-base (Liu et al. (2019 )), DistilRoBERTa-base (Sanh et al.
+(2019)) and climatebert/distilroberta-base-climate-f ( Webersinke et al. (2022)), with the model per-
+formances summarised in Table 4. RoBERTa-base had the best p erformance, only outperforming
+8Published as a conference paper at ICLR 2024
+ClimateBERT (82.4M) DistilRoBERTa-base (82.8M) RoBERTa- base (355M)
+NZTprecision 0.777 (0.043) 0.758 (0.047) 0.819 (0.02)
+recall 0.911 (0.042) 0.754 (0.058) 0.799 (0.048)
+f1 0.837 (0.023) 0.754 (0.017) 0.808 (0.021)
+Reductionprecision 0.827 (0.063) 0.81 (0.013) 0.843 (0.031)
+recall 0.914 (0.045) 0.9 (0.038) 0.911 (0.022)
+f1 0.867 (0.036) 0.852 (0.014) 0.876 (0.027)
+Otherprecision 0.801 (0.022) 0.807 (0.019) 0.824 (0.019)
+recall 0.889 (0.016) 0.864 (0.047) 0.895 (0.02)
+f1 0.842 (0.008) 0.834 (0.024) 0.858 (0.004)
+allprecision 0.803 (0.02) 0.799 (0.012) 0.829 (0.013)
+recall 0.9 (0.003) 0.856 (0.033) 0.884 (0.021)
+f1 0.849 (0.012) 0.826 (0.014) 0.855 (0.012)
+Table 4: Model performances per label and overall
+ClimateBERT by 0.006 on the overall F1 score. Climatebert’s size (more than 4x smaller model)
+and balanced performance (outperforming RoBERTa-base on t he ”Net Zero” label by 0.029) were
+the main factors behind our selection of it as the base model.
+A.4 H YPERPARAMETERS FOR MODEL TRAINING
+value
+seed 42
+optim adamw torch
+adam beta1 0.9
+adam beta2 0.999
+model type roberta
+adam epsilon 0.0
+warmup steps 100
+weight decay 0.01
+learning rate 0.00002
+num train epochs 5
+lrscheduler type linear
+hidden dropout prob 0.1
+perdevice eval batch size 24
+gradient accumulation steps 1
+perdevice train batch size 16
+attention probs dropout prob 0.1
+A.5 T OPIC MODELLING ON ’OTHER ’ TARGETS
+A.5.1 P RE-PROCESSING STEP
+To ensure processes heuristics were applied to extract sent ence likely to contain a quantiﬁed target
+from each paragraph predicted as containing a target. These heuristics were whether the sentence
+contained the word ’target’ (not case-sensitive), or any en tity expressing a date, amount or measure-
+ment (DATE ,CARDINAL ,QUANTITY ,PERCENT ) as predicted by spaCy’s (Montani et al. (2023))
+encoreweblgmodel. Paragraphs that metadata extraction were run on were the sentences that
+the heuristics predicted as containing quantiﬁed targets c oncatenated, or the entire paragraph if no
+sentences in the original paragraph were predicted by the he uristics.
+9Published as a conference paper at ICLR 2024
+A.5.2 T OPIC MODELLING
+BERTopic (Grootendorst (2022), parameters in Table 5) was r un on pre-processed paragraphs pre-
+dicted as ’Other’ to generate 60 topics. Seed topics were ite ratively reﬁned, and the ﬁnal list of
+topics was grouped into 9 higher-level topics, with irrelev ant-seeming topics discarded.
+These 9 topics, in descending order of frequency, are:
+• Renewables (general)
+• Agriculture, forests & ﬁsheries
+• Miscellaneous
+• Transport
+• Electricity, infrastructure & energy efﬁciency
+• Waste, water & plastic
+• Social wellbeing (health, education and social housing)
+• Wind & solar
+• Built environment & construction
+Table 5: BERTopic conﬁguration
+Parameter Value
+nrtopics 60
+topnwords 8
+seed topics ”energy efﬁciency”
+”renewable energy”
+”energy sources”
+”land use”
+”forests”, ”forest cover”
+”deforestation and reforestation”
+embedding model sentence-transformers/all-MiniLM-L6-v2
+representation model KeyBERT (Grootendorst (2020))
+vectorizer model CountVectorizer
+vectorizer ngram range (1,3)
+vectorizer min df 5
+vectorizer stop words ”english”
+10

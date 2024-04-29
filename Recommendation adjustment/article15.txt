@@ -1,0 +1,938 @@
+Springer Nature 2023 L ATEX template
+Fear over Friends: Examining the Perceived
+Influence of Others on Vaccination Decisions
+Denise Yewell1, R. Alexander Bentley2and Benjamin D.
+Horne1*
+1School of Information Sciences, University of Tennessee,
+Knoxville, Knoxville, TN, USA.
+2Anthropology Department, University of Tennessee, Knoxville,
+Knoxville, TN, USA.
+*Corresponding author(s). E-mail(s): bhorne6@utk.edu;
+Contributing authors: dyewell@vols.utk.edu; rabentley@utk.edu;
+Abstract
+In this study, we examine the perceived influence of others, across both
+strong and weak social ties, on vaccination decisions in the United
+States. In particular, we focus on the case study of COVID-19 vac-
+cinations. We add context to social influence by measuring related
+concepts, such as perceived agreement of others and perceived danger
+of COVID-19 to others. We find that vaccinated populations perceived
+more influence from their social circles than unvaccinated populations.
+This finding holds true across various social groups, including fam-
+ily, close friends, co-workers, and neighbors. Indirect measures of social
+influence also followed this trend. Vaccinated participants perceived
+COVID-19 as more dangerous to their social circles than unvacci-
+nated participants and perceived that others agreed with their decision
+to get vaccinated more than unvaccinated participants perceived oth-
+ers to agree with their decision to not get vaccinated. Despite the
+clear differences in perceived social influence across the groups, we
+find through open-ended responses that both vaccinated and unvacci-
+nated participants frequently cited fear as a motivating factor in their
+decision, rather than social influence: vaccinated participants feared
+COVID-19, while unvaccinated participants feared the vaccine itself.
+Keywords: social influence, vaccination, vaccine hesitancy, anti-vaccination
+attitudes, community health, COVID-19
+1arXiv:2404.01489v1  [cs.SI]  1 Apr 2024Springer Nature 2023 L ATEX template
+2 Fear over Friends: Vaccination Decisions
+1 Introduction
+One thing learned from COVID-19 is that the spread of a pandemic in
+nations around the world depended on not only on accurate epidemiological
+information and government responses [1–8] but also the varied behaviors of
+individuals, groups, and cultures [9–14]. Since culture is the context for behav-
+ior [12, 15], and cultural values vary substantially across the world [2, 16, 17],
+the effect of COVID-19 in terms of cases and deaths, was affected not only by
+government actions but by cultural values in their populations [14].
+These varied behaviors have been well studied, particularly early in the
+COVID-19 pandemic, before vaccines were widely available. These studies have
+used socioeconomic and public health variables to explain COVID-19 variation
+within the United States [18, 19] and also globally [20]. In the context of the
+literature on the effect of socioeconomic factors on COVID-19 [2–12], cultural
+effects have been examined in concert with known risks such as obesity and
+advanced age, together with variables describing government efficiency and
+public trust in institutions [14, 19].
+In terms of the behavioral dynamics of vaccination, those who are not vacci-
+nated may feel less urgency due to a lowered perceived risk of infection [21–23].
+Furthermore, even those infected with a coronavirus or flu, may not exhibit
+obvious symptoms to others [24] and inadequate testing of populations [6] can
+mean that the majority of infections in a population are undocumented [6, 24–
+27]. This can lead individuals to underestimate the risk of a virus, especially in
+lieu of more overt socio-economic concerns in people’s daily lives [28, 29]. Social
+influence from peers may be weak because—unlike visible protections such
+as mask-wearing or conspicuous lack of people in public spaces—vaccination
+is often comparatively less visible. In this situation, the perceived benefits
+of vaccination may be outweighed by economic and/or psychological costs
+[9, 29–31].
+The complexity of the levels of voluntary vaccination lies in the multi-
+ple drivers of behavioral change, including information and social learning
+[10, 11, 32–35]. Ideally, decisions would be determined by their intrinsic pay-
+offs within their socio-ecological environment [36]. In the real world, decisions
+are made by people who combine observational learning, which produces noisy
+information, and social learning, which diffuses that information to others
+[37, 38]. The transparency of learning is a crucial parameter [39]; the less
+transparent the payoffs are, the more noise and heterogeneity enters into the
+behavioral dynamics [40–42]. While humans are motivated to avoid cues associ-
+ated with pathogens, through emotions such as fear or disgust [43], COVID-19
+and similar viruses display few cues in asymptomatic cases [44].
+These considerations suggest that drivers of social distancing include two
+dynamic factors: observable risks and observable behaviors. In everyday life, we
+may expect more intimate social influence, such as advice from parents or other
+close family members, to be the strongest for vaccinations. Vaccination can be
+made more visible of course through public outreach, but its acceptance will
+vary based on group norms and potentially large differences in risk perceptionSpringer Nature 2023 L ATEX template
+Fear over Friends: Vaccination Decisions 3
+due to misinformation. Acceptance may also vary based on a range of cultural
+memory effects, such as the past misuse of vaccination on marginalized groups.
+In contrast, if genuine benefits of vaccination become more transparent to the
+public, individual cost-benefit decisions can support the behavior spreading
+through social influence [11, 32, 45–47].
+Here we examine one facet of this complex problem: the perceived social
+influence of others on vaccination decisions. While prior work has shown that
+social influence matters in an array of health-related decisions, including social
+distancing and mask wearing during the COVID-19 pandemic [48], examining
+social influence on COVID-19 vaccine decisions has had comparably less study,
+particularly across strong and weak social ties. Hence, our work seeks to fill
+this gap and add robustness to the current findings in the literature. More
+broadly, further work in this area adds to our understanding of the interactions
+between socio-cultural dynamics and health-related decision making.
+Our four research questions are as follows:
+•RQ1: Does the perception of social influence on vaccination decisions change
+across vaccinated and unvaccinated populations?
+•RQ2: Does the perception of social agreement with vaccination decisions
+change across vaccinated and unvaccinated populations?
+•RQ3: Does the perceived danger of COVID-19 to others change across
+vaccinated and unvaccinated populations?
+•RQ4: If not by social influence, what other reasons do vaccinated and
+unvaccinated populations think influence their vaccination decision?
+2 Methods
+To answer our core research questions, we designed and deployed a survey on
+the online survey platform Prolific (prolific.co). The survey contained ques-
+tions on demographics, perceived influence of varying social circles, perceived
+agreement of varying social circles, perceived danger of COVID-19 to varying
+social circles, and an open-ended reasoning question.
+On May 1st 2021, we deployed a pilot survey for 15 participants to measure
+if our estimated survey time and payment amount were correct. There were
+no issues found during the pilot, so the same payment parameters and ques-
+tions were used in two more batches of survey deployment on May 2nd 2021.
+The pilot survey was given to any Prolific user in the United States, whether
+they had been vaccinated for COVID-19 or not. However, to ensure balance
+of vaccinated and unvaccinated participants, we deployed the actual survey to
+two pre-screened groups provided by Prolific: participants who were vaccinated
+for COVID-19 and participants who were unvaccinated for COVID-19. Using
+these two panels of participants, we deploy the survey for approximately 500
+participants in each group. According to Prolific, 1,306 participants were eli-
+gible to take our survey in the unvaccinated U.S. group and 8,569 participants
+were eligible to take our survey in the vaccinated U.S. group.Springer Nature 2023 L ATEX template
+4 Fear over Friends: Vaccination Decisions
+The median time per participant in the pilot study was just over 3 minutes,
+in the unvaccinated group study it was 4 minutes and in the vaccinated group
+study it was 3 minutes. All participants lived in the United States and were
+paid $1.00 for survey completion. This survey was approved by The University
+of Tennessee’s IRB.
+We provide details about each type of question below.
+First, we collected several types of demographic information for comparison
+to previous studies on COVID-19 vaccination and related behaviors. These
+demographic questions included:
+•Political leaning - We asked “What is your political leaning?” . Participants
+could answer on a 5-point scale: very liberal ,liberal ,moderate ,conservative ,
+orvery conservative .
+•Rural-urban residency - We asked participants to provide the U.S. zip code in
+which they currently reside. This question allowed us to map participants to
+Rural-Urban Continuum Codes from the U.S. Department of Agriculture1.
+Rural-Urban Continuum Codes range from 1 - counties in metro areas of 1
+million population or more - to 9 - counties that are completely rural or less
+than 2,500 urban population, not adjacent to a metro area.
+•Rural-urban identity - Following the questioning used in [49], we asked
+“Regardless of where you currently live, do you usually think of yourself as
+a city person, a suburban person, a small-town person, a rural or country
+person, or something else?”, giving us a 4-point scale from country person to
+city person with something else as an outlier. According to [49], rural social
+identification - “a psychological attachment to being from a rural area or
+small town” - is different than “simply living in a rural area”. Lunz Trujillo
+(2022) demonstrated this by showing that rural social identification predicts
+greater anti-intellectualism than rural residency alone. Hence, in our study
+we wanted to capture this psychological trait in addition to where one lives.
+•Education - We asked “What is your level of education?”. Participants could
+answer on a 7-point scale: less than high school ,high school graduate ,some
+college ,2 year degree ,4 year degree ,professional degree ,doctorate .
+•Income - We asked “What is your approximate household income?”. Par-
+ticipants could answer on a 12-point scale: less than $10,000 tomore than
+$150,000 .
+•Gender - We asked “How do you describe yourself?”. Participants could
+answer with one of four answers: male,female ,non-binary/third gender ,
+prefer not to say .
+•Race - We asked “What is your racial ethnicity?”. Participants could answer
+with one of seven answers: white ,black ,Asian ,Hispanic or Latino ,native
+American or Alaskan ,Native Hawaiian or Pacific Islander , orother
+Next, we asked participants “How much influence did each social group
+have on your decision to get vaccinated?” or “ How much influence did each
+social group have on your decision to not get vaccinated?” as a matrix Likert
+1https://www.ers.usda.gov/data-products/rural-urban-continuum-codes.aspxSpringer Nature 2023 L ATEX template
+Fear over Friends: Vaccination Decisions 5
+Scale question across five groups: family members ,close friends ,co-workers ,
+church or social club , and neighbors or community members . Participants could
+answer on a 5-point scale: none at all ,a little ,a moderate amount ,a lot, ora
+great deal .
+To add context to our question about social influence, we also asked par-
+ticipants about social agreement with their vaccination decision and their
+perceived danger of COVID-19 to others. Specifically, we asked participants
+“How much do you think each social group agrees with your decision to get
+vaccinated?” or “How much do you think each social group agrees with your
+decision to not get vaccinated?” as a matrix Likert Scale question across five
+groups: family members ,close friends ,co-workers ,church or social club , and
+neighbors or community members . Participants could answer on a 3-point scale:
+disagree ,do not care , or agree . We also asked participants “How likely do
+you think members of each social group are to get severe COVID-19 or die
+from COVID-19?” as a matrix Likert Scale question across five groups: fam-
+ily members ,close friends ,co-workers ,church or social club , and neighbors or
+community members . Participants could answer on a 5-point scale: extremely
+unlikely ,somewhat unlikely ,neither likely nor unlikely ,somewhat likely , or
+extremely likely .
+Next, we wanted to understand both the size of participants social circles
+and how much they trust members of their social circles. Hence, we asked
+participants “To the best of your ability, type in the first names or relation-
+ship titles (mother, best friend, cousin, co-worker, etc.) of each person you
+voluntarily had a conversation with in the past week.” and “Of those people
+you listed in the previous question, how many of them would you turn to for
+advice with a major personal problem?” to approximate the number of people
+they interact with on a regular basis and how much they trust those individu-
+als. This line of questioning is similar to the questions asked in prior work to
+approximate the size of one’s social circle [48, 50].
+Lastly, we asked “In your own words, why did you get a COVID-19 vac-
+cine?” or “In your own words, why did you not get a COVID-19 vaccine?”
+as an open-ended question to elicit reasoning outside of our social influence
+questions. Our goal with this question is to capture if participants primary
+reasoning for getting or not getting vaccinated is indeed based on social cues
+or if it is based on something else.
+In the data analyzed, we use data from both the pilot deployment and
+actual deployment, totalling to 1015 responses. After filtering out responses
+that did not pass our attention check question, we had 1000 survey responses
+to analyze between the three deployments, with 486 unvaccinated participants
+and 514 vaccinated participants.
+To analyze our ordered Likert Scale questions, we leverage ordinal logistic
+regression. Each model uses an ordered categorical question as the dependent
+variable and if the participant was in the vaccinated group or unvaccinated
+group has the independent variable. This method allows us to estimate changes
+in units of ordered logits between the two groups and if those changes areSpringer Nature 2023 L ATEX template
+6 Fear over Friends: Vaccination Decisions
+statistically significant. We describe this process in more detail in Section 3
+and Table 1.
+To analyze our open-ended reasoning question, we take a multi-round,
+open-coding approach. First, two of the authors individually went over the
+open-ended responses from the vaccinated group and the unvaccinated group
+to identify broad codes, continuing until the list of codes was stable. The two
+authors then discuss their codes to develop a combined list of codes, each
+with specific definitions of what reasoning fits into the category. The final
+set of codes can be found in Tables 3 and 4. Then the same two authors
+coded all of the responses for both groups (vaccinated and not). Since the
+respondents could describe as many reasons as they wanted, each participants
+response could fall into more than one category. After the second round of
+coding, agreement was computed, where a response is said to have agreement
+if all codes match across the two coders. In the unvaccinated group, 79.84% of
+the responses had full agreement, while the vaccinated group, 85.38% of the
+responses had full agreement. The two authors met again to discuss and resolve
+these conflicts. Disagreements in the unvaccinated group were mostly due to
+interpreting what entity was being distrusted (science, government, media,
+pharmaceutical companies, general), hence we merged these to a broader cat-
+egory of Distrust . For example, some response were very specific: “Because
+there’s not enough research to determine if it’s safe and I do not trust the
+government or media.” while others were more general: “i dont trust any of
+it”. Disagreements in the vaccinated group mostly were due to differentiating
+the categories Protect others versus Right thing to do . In this case, we
+opted for stricter definitions of each to avoid misinterpretation. For example, a
+response had to use the phrase “it was the right thing to do” to be included in
+the category Right thing to do , while calls to protecting others, such as “To
+protect my family, community” or “I wanted to protect others from catching
+Covid and help reduce the spread” were put in the category Protect others .
+Definitions and examples of the final agreed upon results can be found in
+Tables 2, 3, and 4.
+Lastly, for our questions on social circle size and trust, we manually parse
+and count the number of people listed by participants for each question. We
+do this task manually as participants format these lists in a variety of ways,
+making automated parsing prone to errors. The distributions of approximate
+social circle size and social circle trust across the vaccinated and unvaccinated
+groups are then analyzed quantitatively using a Mann-Whitney test.
+3 Results
+In Figure 2, we show the distributions of political leaning, rural-urban identity,
+and education. These demographics and others are included in our ordinal
+logistic regression analysis found in Table 1. Additionally, in Figure 1, we show
+a map of the U.S. counties in which survey participants resided in at the time
+of the survey.Springer Nature 2023 L ATEX template
+Fear over Friends: Vaccination Decisions 7
+Fig. 1 U.S. counties where at least one survey participant resides. Participants in our survey
+lived in 882 unique U.S. counties, with 471 counties represented in the vaccinated group and
+461 counties represented in the unvaccinated group.
+Fig. 2 Distributions of (a) political leaning, (b) rural-urban identity, and (c) education of
+vaccinated and unvaccinated participants.
+Across both the vaccinated and unvaccinated groups, participants
+described themselves as 40.7% male, 57.01% female, and 2.02% non-
+binary/third gender, and 86.1% white, 6.8% black, 3.5% Asian, 2.8% other, and
+0.8% Native American. There were no significant differences found between
+these demographics across the two groups.
+There were significant differences across other demographic traits, such as
+political leaning, rural-urban identity, rural residency, income, and education.
+Specifically, vaccinated participants were significantly more left leaning, iden-
+tified more as city/suburban people, lived in more urban areas, had higher
+income, and more education.
+These demographic differences align closely with results from previous
+work. For example, reports from The COVID States project2found that peo-
+ple who lived in city/suburban areas, had more education, and had higher
+income, had significantly higher vaccination rates and greater support for vac-
+cine requirements [51, 52]. Other studies have shown that rural residents are
+“significantly less likely to participate in COVID-19-related preventive health
+behaviors [53]” and that rural residents have higher rates of vaccine resistance
+[51]. Further, as stated by Green et al. (2022), “partisanship remain[s] the
+2https://www.covidstates.org/Springer Nature 2023 L ATEX template
+8 Fear over Friends: Vaccination Decisions
+most stable and sizable gap” in COVID-19 behaviors and attitudes [54]. Prior
+work has shown that vaccine hesitancy is significantly higher for those who
+identify as Republications than those who identify as Democrats [55–59]. The
+demographic results from our survey provide further robustness to these prior
+findings.
+Next, we examine our core survey questions capturing the perceived influ-
+ence of others on vaccine decisions and the perceived agreement of others with
+vaccine decisions. In Table 1 we show the results of our ordinal logistic regres-
+sion analysis over the perceived influence and agreement across theoretically
+strong and weak social ties.
+At a high level, no matter the social group, vaccinated participants
+perceived significantly higher influence from others and significantly higher
+agreement with others than participants who were not vaccinated. For exam-
+ple, from Table 2, given that the coefficient estimates from our regression
+analysis are given in units of ordered logits or ordered log odds, we can say
+that for one unit increase in the independent variable (going from notoyes
+for the question “Have you received one or both shots for COVID-19?”), we
+expect a 1.0974 increase in the expected value of perceived influence of close
+friends (ordered as a 5-point scale from None at all toA great deal ), meaning
+that vaccinated participants perceived significantly more influence from their
+close friends than participants who are unvaccinated. Similarly, we can say
+that we expect a 2.2421 increase in the value of perceived agreement of close
+friends with the participants vaccination decisions (ordered as a 3-point scale
+from disagree toagree ), indicating vaccinated participants perceived that their
+close fiends agreed with their decision to get vaccinated significantly more than
+participants who were not vaccinated (i.e. close friends disagree with their
+decision to not get vaccinated). The only exception to this finding is the per-
+ceived influence of one’s ‘Church or Social club’ - which showed no significant
+differences between the vaccinated and not vaccinated groups. Further, the
+perceived influence and agreement weakens slightly (although not consistently)
+as we move from theoretically stronger relationships to weaker relationships
+(e.x. family to neighbors), yet statistically significant differences between the
+vaccination groups still remain across the social circles.
+These findings align with the findings of previous work. Tun¸ cgen¸ c et al.
+(2021) showed that the perceived approval and adherence of others to social
+distancing during COVID-19 predicted participant’s adherence to social dis-
+tancing, particularly when others within one’s close social circle approved and
+adhered to pandemic guidelines [48]. However, this study did not demonstrate
+differences in perceived social influence between groups, rather the authors
+demonstrated that there is a relationship between individual adherence and
+perceptions of social circle adherence. We add nuance to this finding, by show-
+ing perceptions of influence and approval may not be symmetrically across
+groups (those who follow pandemic guidelines and those who do not).
+Next, we examine how the perceived danger of COVID-19 to varying social
+groups changes across vaccinated and unvaccinated participants. Specifically,Springer Nature 2023 L ATEX template
+Fear over Friends: Vaccination Decisions 9
+we ask: “How likely do you think members of each social group are to get severe
+COVID-19 or die from COVID-19?” - capturing an indirect social influence
+rather than a direct influence. It is reasonable to assume that if one believes
+COVID-19 is dangerous to their family and close friends, they may be more
+likely to get vaccinated to protect them.
+We find similarly divided results between the two groups. As shown in
+Table 2, we find that across all social groups vaccinated participants perceived
+COVID-19 as more dangerous to others than unvaccinated participants. While
+there are some variations across social groups (i.e. perceiving family as in more
+danger than close friends, etc.), those variations are not significantly different.
+While to the best of our knowledge, perceived danger of COVID-19 to
+specific social groups has not been studied, our results align with more general
+findings in the literature. Many factors have been shown to predict COVID-
+19 risk perceptions, such as personal experience with the virus and hearing
+about the virus from friends and family [60]. Hearing about the virus through
+friends and family was shown to be the strongest predictor of perceived risk,
+where risk includes both risk of self and risk of others contracting the virus
+[60]. Other non-social factors have also been shown to predict personal risk to
+COVID-19, including psychological factors and institutional trust [60, 61].
+(a) Family (b) Close Friends
+(c) Co-workers (d) Neighbors
+Fig. 3 Distributions of perceived influence on vaccination decision. Due to space restric-
+tions, we leave out the plot for “Church or Social Club”. Note the changes in the x-axis
+across the social groups.
+We can further contextualize our findings by approximating the size of and
+trust in participants social groups. While theoretically, our survey questions
+measure differences across strong and weak social ties, the strength of theSpringer Nature 2023 L ATEX template
+10 Fear over Friends: Vaccination Decisions
+Demographics
+Ordinal Question Coef 95% CI Interpretation
+Political Leaning -1.94*** -2.19 to -1.69 More liberal
+Rural-Urban Identity -0.64*** -0.87 to -0.41 More identify as city people
+Rural-Urban Residency -0.44*** -0.68 to -0.21 Live in more urban areas
+Income 0.63*** 0.42 to 0.85 Higher income
+Education 0.95*** 0.72 to 1.18 More educated
+Perceived Influence
+Ordinal Question Coef 95% CI Interpretation
+Family 1.07*** 0.84 to 1.31 More influenced
+Close friends 1.10*** 0.84 to 1.35 More influenced
+Co-workers 1.07*** 0.73 to 1.40 More influenced
+Church or Social club 0.38 -0.06 to 0.82 No difference
+Neighbors 1.22*** 0.86to 1.59 More influenced
+Perceived Agreement
+Ordinal Question Coef 95% CI Interpretation
+Family 1.93*** 1.64 to 2.22 More agreement
+Close friends 2.24*** 1.95 to 2.53 More agreement
+Co-workers 1.91*** 1.62 to 2.21 More agreement
+Church or Social club 1.05*** 0.77 to 1.33 More agreement
+Neighbors 1.77*** 1.46 to 2.07 More agreement
+Perceived Danger of COVID-19
+Ordinal Question Coef 95% CI Interpretation
+Family 0.68*** 0.46 to 0.91 More dangerous
+Close friends 0.49*** 0.26 to 0.71 More dangerous
+Co-workers 0.66*** 0.43 to 0.89 More dangerous
+Church or Social club 0.83*** 0.60 to 1.07 More dangerous
+Neighbors 0.84*** 0.61 to 1.07 More dangerous
+Table 1 Results from 20 ordinal regression models, where being vaccinated is the
+independent variable. If the 95% CI does not cross 0, the parameter estimate is statistically
+significant, also shown by the p-value. Note, that *** indicates p <0.001 and ** indicates
+p <0.01. The coefficient estimates provided are given in units of ordered logits, or ordered
+log odds. So, for example, for the independent variable - ‘Have you received one or both
+shots for COVID-19?’ and the dependent variable ‘What is your political leaning?’- we
+would say that for a one unit increase in the IV (i.e., going from ‘No’ to ’Yes’), we expect a
+−1.94 decrease in the expected value of political leaning (ordered as Very Liberal toVery
+Conservative ) on the log odds scale, meaning vaccinated participants were more politically
+liberal. The interpretation column indicates a trait of vaccinated participants.
+ties between participants and these groups likely changes across individuals.
+Hence, here we utilize the answers to the questions asked about voluntary
+conversations participants had within the past week and the county in which
+participants lived during the pandemic, as described in the methods section
+above.Springer Nature 2023 L ATEX template
+Fear over Friends: Vaccination Decisions 11
+We find that on average, participants in the unvaccinated group had con-
+versations with 4.02 people (median 4 people, standard deviation 2.45) in the
+week prior to the survey and trusted 2.27 of them (median 2 people, standard
+deviation 1.64). On average, participants in the vaccinated group had conver-
+sations with 5.26 people (median 4 people, standard deviation 4.83) in the
+week prior to the survey and trusted 2.76 of them (median 3 people, standard
+deviation 2.03). Both groups trusted about 60% of those they had conversa-
+tions with in the past week, with 60.91% trusted in the vaccinated group and
+60.60% trusted in the unvaccinated group. Note, these approximate social cir-
+cle size numbers align with both pre-pandemic and during-pandemic numbers,
+which both showed a median close circle size of 4 people [48, 62].
+To better measure differences between the two groups, we perform a
+Mann-Whitney test on each pair of distributions, finding significant differ-
+ences between approximate social circle size (pvalue=1.6301e-07) and the
+number of individuals trusted (pvalue=1.8238e-05), but no significant dif-
+ference was found between the proportion of social circle members trusted
+(pvalue=0.9807). Hence, vaccinated participants interacted with slightly more
+people than unvaccinated, but trust in those people is no different between the
+groups.
+As another proxy for the number of people participants encounter, we can
+also look at the areas of the U.S. in which participants live. Overall, 51.62% of
+participants, resided in metro areas with 1 million population or more (RUCC
+1). More broadly, 86.36% of participants lived in metro counties (RUCCs 1
+through 3) and only 13.64% lived in nonmetro counties (RUCCs 4 through
+9). Of the vaccinated participants, 57.25% of participants, resided in metro
+areas of 1 million population or more, 89.02% lived in metro counties, and
+10.98% lived in nonmetro counties. Of the unvaccinated participants, 45.63%
+of participants, resided in metro areas of 1 million population or more, 83.54%
+lived in metro counties, and 16.46% lived in nonmetro counties.
+As shown in Table 1, when examining rural-urban residency using an
+ordered logistic regression model, we find that the vaccinated participants live
+in more urban areas than unvaccinated participants. Precisely, for one unit
+increase in the independent variable (going from notoyesfor the question
+“Have you received one or both shots for COVID-19?”), we expect a -0.4429
+decrease in the expected value of RUCC (ordered as a 9-point scale from 1 to
+9), which is statistically significant.
+Hence, both the approximations of the number of people participants inter-
+acted with prior to the survey (social circle size and residency) suggest that
+the vaccinated population interacted with more people than the unvaccinated
+population did. Theoretically, it makes sense that interacting with less peo-
+ple can impact one’s perceptions of COVID-19, as interacting with less people
+reduces the chance that one comes in close contact with someone who had been
+severely ill from COVID-19. In general, this idea is supported in the literature.
+For example, when studying vaccine messaging strategies, it was found thatSpringer Nature 2023 L ATEX template
+12 Fear over Friends: Vaccination Decisions
+“messages evoking harm reduction and people you know were more effective
+in counties where the virus is spreading more quickly. [63]”
+There are likely other confounding factors related to location that may
+have a significant impact on one’s pandemic-related decisions. For example,
+prior work has demonstrated that local news coverage during 2020 and 2021
+was best explained by national trends rather than by local conditions, and the
+themes of that coverage varied across counties in the U.S. [64]. Further, we
+know that there were urban-rural differences in COVID-19 behaviors, and that
+those behaviors changed depending on the news produced locally. Specifically,
+Kim et al. (2020) showed that “rural residents [were] more likely to engage in
+social distancing behavior than otherwise similar rural residents if their local
+news [was] produced in a city that is more impacted by COVID-19” [65]. Other
+work has shown wide variations in vaccine support across areas in the United
+States [56].
+Vaccinated Not Vaccinated
+Category % of Responses Category % of Responses
+Protect Self 74.27% Fear of Vaccine 36.65%
+Protect Others 54.77% Natural Immunity 7.41%
+Trust in Science 14.81% Distrust 6.24%
+Employer Mandate 2.53% Not True Vaccine 13.26%
+Return to Normal 7.41% Apathy 7.02%
+Social Pressure 2.73% Restricted Access 6.63%
+Trust in Social Circle 1.75% Low Risk of COVID-19 21.64%
+The Right Thing to Do 5.85% Infringement on Rights 2.73%
+Other 2.14% Conspiracy Theory 5.26%
+Other 2.53%
+Table 2 Percentage of responses that fit into each category across vaccination groups.
+Note, responses could use multiple categories of reasoning. Hence, the percentages will not
+add up to 100%. For definitions of each category, see Tables 4 and 3.
+Lastly, to capture reasoning that may not have been addressed by our
+ordinal-scaled questions, we ask an open ended question to all participants: “In
+your own words, why did you (not) get a COVID-19 vaccine?”. As discussed in
+Section 2, we take an open-coding approach to group responses into categories.
+The final set of categories and corresponding percentage of responses in the
+category can be found in Table 2. Detailed definitions of each category can be
+found in Tables 4 and 3.
+On average, participants in the unvaccinated group wrote more, produc-
+ing 140.18 characters on average (maximum 1651 characters, minimum 7
+characters) compared to only 89.77 characters on average in the vaccinated
+group (maximum 760 characters, minimum 12 characters). This often meant
+that participants in the unvaccinated group were listing many more reasons
+(or used very complex reasoning) for not getting vaccinated than vaccinated
+participants did for getting vaccinated.Springer Nature 2023 L ATEX template
+Fear over Friends: Vaccination Decisions 13
+The most frequent reason used by unvaccinated participants to not get
+vaccinated was fear of the vaccine, including fear of the vaccine itself or its
+side effects (36.65% of responses). For example:
+“I was concerned about the side effects and cost of possible medical treatment.
+I’ve reacted horribly to both the tetanus vaccine and flu vaccine.”
+“I am worried about potential side effects (mainly about long-term ones which are
+still currently unknown) and I don’t like needles.”
+“I do not believe the benefits outweigh the risks.”
+“The vaccine is dangerous and proven not to be 100% effective against the virus.
+And COVID is nothing more than the flu.”
+The second most frequent reason expressed was a perceived low risk of
+catching or becoming seriously ill from COVID-19 (21.64% of responses), align-
+ing with the results from our ordinal question on the perceived dangers of
+COVID-19 to others.
+Other reasons expressed included: claims that the vaccine was “not a
+true vaccine” (13.26% of responses), claims of natural immunity (7.41% of
+responses), distrust in institutions (6.24% of responses), and one or more con-
+spiracy theories (5.26% of responses). As with many of the responses from the
+unvaccinated participants, multiple of these categories were used together. For
+example, often there were overlaps between the categories Ineffective/Not
+True Vaccine andDistrust andConspiracy Theory ; such as:
+“It’s not a vaccine, it’s a biologic jab intended to kill people.”
+“You would have to be a fool to not see it for what it is at this point. I did not
+get it because it’s poison, intentional... technological... poison. Used to kill and
+control. And part of a larger agenda to get us used to passports, digital IDs and
+social credit.”
+“I do not trust the efficacy of the mRNA technology. I do not trust pharmaceutical
+companies that attempt to hide the results of trials for decades and have been
+granted total immunity from prosecution. I believe that adverse reactions have
+been underreported. I think the silencing and censoring of certain immunologists
+and virologists that have doubts about mRNA, and a substantial contingent of
+the medical community advocating for lockdowns and isolation except for massive
+gatherings for ”racial justice” have seriously weakened my level of trust in the
+scientific and medical communities as a whole. I combine this with the illogical
+insistence that ”masks work” despite overwhelming evidence that any type of face
+covering beyond type n-95 is ineffective.”
+“They are not real vaccines yet. Takes a few years. The side effects and deaths are
+extreme with many being hidden. Once one is made that actually is an immunology
+then I will look into it further. Right now it is a jab of chemicals.”
+“They are all under tested and mRNA vaccines were already deemed not safe for
+human trial due to mass death and vaccine indused autoimmune immune deficiency
+in all animal test groups. Good luck with that.”Springer Nature 2023 L ATEX template
+14 Fear over Friends: Vaccination Decisions
+Some of these findings align with prior work. For example, research from
+The COVID States project demonstrated that “the biggest expressed concern
+of the unvaccinated is the safety of the COVID-19 vaccines” and that the
+unvaccinated population is “more likely to be skeptical of the efficacy and
+safety of vaccines” [66]. Further, as others have argued, misinformation and
+conspiracy theories can play a role in COVID-19 decision making [67].
+Overall, vaccinated participants expressed very different reasons for getting
+vaccinated than unvaccinated participants expressed for not getting vacci-
+nated. The vast majority of vaccinated participants stated that they chose to
+get vaccinated to protect themselves and protect others (74.27% of responses
+contained protect self and 54.77% contained protect others), and typically
+used very short, simple reasoning. For example, the majority of the responses
+looked like the following:
+“To protect myself and my family, community.”
+“To protect myself and others”
+Other less frequent reasons by vaccinated participants included trust in sci-
+ence (14.81% of responses), desire to return to normal (7.41% of responses),
+and getting vaccinated being “the right thing to do” (5.85% of responses).
+Notably, participants explicitly stating they got vaccinated due to trusting in
+their social circle, either through direct advice from social circle, a request
+to get vaccinated from social circle, or family members also getting vacci-
+nated, only was present in 1.75% of responses. Further, social pressure, both
+directly from social circles or indirectly from social norms, was mentioned
+in only 2.73% of responses. Hence, while perceived social influence was high
+amongst vaccinated participants, it may not be the primary reasoning behind
+the decision.
+4 Discussion
+In this study, we found that vaccinated participants perceived more influence
+from and agreement with others than unvaccinated participants. The vacci-
+nated population also perceived COVID-19 as more dangerous to others than
+the unvaccinated population did. For context, we approximated that partic-
+ipants in the vaccinated population had larger social circles on average and
+lived in more densely populated areas. Hence, vaccinated participants had a
+higher likelihood of interacting with someone who had been severely ill or died
+from COVID-19 than unvaccinated participants. These results expand upon
+and add robustness to the findings of prior work on social influence during
+pandemic and epidemics [48].
+In contrast, social influence does not seem significant in deciding not to
+be vaccinated. In open-ended responses, unvaccinated participants most fre-
+quently cited fear of the vaccine and distrust in the institutions who make and
+support the vaccines.Springer Nature 2023 L ATEX template
+Fear over Friends: Vaccination Decisions 15
+While the primary goal of this study was to examine social influence, it is
+clear that social influence is not the only mechanism of impression in decision
+making. Other factors not directly measured in this study that likely also
+play a role in vaccination decisions include media consumption [64, 68–70] and
+individual, generational, and cultural memory [71–73]. Our qualitative results
+support this notion.
+Notably, despite vaccinated participants citing social influence at varying
+levels in their open-ended responses, they too were motivated by fear, fre-
+quently citing that they got vaccinated to protect themselves or to avoid dying
+from COVID-19.
+Fear and anxiety being a driver of health-related decision making is well-
+supported in the literature [74–76], including behaviors during the COVID-19
+pandemic. For example, Harper et al. (2021) found that from a sample of 324
+people from the U.K. that “the only predictor of positive behavior change
+(e.g., social distancing, improved hand hygiene) was fear of COVID-19 [77]”,
+including when controlling for political and ideological variables. When fear
+and anxiety motivates vaccination, this fear is functional (as Harper et al.
+(2021) puts it), but, as our study suggests, when fear and anxiety motivates not
+getting vaccinated, the fear may be counterproductive and even detrimental.
+In conclusion, we found that vaccinated populations perceived more influ-
+ence from their social circles than unvaccinated populations. This finding held
+true across various social groups, including family, close friends, co-workers,
+and neighbors. Similarly, we found that vaccinated participants perceived that
+others agreed with their decision to get vaccinated significantly more than
+unvaccinated participants perceived that others agreed with their decision to
+not get vaccinated. Indirect measures of social influence also followed this
+trend. Vaccinated participants perceived COVID-19 as more dangerous to their
+social circles than unvaccinated participants. Despite the clear differences in
+perceived social influence across the groups, we found through open-ended
+responses that both vaccinated and unvaccinated participants frequently cited
+fear as a motivating factor in their decision: vaccinated participants feared
+COVID-19, while unvaccinated participants feared the vaccine itself. Together,
+our results expand the current literature on vaccination behavior and add
+robustness to several previous findings.
+5 Limitations
+While we are confident in the results presented in this study, it is not without
+limitations. First, our work is limited in its reliance on self-reported/perceived
+effects - it is unlikely that perceived influence perfectly correlates with actual
+influence, which may happen passively or unconsciously. A report from Altay et
+al. (2022) shows a clear example of this effect, stating that “[c]onspiracy believ-
+ers were more likely to report relying less on social information than actually
+relying less on social information in the behavioral tasks” [78]. Our focus inSpringer Nature 2023 L ATEX template
+16 Fear over Friends: Vaccination Decisions
+this work is not on conspiracy believers; however, the general premise of report-
+ing the use of social information versus actual reliance on social information
+still applies. From this view, it may be that both vaccinated and unvaccinated
+populations rely on social information, but unvaccinated populations report
+using less of it than vaccinated populations.
+Second, as a whole, the survey data are not from a representative sample
+of the U.S. population, as clearly shown by the racial demographics in Section
+3. This bias is due to our method of balanced sampling across the vaccinated
+and unvaccinated groups. Systematically sampling this imbalanced variation
+allowed us to capture both vaccinated and unvaccinated people’s perceptions
+fairly. While this survey could be re-deployed on a truly representative sam-
+ple the U.S. population, there would be an imbalance in vaccinated versus
+unvaccinated participants, as the majority of the U.S. population is vacci-
+nated. Despite this limitation, our survey did cover a broad set of counties and
+demographics.
+Vaccinated
+Category Definition
+Protect Self Protecting self, to avoid bad illness, or to avoid death
+Protect Others Protecting others, including family, friends, community,
+neighbors, or “others”
+Trust in Science Specific mentions of trust in the science or vaccines
+Employer Mandate Specific mentions of employer mandate or job prospects
+Desire to Return to Normal Specific mentions of “return to normal”
+Social Pressure Various forms of social pressure, such as specific mentions
+of social pressure or indirect statements like: “not to look
+like an anti-vaxxer” or “not to be socially unacceptable”
+Trust in Social Circle Conversations with family or friends, family member ask-
+ing them to get vaccinated, family member also getting
+vaccinated, etc.
+The Right Thing to Do Specific mentions of getting vaccinated being “right thing
+to do”
+Other Response doesn’t fit into above categories
+Table 3 Qualitative Code Book definitions for the vaccinated group
+Funding: Participants in this study were paid through internal funds in the School
+of Information Sciences at UTK. No external funding was used for this study.
+Ethical Approval: All research was performed in accordance with relevant guide-
+lines/regulations applicable when human participants are involved (DeclarationSpringer Nature 2023 L ATEX template
+Fear over Friends: Vaccination Decisions 17
+Not Vaccinated
+Category Definition
+Fear of Vaccine Fear of the vaccine itself or the side effects from it. Some
+mention being afraid of dying from the vaccine, such as
+“There have been severe side effects and death after the
+vaccine.”
+Natural Immunity Specific mentions of having “natural immunity” includ-
+ing because of having COVID-19 already, because they
+take supplements, because “God” gave them an “immune
+system”, or belief that they “can fight COVID-19 off
+naturally”
+Not True Vaccine Statements of two general forms: 1. The vaccine is inef-
+fective because people can get COVID-19 after being
+vaccinated, or 2. The belief that the vaccine is ”not a true
+vaccine” for reasons related to “mRNA” not being a “true
+vaccine” or because it doesn’t always prevent catching
+COVID-19
+Distrust Specific mentions of distrusting science, the media, the
+government, “big pharma”, or “it”
+Apathy Did not care to get it or did not have time
+Restricted Access Participants have the intention to get the vaccine, but can-
+not due to health issues, lack of transportation, or family
+member not allowing them to get vaccinated
+Low Risk of COVID-19 Participant believes they are not at risk of getting COVID-
+19 or getting severely ill from COVID-19
+Infringement on Rights Participant did not get vaccinated because they do not like
+“being forced” to get vaccinated or out of the principle
+that “mandates are unacceptable in a free and democratic
+society”
+Conspiracy Theory Reasoning using one or more conspiracy theories, where
+there is a secret, over-arching, malicious plot by power-
+ful groups of people against those not in power, many are
+framed around blaming democrats, general government, or
+the media
+Other Response doesn’t fit into above categories
+Table 4 Qualitative Code Book definitions for the unvaccinated group
+of Helsinki). The research was approved by The University of Tennessee-
+Knoxville Human Research Protections Program (HRPP), which determined
+that the application was eligible for exempt status under 45 CFR 46.104.d,
+Category 2 ( https://www.hhs.gov/ohrp/regulations-and-policy/regulations/45-cfr-46/
+revised-common-rule-regulatory-text/index.html#46.101 ). Our application was determined
+to comply with proper consideration for the rights and welfare of human subjectsSpringer Nature 2023 L ATEX template
+18 Fear over Friends: Vaccination Decisions
+and the regulatory requirements for the protection of human subjects.
+Informed consent: As per the IRB application, informed consent was acquired
+from all participants in this survey. All participants were adults living the United
+States.
+Author’s contribution: DY: original idea, survey design, qualitative analysis.
+RAB: writing, literature review. BDH: survey design, quantitative analysis, qualita-
+tive analysis, writing, literature review.
+Conflict of interest: The authors have no competing interests related to this work.
+Data availability statement: Due to the sensitive nature of survey data, the data
+used in this study is only available upon request.
+Supplementary information Additional figures are provided in the Supplemental
+materials.
+References
+[1] Prather KA, Wang CC, Schooley RT. Reducing transmission of SARS-
+CoV-2. Science. 2020;368:1422–1424. https://doi.org/10.1126/science.
+abc6197.
+[2] Aksoy CG, Ganslmeier M, Poutvaara P. Public attention and policy
+responses to COVID-19 pandemic. IZA Discussion Papers. 2020;13427.
+https://doi.org/10.2139/ssrn.3643191.
+[3] Hale T, Petherick A, Phillips T, Webster S. Variation in Govern-
+ment Responses to COVID-19. Oxford Blavatnik School of Government
+Working Papers. 2020;BSG-WP-2020/031.
+[4] Bedford J, Enria D, Giesecke J, Heymann D, Ihekweazu C, Kobinger
+G, et al. COVID-19: towards controlling of a pandemic. The Lancet.
+2020;395:1015–1018. https://doi.org/10.1016/S0140-6736(20)30673-5.
+[5] Frey CB, Chen C. Democracy, Culture, and Contagion: Political Regimes
+and Countries Responsiveness to Covid-19; 2020. .
+[6] Munster VJ, Koopmans M, van Doremalen N, van Riel D, de Wit
+E. A novel coronavirus emerging in China—key questions for impact
+assessment. New England Journal of Medicine. 2020;382(8):692–694.
+[7] Chowell G, Mizumoto K. The COVID-19 pandemic in the USA: What
+might we expect? The Lancet. 2020;395:1093–1094.
+[8] Zhang QB Weituo and. Making decisions to mitigate COVID-19 with
+limited knowledge. The Lancet Infectious Diseases. 2020;20:1121–1122.Springer Nature 2023 L ATEX template
+Fear over Friends: Vaccination Decisions 19
+[9] Maharaj S, Kleczkowski A. Controlling epidemic spread by social
+distancing: Do it well or not at all. BMC Public Health. 2012;12(1):679.
+[10] Funk S, Salath´ e M, Jansen VAA. Modelling the influence of human
+behaviour on the spread of infectious diseases: a review. J R Soc Interface.
+2010;106:1247–1256.
+[11] Guiteras R, Levinsohn J, Mobarak A. Encouraging sanitation invest-
+ment in the developing world: A cluster-randomized trial. Science.
+2015;348:903–906.
+[12] Zhang J, Centola D. Social networks and health: new developments in
+diffusion, online and offline. Annual Review of Sociology. 2019;45:91–109.
+[13] Gharzai LA, Beeler WH, Jagsi R. Playing into Stereotypes: Engag-
+ing Millennials and Generation Z in the COVID-19 Pandemic Response.
+Advances in Radiation Oncology. 2020;.
+[14] Ruck DJ, Borycz J, Bentley RA. Cultural values predict national COVID-
+19 death rates. Springer Nature Social Sciences. 2021;1:article 74.
+[15] Gelfand MJ, Jackson JC, Pan X, Nau DS, Pieper D, Denison E, et al. The
+relationship between cultural tightness–looseness and COVID-19 cases
+and deaths: a global analysis. The Lancet Planetary Health. 2021;5:e135
+– e144.
+[16] Inglehart R, Welzel C. Modernization, Cultural Change, and Democracy:
+The Human Development Sequence. Cambridge University Press.; 2005.
+[17] Ruck DJ, Matthews LJ, Kyritsis T, Atkinson QD, Bentley RA. The
+cultural foundations of modern democracies. Nature Human Behaviour.
+2019;4:265–269.
+[18] Desmet K, Wacziarg R. Understanding Spatial Variation in Covid-19
+Across the United States. CEPR Discussion Paper Series. 2020;.
+[19] Ruck DJ, Bentley RA, Borycz J. Early warning of vulnerable counties
+in a pandemic using socio-economic variables. Economics and Human
+Biology. 2021;41:100988 – 100988.
+[20] de Oliveira RP, alberto Achcar J, Nunes AA. Modeling the incidence
+and death rates of COVID-19 pandemic in different regions of the world.
+Epidemiologic Methods. 2020;9.
+[21] Verelst F, Willem L, Beutels P. Behavioural change models for infectious
+disease transmission: a systematic review (2010–2015). Journal of The
+Royal Society Interface. 2016;13(125):20160820.Springer Nature 2023 L ATEX template
+20 Fear over Friends: Vaccination Decisions
+[22] Fineberg HV. The paradox of disease prevention: celebrated in principle,
+resisted in practice. Jama. 2013;310(1):85–90.
+[23] Jansen VA, Stollenwerk N, Jensen HJ, Ramsay M, Edmunds W, Rhodes
+C, et al. Measles outbreaks in a population with declining vaccine uptake.
+Science. 2003;301(5634):804–804.
+[24] Li R, Pei S, Chen B, et al. Substantial undocumented infection facilitates
+the rapid dissemination of novel coronavirus (SARS-CoV2)[published
+online ahead of print March 16, 2020]. Science;10.
+[25] Bendavid E, Mulaney B, Sood N, Shah S, Ling E, Bromley-Dulfano
+R, et al. COVID-19 Antibody Seroprevalence in Santa Clara County,
+California. medRxiv. 2020;.
+[26] Baud D, Qi X, Nielsen-Saines K, Musso D, Pomar L, Favre G. Real esti-
+mates of mortality following COVID-19 infection. The Lancet infectious
+diseases. 2020;20(7):773.
+[27] Marchant R, Samia NI, Rosen O, Tanner MA, Cripps S. Learning as we
+go: An examination of the statistical accuracy of COVID19 daily death
+count predictions. arXiv preprint arXiv:200404734. 2020;.
+[28] Mani A, Mullainathan S, Shafir E, Zhao J. Poverty impedes cognitive
+function. science. 2013;341(6149):976–980.
+[29] Trueblood J, Sussman A, O’Leary D, Holmes W. A tale of two crises:
+Financial constraint and perceptions of COVID-19. 2020;.
+[30] Pritchard AJ, Silk MJ, Carrignon S, Bentley RA, Fefferman NH. Balanc-
+ing timeliness of reporting with increasing testing probability for epidemic
+data. Infectious Disease Modelling. 2022;7:106 – 116.
+[31] Greenstone M, Nigam V. Does social distancing matter? University
+of Chicago, Becker Friedman Institute for Economics Working Paper.
+2020;(2020-26).
+[32] Carrignon S, Bentley RA, Silk MJ, Fefferman NH. How social learning
+shapes the efficacy of preventative health behaviors in an outbreak. PLoS
+ONE. 2022;17.
+[33] Christakis NA, Fowler JH. Social contagion theory: examining
+dynamic social networks and human behavior. Statistics in medicine.
+2013;32(4):556–577.
+[34] Bentley RA, Earls M, O’Brien MJ. I’ll have what she’s having: Mapping
+social behavior. MIT Press; 2011.Springer Nature 2023 L ATEX template
+Fear over Friends: Vaccination Decisions 21
+[35] Silk MJ, Carrignon S, Bentley RA, Fefferman NH. Observations and
+conversations: how communities learn about infection risk can impact
+the success of non-pharmaceutical interventions against epidemics. BMC
+Public Health. 2022;22.
+[36] Gibson MA, Lawson DW. Applying evolutionary anthropology. Evolu-
+tionary Anthropology: Issues, News, and Reviews. 2015;24(1):3–14.
+[37] Hoppitt W, Laland KN. Social learning: an introduction to mechanisms,
+methods, and models. Princeton University Press; 2013.
+[38] Rendell L, Boyd R, Enquist M, Feldman MW, Fogarty L, Laland
+KN. How copying affects the amount, evenness and persistence of cul-
+tural knowledge: insights from the social learning strategies tournament.
+Philosophical Transactions of the Royal Society B: Biological Sciences.
+2011;366(1567):1118–1128.
+[39] Hauser OP, Rand DG, Peysakhovich A, Nowak MA. Cooperating with
+the future. Nature. 2014;511(7508):220–223.
+[40] Li J, Lee LF. Binary Choice under Social Interactions: An Empirical
+Study with and without Subjective Data on Expectations. Journal of
+Applied Econometrics. 2009;24(2):257–281.
+[41] Caiado CC, Brock WA, Bentley RA, O’Brien MJ. Fitness landscapes
+among many options under social influence. Journal of Theoretical
+Biology. 2016;405:5–16.
+[42] Vidiella B, Carrignon S, Bentley RA, O’Brien MJ, Valverde S. A cultural
+evolutionary theory that explains both gradual and punctuated change.
+Journal of the Royal Society Interface. 2022;19:20220570. https://doi.
+org/10.1098/rsif.2022.0570.
+[43] Schrock JM, Snodgrass JJ, Sugiyama LS. Lassitude: The emotion of being
+sick. Evolution and Human Behavior. 2020;41(1):44–57.
+[44] Kronbichler A, Kresse D, Yoon S, Lee KH, Effenberger M, Shin JI.
+Asymptomatic patients as a source of COVID-19 infections: A system-
+atic review and meta-analysis. International journal of infectious diseases.
+2020;98:180–186.
+[45] Silk MJ, Carrignon S, Bentley RA, Fefferman NH. Improving pandemic
+mitigation policies across communities through coupled dynamics of risk
+perception and infection. Proceedings of the Royal Society B. 2021;288.
+[46] Pritchard AJ, Silk MJ, Carrignon S, Bentley RA, Fefferman NH. How
+reported outbreak data can shape individual behavior in a social world.Springer Nature 2023 L ATEX template
+22 Fear over Friends: Vaccination Decisions
+Journal of Public Health Policy. 2022;43:360 – 378.
+[47] Banerjee A, Chandrasekhar AG, Duflo E, Jackson MO. The diffusion of
+microfinance. Science. 2013;341(6144):1236498.
+[48] Tun¸ cgen¸ c B, El Zein M, Sulik J, Newson M, Zhao Y, Dezecache G, et al.
+Social influence matters: We follow pandemic guidelines most when our
+close circle does. British Journal of Psychology. 2021;112(3):763–780.
+[49] Lunz Trujillo K. Rural Identity as a Contributing Factor to Anti-
+Intellectualism in the US. Political behavior. 2022;p. 1–24.
+[50] Dunbar RI, Spoors M. Social networks, support cliques, and kinship.
+Human nature. 1995;6(3):273–290.
+[51] Lazer D, Ognyanova K, Baum MA, Druckman J, Green J, Gitomer A,
+et al. The COVID States Project# 43: COVID-19 vaccine rates and
+attitudes among Americans. OSF Preprints. 2021;10.
+[52] Baum M, Quintana A, Simonson MD, Lazer D, Ognyanova K, Chwe
+H, et al. The COVID States Project# 52: Public support for vaccine
+requirements. 2021;.
+[53] Callaghan T, Lueck JA, Trujillo KL, Ferdinand AO. Rural and urban dif-
+ferences in COVID-19 prevention behaviors. The Journal of Rural Health.
+2021;37(2):287–295.
+[54] Green J, Druckman JN, Baum MA, Lazer D, Ognyanova K, Simonson
+MD, et al. Using general messages to persuade on a politicized scientific
+issue. British Journal of Political Science. 2022;p. 1–9.
+[55] Reiter PL, Pennell ML, Katz ML. Acceptability of a COVID-19 vac-
+cine among adults in the United States: How many people would get
+vaccinated? Vaccine. 2020;38(42):6500–6507.
+[56] Perlis R, Lazer D, Ognyanova K, Baum M, Santillana M, Druckman
+J, et al. The COVID States Project# 9: Will Americans vaccinate
+themselves and their children against COVID-19. 2020;.
+[57] Khubchandani J, Sharma S, Price JH, Wiblishauser MJ, Sharma M,
+Webb FJ. COVID-19 vaccination hesitancy in the United States: a rapid
+national assessment. Journal of community health. 2021;46(2):270–277.
+[58] Milligan MA, Hoyt DL, Gold AK, Hiserodt M, Otto MW. COVID-
+19 vaccine acceptance: Influential roles of political party and religiosity.
+Psychology, Health & Medicine. 2021;p. 1–11.Springer Nature 2023 L ATEX template
+Fear over Friends: Vaccination Decisions 23
+[59] Clinton J, Cohen J, Lapinski J, Trussler M. Partisan pandemic: How
+partisanship and public health concerns affect individuals’ social mobility
+during COVID-19. Science advances. 2021;7(2):eabd7204.
+[60] Dryhurst S, Schneider CR, Kerr J, Freeman AL, Recchia G, Van Der Bles
+AM, et al. Risk perceptions of COVID-19 around the world. Journal of
+Risk Research. 2020;23(7-8):994–1006.
+[61] Yıldırım M, G¨ uler A. Factor analysis of the COVID-19 Perceived Risk
+Scale: A preliminary study. Death studies. 2022;46(5):1065–1072.
+[62] Hill RA, Dunbar RI. Social network size in humans. Human nature.
+2003;14(1):53–72.
+[63] Green J, Lazer D, Baum M, Druckman J, Uslu A, Simonson MD,
+et al. The covid states project# 36: Evaluation of covid-19 vaccine
+communication strategies. 2021;.
+[64] Joseph K, Horne BD, Green J, Wihbey JP. Local News Online and
+COVID in the US: Relationships among Coverage, Cases, Deaths, and
+Audience. In: Proceedings of the International AAAI Conference on Web
+and Social Media. vol. 16; 2022. p. 441–452.
+[65] Kim E, Shepherd ME, Clinton JD. The effect of big-city news on rural
+America during the COVID-19 pandemic. Proceedings of the National
+Academy of Sciences. 2020;117(36):22009–22014.
+[66] Uslu A, Lazer D, Perlis RH, Baum M, Quintana A, Ognyanova K, et al.
+The COVID States Project# 63: The decision to not get vaccinated, from
+the perspective of the unvaccinated. 2021;.
+[67] Pierri F, Perry BL, DeVerna MR, Yang KC, Flammini A, Menczer F,
+et al. Online misinformation is linked to early COVID-19 vaccination
+hesitancy and refusal. Scientific reports. 2022;12(1):5966.
+[68] Schulhofer-Wohl S, Garrido M. Do newspapers matter? Short-run and
+long-run evidence from the closure of The Cincinnati Post. Journal of
+media economics. 2013;26(2):60–81.
+[69] Hayes D, Lawless JL. As local news goes, so goes citizen engagement:
+Media, knowledge, and participation in US House Elections. The Journal
+of Politics. 2015;77(2):447–462.
+[70] Gentzkow M, Shapiro JM, Sinkinson M. The effect of newspaper entry and
+exit on electoral politics. American Economic Review. 2011;101(7):2980–
+3018.Springer Nature 2023 L ATEX template
+24 Fear over Friends: Vaccination Decisions
+[71] Loftus EF. Planting misinformation in the human mind: A 30-year
+investigation of the malleability of memory. Learning & memory.
+2005;12(4):361–366.
+[72] Lesthaeghe R. The second demographic transition: A concise overview
+of its development. Proceedings of the National Academy of Sciences.
+2014;111(51):18112–18115.
+[73] Ruck DJ, Matthews LJ, Kyritsis T, Atkinson QD, Bentley RA. The
+cultural foundations of modern democracies. Nature human behaviour.
+2020;4(3):265–269.
+[74] Turk T, Ewing MT, Newton FJ. Using ambient media to promote
+HIV/AIDS protective behaviour change. International Journal of Adver-
+tising. 2006;25(3):333–359.
+[75] Devlin E, Eadie D, Stead M, Evans K. Comparative study of young
+people’s response to anti-smoking messages. International Journal of
+Advertising. 2007;26(1):99–128.
+[76] Krishen AS, Bui M. Fear advertisements: Influencing consumers to
+make better health decisions. International Journal of Advertising.
+2015;34(3):533–548.
+[77] Harper CA, Satchell LP, Fido D, Latzman RD. Functional fear pre-
+dicts public health compliance in the COVID-19 pandemic. International
+journal of mental health and addiction. 2021;19:1875–1888.
+[78] Altay S, Nera K, Ejaz W, Sch¨ opfer C, Tomas F. Conspiracy Believers
+Underuse Social Information (Like Everyone Else). 2022;.

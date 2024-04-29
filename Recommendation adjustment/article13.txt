@@ -1,0 +1,440 @@
+IEEE Copyright © 2023. Personal use of this material is permitted.
+Permission from IEEE must be obtained for all other uses, in any current or future media, including reprinting/republishing
+this material for advertising or promotional purposes, creating new collective works, for resale or redistribution to servers or
+lists, or reuse of any copyrighted component of this work in other works.
+Accepted to be Published in: Proceedings of the 2024 IEEE PES General Meeting,
+21-25 July 2024, Seattle, WA, USA.arXiv:2404.01646v1  [cs.LG]  2 Apr 2024Transformer meets wcDTW to improve real-time
+battery bids: A new approach to scenario selection
+Sujal Bhavsar
+Ascend Analytics
+Boulder, USA
+0000-0002-9845-2106Vera Zaychik Moffitt
+Ascend Analytics
+Boulder, USA
+vmoffitt@ascendanalytics.comJustin Appleby
+Ascend Analytics
+Boulder, USA
+jappleby@ascendanalytics.com
+Abstract —Stochastic battery bidding in real-time energy mar-
+kets is a nuanced process, with its efficacy depending on the
+accuracy of forecasts and the representative scenarios chosen
+for optimization. In this paper, we introduce a pioneering
+methodology that amalgamates Transformer-based forecasting
+with weighted constrained Dynamic Time Warping (wcDTW) to
+refine scenario selection. Our approach harnesses the predictive
+capabilities of Transformers to foresee Energy prices, while
+wcDTW ensures the selection of pertinent historical scenarios by
+maintaining the coherence between multiple uncertain products.
+Through extensive simulations in the PJM market for July 2023,
+our method exhibited a 10% increase in revenue compared to the
+conventional method, highlighting its potential to revolutionize
+battery bidding strategies in real-time markets.
+Index Terms —Deep Learning, Machine Learning, Transformer
+Networks, Price Arbitrage, Energy Markets
+I. I NTRODUCTION
+The energy landscape is witnessing a paradigm shift driven
+by the increasing integration of renewable sources, such as
+wind and solar. As these intermittent energy sources become
+more predominant, the emphasis on grid-level storage to
+counteract supply fluctuations is growing exponentially. Such
+systems play a crucial role in maintaining grid stability and
+managing the variability of renewable sources. Deregulated
+global energy markets are undergoing transformative changes
+with the surge in grid-level storage adoption [1]. Storage
+mechanisms not only stabilize the grid but also provide a
+unique financial opportunity through energy arbitrage. This
+process, leveraging the buy-store-sell mechanism in response
+to electricity price variations, is emerging as a vital component
+in justifying investments in grid-level storage. The efficacy of
+the investment hinges on the precision of the battery’s bidding
+strategies [2], [3].
+The intricate nature of bidding in the electricity market
+stems from the inherent challenge of maintaining a delicate
+equilibrium between supply and demand. To adeptly navigate
+this complexity, Independent System Operators (ISOs) and
+Regional Transmission Organizations (RTOs) employ multi-
+settlement market structures [4], [5]. These structures encom-
+pass a spectrum of time horizons, from day-ahead predictions
+to real-time adjustments. It is noteworthy that real-time mar-
+kets, in their bid to reflect immediate dynamics, settle based
+on intra-hour pricing, commonly segmented into 5, 10, or 15-
+minute intervals. These settlements occur based on the bidsprovided by the participants. Certain markets, such as NYISO,
+PJM, CAISO, and ERCOT, to name a few, not only make
+settlements in real-time based on previously submitted bids
+but also facilitate real-time bid submission. In these setups,
+market participants have the latitude to submit bids every hour,
+targeting delivery in the following hour, or in the case of
+ERCOT, the current hour [6]–[8].
+The challenge of formulating optimal bids that maximizes
+revenue by avoiding penalties in real-time electricity markets,
+especially in the face of uncertain market dynamics and
+fluctuating renewable generation, can be adeptly addressed
+through stochastic optimization. This framework seamlessly
+integrates probabilities and uncertainties associated with event
+occurrences. Such innovative theoretical advancements serve
+as the cornerstone for cutting-edge methodologies, and they
+have catalyzed a surge of research and literature in this
+domain [3], [9]–[11]. A challenge inherent in this approach
+is pinpointing a subset of future scenarios that captures the
+plausible distribution, ensuring the optimization framework
+yields dependable decisions. The complexity amplifies when
+these scenarios span multiple periods and incorporate a myriad
+of interdependent uncertain variables.
+A substantial body of literature exists addressing the cre-
+ation of uncertain scenarios in electricity markets, considering
+both single and multiple variables across various timeframes.
+Many approaches, grounded in heuristics, select historical days
+without accounting for foresight [12], [13], thereby making an
+implicit assumption that future market dynamics will mirror
+historical patterns. While some studies opt for random selec-
+tion mechanisms [14], others employ deterministic metrics like
+Euclidean distance to refine their subset, risking misplaced
+confidence in potentially suboptimal selection [15]. Herding
+et al. [3] proposes the use of SARIMA model, which, despite
+its prowess in time series forecasting, remains contingent on
+accurate hyperparameter identification and may falter in cap-
+turing non-linear relationships or unexpected market shocks.
+A noteworthy subset of literature incorporates forecasting
+methods to generate synthetic scenarios using univariate nor-
+mal distributions of error, a choice that might oversimplify
+real-world error dynamics. Several studies have enhanced
+the reliability of synthetic scenarios for a single uncertainty
+using sophisticated deep learning techniques [16]. Though
+such approaches are deemed more effective in estimating thefuture than the previous analogue scenarios based methods, an
+over-reliance on these forecasts can be precarious, especially
+in contexts where preserving interdependencies among multi-
+uncertainty is paramount. Therefore, this study exclusively
+concentrates on improving the selection of analogous scenarios
+from historical data and offers a comparison with the state-of-
+the-art method in this specific area.
+In summary, in scenario selection for optimizing battery bids
+in real-time markets, traditional methods have predominantly
+hinged upon heuristics for historical day selection or the super-
+imposition of random errors on forecasts, casting doubts over
+their encompassing reliability. Such methods might inadver-
+tently sidestep certain pivotal scenarios, potentially undermin-
+ing the robustness of derived outcomes. However, the advent
+of Transformer-based time series forecasting has ushered in
+a new era of enhanced prediction accuracy [17]. It should
+be noted that the term “Transformer” in this context refers
+to the deep learning model, not to a physical transformer.
+Simultaneously, the imperative to adeptly cherry-picking anal-
+ogous days from historical datasets has showed promise. This
+manuscript introduces an innovative method that melds the
+prowess of transformer-based forecasting with the precision of
+the proposed Weighted Constrained Dynamic Time Warping
+(wcDTW) metric. The aim is to pinpoint those historical days
+that best mirror contemporary dynamics.
+II. M ETHODOLOGY
+Fig. 1. Schematic representation of the proposed approach.
+In Figure 1, we present a schematic of the proposed
+methodology. At its core, this approach clusters historically
+analogous days — both in terms of similarity and dissimilarity
+— employing refined clustering techniques as delineated by
+Bhavsar et al. [18], Panda et al. [19], and further expanded
+upon by [20]. As depicted, the clustering mechanism ingests
+a spectrum of parameters related to market conditions. This
+includes calendar attributes, load and renewable forecasts,
+historical day-ahead (DA) and real-time (RT) prices, and
+prior ancillary price data. Furnished with these input features,
+and invoking diversity measures upon the target variables
+(which will be rendered as uncertain entities in the stochasticoptimization process), this phase orchestrates the clustering of
+the historical dataset, ensuring it encapsulates the similarity
+patterns inherent in the data. A cluster corresponding to
+the given market condition is picked for further analysis, as
+illustrated by the highlight in Cluster 2 in Fig. 1.
+Figure 1 further elucidates how the market parameters serve
+as inputs to the Transformer-based model [21] to provide real-
+time forecasts. Historically, Transformer architectures have
+pioneered advancements in tasks within the Natural Language
+Processing (NLP) realm, particularly where capturing tem-
+poral dynamics is paramount. This trait makes such models
+uniquely suited for forecasting tasks, especially in domains
+like electricity pricing, where intricate temporal relationships
+exist. In the context of stochastic optimization for electricity
+pricing, the Transformer’s ability to discern subtle yet crucial,
+time-bound correlations and dependencies offers unparalleled
+advantages. Notably, our design renders the output of the
+Transformer model probabilistic in nature. Figure 1 highlights
+scenarios where decisions pertain to two uncertain products for
+battery bidding. The forecasts for these products are illustrated
+through a median trajectory, flanked by a lightly shaded
+regions, denoting a specific quantile range, thus providing a
+comprehensive probabilistic perspective.
+Employing probabilistic forecasts for uncertain products is
+paramount when identifying a representative subset from a
+selected cluster. Notably, clusters can encompass hundreds or
+even thousands of timestamps, rendering them impractical for
+real-time stochastic optimization. To effectively reduce the
+cluster size while honoring the probabilities associated with
+extreme events and likelihood measures, it is crucial to not
+solely depend on data-driven cluster reduction techniques, as
+suggested by Bhavsar et al. [18], or model-based strategies
+like those presented by Dupavcova et al. [22]. Instead, our
+proposed method innovatively incorporates real-time forecasts
+alongside the wcDTW measure, spanning various quantiles
+and products. Selection from the cluster hinges on a newly
+introduced distance coefficient, rooted in the wcDTW metric.
+Entries with the lowest Dcare selected, their probability being
+inversely proportional to this metric. The formula for the
+proposed Dcis:
+Dc=X
+pwcDTW p(n, m)·wfp (1)
+Where Dcis the distance coefficient for a single historical
+timestamp, pis an index variable for various products, wfp
+is the weight factor corresponding to product p, which is
+either user-defined or can be optimized in backtesting. nand
+mrepresent the lengths of two time-series being compared,
+which correspond to the dimensions of the wcDTW matrix.
+wcDTW p(n, m)is a distance measure between two time
+series of product p.wcDTW matrix is populated as:wcDTW (i, j) =
+
+∞ if|i−j|> W,
+w(i, j) + min
+wcDTW (i−1, j),
+wcDTW (i−1, j−1),
+wcDTW (i, j−1)	otherwise.
+(2)
+where:
+w(i, j) =X
+qwq·d(xi, yq
+j) (3)
+•d(xi, yq
+j)is euclidean distance between xiandqth quan-
+tile of yj.
+•xiis the ith element of time-series from historical times-
+tamp and yq
+jis the jthe element of quantile qof forecast.
+•Wis the window size constraint.
+•wqis the weight of element yq
+jbased on their respective
+quantiles.
+The weight assigned to each quantile can either be user-
+defined or optimized through backtesting. The proposed
+wcDTW is based on the DTW concept, utilizing recursion to
+calculate the distance between time series. For more informa-
+tion on derivation, readers are directed to the DTW literature
+[23].
+III. R ESULTS AND DISCUSSION
+The effectiveness of the proposed methodology is assessed
+within the context of intra-day battery bidding, wherein
+decision-makers aim to adjust the bids placed in the day-ahead
+market based on the latest information about their energy
+production. The stochastic framework employed for evaluation
+closely aligns with the one delineated in [11] for optimizing
+intra-day bidding. For the sake of simplicity and without loss
+of generality, both wfpandwqare user-specified in this anal-
+ysis. Specifically, wfpis defined as a one-hot encoded vector
+with emphasis solely on the Energy RT product. Conversely,
+wqis assumed to follow a normal distribution, with a higher
+concentration around medium values and diminishing weights
+assigned to the extremes.
+In evaluating the efficacy of our proposed components, we
+establish a benchmark that selects historical days based on
+the similarity of market conditions alone, without incorporat-
+ing the Transformer and wcDTW layers. This benchmarking
+strategy is consistent with leading methodologies for analogue
+scenario selection in literature, as demonstrated by Gomes et
+al. [12] and Bhavsar et al. [24]. For a robust assessment of the
+scenario set against actual values, we introduce a preliminary
+evaluation metric—termed the ’stoch metric’ ( SM). This
+metric captures both the mean deviation of scenarios from
+true values and their capability to encompass extreme values.”µerror=T−P
+iWi×FiP
+iWi(4)
+U= max( T−max( F),0) (5)
+L= max(min( F)−T,0) (6)
+SM=1
+nnX
+i=1(µerrori+Ui+Li) (7)
+where, Wbe the weights vector, Tbe the target value, F
+be the ith scenario, µerrorbe the mean error calculated using
+weights, Ube the upper bound penalty, and Lbe the lower
+bound penalty.
+Figure 2 displays ten scenario subsets selected by the
+baseline method for the Energy RT product on representative
+days and hours: (a) 01/25/2023 09:00H (b) 04/14/2023 17:00H
+(c) 07/25/2023 00:00H. The true Energy RT values are repre-
+sented by the red lines, while the various scenarios are depicted
+in shades of blue, with the intensity of the color indicating
+the probability of each scenario; darker hues denote higher
+probabilities, while lighter shades suggest lower probabilities.
+The abscissa delineates the optimization horizon. Within the
+chosen framework, the stochastic optimization agent forecasts
+over a 16-hour period to make an optimal decision for the
+subsequent hour.
+From an analysis of Fig. 2, several observations emerge.
+Firstly, the scenarios tend to consistently over-predict, often
+reaching unnecessary extremes. Despite this trend towards
+over-prediction, the scenarios fail to accurately capture crucial
+price spikes, as exemplified in Fig. 2b. Moreover, the scenario
+depicted in Fig. 2c illustrates another issue: not only does it
+mispredict the magnitude, but it also inaccurately forecasts
+the timing of a significant spike. For a more quantitative
+assessment, the average SM value for these scenarios was
+calculated to be 34.84. These discrepancies underscore the
+challenges in effectively modeling uncertainties and emphasize
+the need for more sophisticated prediction mechanisms.
+Figure 3 showcases the probabilistic forecast of the Energy
+RT in the PJM market as generated by the Transformer model.
+The solid orange line delineates the median forecast, with
+the surrounding shade indicating the respective quantile range.
+Similar to previous illustrations, the forecasting horizon spans
+16 hours, in line with the agent’s optimization period for the
+subsequent day. Notably, the Transformer model exhibits com-
+mendable precision in predicting real-time Energy RT prices,
+with an average Mean Absolute Error (MAE) of approxi-
+mately 3 $/MWh. Leveraging such accurate forecasts could
+substantially enhance the performance of the stochastic model.
+However, a crucial aspect to consider is the multi-product
+nature of the optimization. Namely, different participation
+scenarios require anticipating not only energy price volatility
+for energy arbitrage opportunities, but also ancillary obliga-
+tions and real-time ancillary prices, among others. Relying
+solely on independent forecasts for each product could disrupt
+the inherent coherence among them. This poses the intricate
+question: how can we integrate this forecast information toFig. 2. Scenarios of RT energy price from benchmark approach for representative days in PJM market: (a) 01/25/2023 09:00H (b) 04/14/2023 17:00H (c)
+07/25/2023 00:00H
+Fig. 3. Energy RT forecast from transformer for (a) 01/25/2023 09:00H (b) 04/14/2023 17:00H (c) 07/25/2023 00:00H
+guide the historical subset selection more effectively? Our
+proposed approach seeks to answer this conundrum, and the
+subsequent paragraph delves into the demonstrated efficacy of
+scenarios built upon this method.
+Figure 4 illustrates the scenarios chosen using our proposed
+method, which incorporates both the Transformer model and
+wcDTW for selection. Evidently, the chosen scenarios closely
+envelop the true value, demonstrating improved precision.
+Moreover, the approach effectively addresses previously ob-
+served issues such as unwarranted over-predictions, accurate
+spike capture, and pinpointing the precise spike occurrence
+timings. From a quantitative perspective, the derived average
+SM value stands at 27, marking an approximate 22% enhance-
+ment in our preliminary assessment metric. This promising
+outcome paves the way for a deeper evaluation, conducted by
+running a stochastic simulation that determines battery bids in
+real-time. The tangible benefits of this improvement are further
+expounded in the subsequent section.
+A more rigorous assessment of our method is undertaken
+by simulating the stochastic optimization process in intra-
+day bidding in actual market where the bidding prices are
+indeed influenced by the actions and strategies of other market
+participants. In this context, the agent determines whether to
+charge or discharge the stand-alone battery within the real-timemarket. This decision-making is conducted while adhering to
+the inherent constraints associated with the battery’s physical
+limitations, market stipulations, as well as ensuring optimal
+battery life, managing state of charge (SoC), and complying
+with the real-time market’s demand-supply balance. For the
+evaluation period spanning the month of July 2023 in the
+PJM market, the newly proposed technique yielded a revenue
+increase of 10% compared to the preceding methodology.
+Table I delineates the revenue stratification based on charging
+or discharging activities for the Energy RT product. While
+other real-time products, such as ancillaries and regulations,
+contribute to the overall results, for the sake of brevity,
+we’ve exclusively spotlighted the Energy RT product. An
+examination of Table I reveals that our approach augments
+profitability by bolstering discharge-driven revenue and dimin-
+ishing charge-associated costs. Assessment of SM indicates a
+lasting impact and shows that July’s improvement reflects an
+annual trend.
+CONCLUSION
+The article presents a novel approach to intra-day battery
+bidding using a combination of Transformer-based forecasting
+and weighted constrained Dynamic Time Warping (wcDTW)
+for scenario selection. Our methodology leverages the pre-Fig. 4. Scenarios of Energy RT product from the proposed approach for representative days in PJM market: (a) 01/25/2023 09:00H (b) 04/14/2023 17:00H
+(c) 07/25/2023 00:00H
+TABLE I
+REVENUE OVER JULY 2023 IN REAL -TIME PJM MARKET THROUGH
+STAND -ALONE BATTERY BIDDING
+Product Dispatch Benchmark Revenue [24] Improved Revenue
+($/MWh) ($/MWh)
+Energy RT Discharge 26.67 30.97
+Charge -18.02 -17.62
+dictive strength of Transformers, while wcDTW assists in
+effectively choosing representative scenarios from historical
+data. The rigorous simulations conducted in the PJM market
+during July 2023 affirmed the efficiency of our approach,
+which resulted in a revenue increase of 10% compared to the
+benchmark method. Notably, our method improved profitabil-
+ity by maximizing discharge-driven revenue and minimizing
+charge-related costs. This paper substantiates the potential
+of integrating modern forecasting techniques with nuanced
+scenario selection mechanisms in enhancing the robustness and
+profitability of battery bidding in real-time energy markets.
+REFERENCES
+[1] R. Schleicher-Tappeser, “How renewables will change electricity mar-
+kets in the next five years,” Energy policy , vol. 48, pp. 64–75, 2012.
+[2] D. Krishnamurthy, C. Uckun, Z. Zhou, P. R. Thimmapuram, and
+A. Botterud, “Energy storage arbitrage under day-ahead and real-time
+price uncertainty,” IEEE Transactions on Power Systems , vol. 33, no. 1,
+pp. 84–93, 2017.
+[3] R. Herding, E. Ross, W. R. Jones, V . M. Charitopoulos, and L. G.
+Papageorgiou, “Stochastic programming approach for optimal day-ahead
+market bidding curves of a microgrid,” Applied Energy , vol. 336, p.
+120847, 2023.
+[4] F. E. R. Commission, “Electric power markets,” 2023, accessed:
+October 28, 2023. [Online]. Available: https://www.ferc.gov/
+electric-power-markets
+[5] S. C. Bhattacharyya, Energy economics: concepts, issues, markets and
+governance . Springer Nature, 2019.
+[6] CAISO, “Market processes and products,” 2023, accessed: October
+28, 2023. [Online]. Available: https://www.caiso.com/market/Pages/
+MarketProcesses.aspx
+[7] ERCOT, “Market guides,” 2023, accessed: October 28, 2023. [Online].
+Available: https://www.ercot.com/mktrules/guides
+[8] PJM, “Markets & operations,” 2023, accessed: October 28, 2023.
+[Online]. Available: https://www.pjm.com/markets-and-operations
+[9] A. Zakaria, F. B. Ismail, M. H. Lipu, and M. A. Hannan, “Uncertainty
+models for stochastic optimization in renewable energy applications,”
+Renewable Energy , vol. 145, pp. 1543–1571, 2020.[10] S. Bhavsar, R. Pitchumani, M. Ortega-Vazquez, and N. Costilla-
+Enriquez, “A hybrid data-driven and model-based approach for compu-
+tationally efficient stochastic unit commitment and economic dispatch
+under wind and solar uncertainty,” International Journal of Electrical
+Power & Energy Systems , vol. 151, p. 109144, 2023.
+[11] A. R. Silva, H. Pousinho, and A. Estanqueiro, “A multistage stochastic
+approach for the optimal bidding of variable renewable energy in the
+day-ahead, intraday and balancing markets,” Energy , vol. 258, p. 124856,
+2022.
+[12] I. L. Gomes, H. Pousinho, R. Melicio, and V . Mendes, “Stochastic
+coordination of joint wind and photovoltaic systems with energy storage
+in day-ahead market,” Energy , vol. 124, pp. 310–320, 2017.
+[13] E. Akbari, R.-A. Hooshmand, M. Gholipour, and M. Parastegari,
+“Stochastic programming-based optimal bidding of compressed air en-
+ergy storage with wind and thermal generation units in energy and
+reserve markets,” Energy , vol. 171, pp. 535–546, 2019.
+[14] P. Fazlalipour, M. Ehsan, and B. Mohammadi-Ivatloo, “Risk-aware
+stochastic bidding strategy of renewable micro-grids in day-ahead and
+real-time markets,” Energy , vol. 171, pp. 689–700, 2019.
+[15] N. D. Laws, D. Cutler, H. Dunham, S. Johnson, D. Inman, N. Granger,
+W. Jones, and D. Chalenski, “Stochastic price generation for evaluating
+wholesale electricity market bidding strategies,” Available at SSRN
+4040891 , 2022.
+[16] Y . Chen, Y . Wang, D. Kirschen, and B. Zhang, “Model-free renewable
+scenario generation using generative adversarial networks,” IEEE Trans-
+actions on Power Systems , vol. 33, no. 3, pp. 3265–3275, 2018.
+[17] A. Zeng, M. Chen, L. Zhang, and Q. Xu, “Are transformers effective
+for time series forecasting?” in Proceedings of the AAAI conference on
+artificial intelligence , vol. 37, no. 9, 2023, pp. 11 121–11 128.
+[18] S. Bhavsar, R. Pitchumani, and M. Ortega-Vazquez, “Machine learning
+enabled reduced-order scenario generation for stochastic analysis of
+solar power forecasts,” Applied Energy , vol. 293, p. 116964, 2021.
+[19] K. Panda, I. Satkauskas, J. Maack, D. Sigler, M. Reynolds, and W. Jones,
+“A data-driven multi-period importance sampling strategy for stochastic
+economic dispatch,” in 2021 IEEE Power & Energy Society General
+Meeting (PESGM) . IEEE, 2021, pp. 1–5.
+[20] E. Elhamifar, G. Sapiro, and S. S. Sastry, “Dissimilarity-based sparse
+subset selection,” IEEE transactions on pattern analysis and machine
+intelligence , vol. 38, no. 11, pp. 2182–2197, 2015.
+[21] A. Vaswani, N. Shazeer, N. Parmar, J. Uszkoreit, L. Jones, A. N. Gomez,
+Ł. Kaiser, and I. Polosukhin, “Attention is all you need,” Advances in
+neural information processing systems , vol. 30, 2017.
+[22] J. Dupa ˇcov´a, N. Gr ¨owe-Kuska, and W. R ¨omisch, “Scenario reduction
+in stochastic programming,” Mathematical programming , vol. 95, pp.
+493–511, 2003.
+[23] P. Senin, “Dynamic time warping algorithm review,” Information and
+Computer Science Department University of Hawaii at Manoa Honolulu,
+USA, vol. 855, no. 1-23, p. 40, 2008.
+[24] S. Bhavsar, R. Pitchumani, J. Maack, I. Satkauskas, M. Reynolds,
+and W. Jones, “Stochastic economic dispatch of wind power under
+uncertainty using clustering-based extreme scenarios,” Electric Power
+Systems Research , vol. 229, p. 110158, 2024.

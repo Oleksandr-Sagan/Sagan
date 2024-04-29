@@ -1,0 +1,917 @@
+Mixing Individual and Collective Behaviours to Predict Out-of-Routine Mobility
+Sebastiano Bontorin,1, 2Simone Centellegher,1Riccardo Gallotti,1
+Luca Pappalardo,3Bruno Lepri,1and Massimiliano Luca1,∗
+1Fondazione Bruno Kessler, Via Sommarive 18, 38123 Povo (TN), Italy
+2Department of Physics, University of Trento, Via Sommarive 14, 38123 Povo (TN), Italy
+3ISTI - National Research Council, Via Giuseppe Moruzzi 1, 56127 Pisa (PI), Italy
+(Dated: April 4, 2024)
+Predicting human displacements is crucial for addressing various societal challenges, including
+urban design, traffic congestion, epidemic management, and migration dynamics. While predictive
+models like deep learning and Markov models offer insights into individual mobility, they often
+struggle with out-of-routine behaviours. Our study introduces an approach that dynamically in-
+tegrates individual and collective mobility behaviours, leveraging collective intelligence to enhance
+prediction accuracy. Evaluating the model on millions of privacy-preserving trajectories across three
+US cities, we demonstrate its superior performance in predicting out-of-routine mobility, surpassing
+even advanced deep learning methods. Spatial analysis highlights the model’s effectiveness near
+urban areas with a high density of points of interest, where collective behaviours strongly influ-
+ence mobility. During disruptive events like the COVID-19 pandemic, our model retains predictive
+capabilities, unlike individual-based models. By bridging the gap between individual and collec-
+tive behaviours, our approach offers transparent and accurate predictions, crucial for addressing
+contemporary mobility challenges.
+I. INTRODUCTION
+Understanding human mobility patterns is relevant to many pressing problems in our societies [1], including the
+design of sustainable and livable cities [2, 3], traffic congestion avoidance [4, 5], epidemics spread mitigation and
+public health monitoring [6–9], urban and socioeconomic segregation [10, 11], and migration management after natural
+disasters, economic shocks, and wars [12–16].
+The task of predicting individuals’ future whereabouts, often referred to as next location prediction [17, 18], has
+attracted particular interest in light of the growing availability of extensive mobility data and the development of
+advanced statistical techniques [1, 17, 19]. On the one hand, sophisticated deep learning solutions have gained
+substantial attention given their capacity to uncover complex patterns from extensive datasets [17, 20–23]. However,
+∗Corresponding author: mluca@fbk.euarXiv:2404.02740v1  [cs.CY]  3 Apr 20242
+these models often lack interpretability, functioning as black boxes that obscure the underlying mechanisms driving
+predictions [1, 17]. On the other hand, simple and interpretable models such as Markov models allow the analysis of
+the mechanisms behind the predictions but often exhibit lower accuracy in forecasting future movements [24–27].
+Both deep learning and Markov models are trained on individual mobility trajectories, which are typically inherently
+predictable as people tend to visit previously visited locations at regular times [19, 28–33]. However, in some cases,
+individuals may have a marked preference for exploring new destinations [31, 32, 34, 35] or be forced to alter their
+routine due to external factors such as job loss, health issues, natural disasters, or epidemics [9, 36–44]. Predicting
+such out-of-routine mobility is a challenge for statistical models because, being designed to capture regular patterns
+in individual trajectories, they often memorise training data rather than learning generalised mobility behaviours
+[17, 45]. A large body of literature on human behaviour across various contexts, such as social networks [46–49],
+financial networks [50–52], and voting and political polarization [53–55], indicates that an individual’s decisions are
+significantly influenced by the behaviour of the group or community they are exposed to [56–58]. This suggests
+that information about collective behaviours also holds predictive power for individuals. However, the potential of
+combining individual and collective behaviours to enhance human mobility prediction remains largely unexplored.
+In this paper, we bridge this gap by introducing a new approach for next location prediction that dynamically
+integrates individual and collective mobility behaviours, leveraging the expected predictability of an individual’s
+movement. We evaluate our model’s performance using the trajectories of millions of anonymized, opted-in individ-
+uals across three US cities over an eight-month period and compare its accuracy with approaches relying only on
+individual or collective data. By offering transparency without compromising predictive accuracy, our model demon-
+strates considerable generalisation capabilities, particularly in out-of-routine mobility behaviours, surpassing more
+sophisticated deep learning methods. Notably, a detailed spatial analysis reveals that our model particularly benefits
+from collective information in out-of-routine mobility prediction, especially in areas with a high density of points
+of interest. While individual-based models are significantly affected by disruptions to recurrent mobility patterns,
+our model’s dynamic integration of individual and collective behaviours enables it to maintain predictive capabilities
+during disruptive events such as the COVID-19 pandemic.
+RESULTS
+A spatio-temporal point is a pair p= (i, t), where irepresents a geographic location and tthe time of the visit. We
+define a trajectory P={p1, p2, . . . , p n}as a daily time-ordered sequence of nspatio-temporal points. Each individual
+useruhas a set of Nhistorical trajectories H(u)={P1, . . . , P N}from which we compute I(u)
+i, representing the set
+of transition probabilities of user ustarting from location i(see Figure 1A and Methods for details). By aggregating
+the trajectories of all individuals, we calculate the collective origin-destination matrix C(see Figure 1B), with Ci
+representing the probability distribution of all transitions made by any individual starting from location i.3
+FIG. 1. Dynamic interplay of individual and collective mobility. (A) An individual origin-destination matrix for a
+synthetic individual u.(B)The collective origin-destination (OD) matrix computed for Boston using GPS trajectories. (C)
+An individual trajectory for a user ustarting from location i. Next location prediction consists of predicting u’s next visited
+location. (D) The set of u’s historical trajectories (panel A) is used to define the transition probabilities I(u)
+ifrom location i.
+Cirepresents the probability distribution of all transitions made by any user starting from location i, generated from the OD
+matrix (panel B). Destinations’ locations jare coloured based on their visitation probability, Tij, from origin i.(E)M(u)
+i’s
+prediction of individual u’s next location is performed by dynamically combining I(u)
+iandCi, based on the normalised Shannon
+entropy S(u)
+icomputed from the mobility trajectories of u. Maps: Stamen Maps. Icons: Fontawesome.
+Given an individual’s trajectory P∈ H(u), next location prediction is the problem of forecasting the next point
+pn+1∈P[17, 18, 45]. I(u)
+iandCiare Markov-based solutions to next location predictors [18, 25].
+We define a model M(u)
+ithat dynamically combines I(u)
+iandCibased on the predictability of u’s next location from
+origin i. When the next location is highly predictable based on H(u), the model relies more on individual information
+inI(u)
+ifor the prediction. Conversely, the model relies more on the collective information in Ciwhen the next location
+is hard to predict. To quantify the predictability of u’s next location from i, we employ the normalised Shannon’s4
+full test set 0-20 20-40 40-60 60-80 80-100
+I C M I C M I C M I C M I C M I C M
+NYC 0.6083 0.5035 0.6784 0.096 0.416 0.376 0.319 0.398 0.468 0.572 0.453 0.637 0.801 0.546 0.817 0.966 0.698 0.948
+Boston 0.7062 0.6436 0.7536 0.093 0.468 0.407 0.32 0.454 0.492 0.604 0.537 0.68 0.831 0.669 0.847 0.977 0.839 0.929
+Seattle 0.6453 0.5496 0.6972 0.073 0.395 0.34 0.314 0.397 0.461 0.581 0.471 0.646 0.808 0.584 0.824 0.971 0.781 0.918
+TABLE I. Accuracy of models. Performance of models I,C,Mon all trajectories in the full test set and the trajectories
+stratified based on their overlap with training trajectories using the Longest Common Sub-Trajectory (LCST).
+entropy of I(u)
+i[28, 59, 60]:
+S(u)
+i=−/summationtext
+k∈L(u)I(u)
+i,k·log(I(u)
+i,k)
+log|L(u)|(1)
+where L(u)is the set of distinct locations visited by u, log|L(u)|is a normalisation factor so that S(u)
+i∈[0,1], and
+I(u)
+i,kis the probability of umoving from location ito location k.S(u)
+iis high when the locations uvisited from ihave
+similar visitation probabilities, indicating a diverse range of destinations; S(u)
+iis low when upredominantly visits
+one location from i, indicating a marked individual preference for a specific destination. We use S(u)
+ito combine
+probabilities from I(u)
+iandCias follows:
+M(u)
+i= (1−S(u)
+i)I(u)
+i+S(u)
+iCi (2)
+where 1 −S(u)
+iis the confidence of model M(u)
+iin relying on individual information. To derive Markov transition
+probabilities, we normalise M(u)
+i,∀iusing the softmax function:
+softmax( l)i=eli
+/summationtextn
+j=1elj
+where l1, l2, . . . l nare the transition probabilities of M(u)
+iin Equation 2. When a transition from location iis not
+represented in H(u), the probability distribution I(u)
+iis empty, and we set S(u)
+i= 1 to indicate maximum uncertainty.
+In such instances, no historical data is available for location i, and the model prediction relies solely on collective
+information in Ci. Figure 1C-E illustrates how model M(u)
+iworks.
+We employ the notations I,C, and Mto represent the models exploiting individual, collective, and their combina-
+tion. To derive IandCfor real individuals, we use privacy-enhanced GPS trajectories collected in Boston, Seattle,
+and New York City (NYC) from January 3rd to March 1st, 2020 (see Supplementary Note 1). We tessellate the
+cities into rectangular tiles (locations) of 1 .2 km×609.4 m, corresponding to GeoHashes of level 6. These tiles are
+the basis for mapping user’s stops and computing users’ trajectories (see Methods). To address potential under- and
+over-representation issues, we filter out trajectories with less than four points ( |P(u)|<4), users with fewer than two
+trajectories ( |H(u)|<2), and remove the top 95th percentile of the most represented users (see Supplementary Note5
+Test Overlap AccuraciesBTest Full AccuraciesAM ConﬁdenceCBostonNYCSeattle
+FIG. 2. Accuracy of the models. Top-5 accuracy (ACC@5) for Boston, New York City (NYC) and Seattle using models I,
+C, and M.(A)ACC@5 on the full test set. Mshows a performance better than IandCand comparable to Recurrent Neural
+Networks (RNNs). (B)Models are tested against different train-test overlap scenarios, with 0-20% describing out-of-routine
+mobility and 80-100% routinary mobility behaviour. Mshows improvements in accuracy over Iin smaller overlaps, where test
+trajectories mostly consist of novel transitions never observed during training. (C)Distributions of M’s confidence, represented
+by 1−S(u)
+i, in relying on individual information I. In the case of out-of-routine behaviours (low overlaps), the lower median
+value of 1 −S(u)
+iindicates less reliance of Mon individual information I. In this scenario, collective behaviours Cenhance the
+predictive capabilities of M. The peaks observed around 1 −S(u)
+i= 0 result from instances of transitions from a location ithat
+is not represented in the training trajectories of user u. In such a case, we set S(u)
+i= 1, forcing Mto rely only on C.
+1). Figure 1A-B shows examples of IandCderived from the GPS dataset for the city of Boston.
+For each individual u, we allocate 80% of their least recent trajectories for model training, while the 20% most
+recent trajectories form the test set. During the training phase, for each location iand user u, we compute I(u)
+i,Ci,
+andS(u)
+i. Subsequently, we perform next location predictions on the test set and assess the models’ performance using
+the top-5 accuracy metric (ACC@5). ACC@5 is a standard metric for evaluating next location prediction tasks and
+represents the percentage of instances where the correct next location is among the top five predicted destinations
+[17, 45].
+Table I and Figure 2A show that Msignificantly enhances accuracy compared to IandCand obtains comparable
+performances with deep learning baselines like Recurrent Neural Networks (RNNs) [17, 61]. Mexhibits relative
+improvements in ACC@5 over Iof +15% in NYC, +13% in Seattle, and +12% in Boston. Furthermore, Moutperforms
+Cwith improvements of +35% in NYC, +31% in Seattle, and +21% in Boston. Despite relying on a large number of
+parameters, RNNs exhibit only marginal relative improvements over M: +2% in NYC, +2% in Seattle, and +1% in6
+Boston (see Supplementary Note 6). Therefore, the dynamic interplay between individual and collective information
+enables model Mto significantly enhance the overall predictive performance compared to models relying exclusively
+on individual ( I) or collective ( C) information.
+Models’ generalisation capability
+The recurrent patterns in human mobility often result in significant similarity among individual trajectories [19,
+45, 62]. Consequently, our test set may include a significant portion of trajectories already present in the training
+set. Recent research emphasises the importance of considering trajectory overlap between the training and test sets
+for a comprehensive evaluation of next location predictors, as it significantly influences the assessment of a model’s
+generalisation capability [45].
+We quantify trajectory train-test overlap with the Longest Common Sub-Trajectory (LCST) [45], which evaluates
+shared sub-sequences between two trajectories, considering the order and frequency of visits. LCST ranges between
+0 and 1 and measures how much of a test trajectory the model has already observed in the training set. A high
+LCST indicates the presence of recurrent mobility patterns in an individual’s trajectories, while a low LCST indicates
+instances of an individual’s out-of-routine mobility behaviours. We stratify test trajectories into bins based on LCST,
+spanning overlap ranges of 0-20%, 20-40%, 40-60%, 60-80%, and 80-100% (see Methods for details). For example,
+a test trajectory falls within the 0-20% bin when its maximum overlap with any training trajectory has an LCST
+∈[0,0.2]. The distribution of test trajectories across the bins is not uniform, as bins 0-20% and 80-100% contain
+fewer trajectories than bins 20-80% (see Supplementary Note 1).
+Table I and Figure 2B provide models’ performance within each trajectory overlap bin. Msignificantly outperforms
+IandCfor intermediate levels of overlap, with improvements across cities up to +16% (20-40% overlap), +13% (40-
+60% overlap), and around +2% (60-80% overlap). Csurpasses Mfor 0-20% overlap only, with improvements up to
+16% across the cities, while Ioutperforms Mby only around 1% for 80-100% overlap. Figure 2C shows that the
+median value of 1 −S(u)
+idistribution increases with trajectory overlap, i.e., the higher the trajectory overlap, the
+higher the confidence of model MonIand, consequently, the lower the reliance on C. In other words, when historical
+information about the individual is unreliable due to significant differences from the current trajectory (low trajectory
+overlap), using collective information is crucial for making reasonable predictions. When the current trajectory closely
+resembles those in the training set (high trajectory overlap), it is best to rely on individual information. Note that
+RNNs achieve a low accuracy on low trajectory overlap bins and high accuracy on high overlap bins (Figure 2B),
+confirming that deep learning models struggle to predict out-of-routine mobility. To verify the robustness of our
+findings, we carry out the same analysis using more fine-grained tessellations, obtaining comparable results (see
+Supplementary Note 6).7
+AOverlaps spatial accuracy distributionsSpatial accuracy auto-correlationSpatial accuracy
+Moran’s IndexNull model
+Moran’s IndexB
+SpatialAccuracy-Boston0-40%C
+M - Individual-CollectiveC - CollectiveI - Individual
+ACC@5i
+Boston
+downtown
+FIG. 3. Spatial distributions of accuracies. (A) Distribution of accuracies for I,CandMin predicting movements
+from a location i(ACC@5 i). As the test set includes more out-of-routine movements (e.g., 0-40% overlap), model Maided
+by collective information Cperforms better. Conversely, the individual model Iprovides better predictions when tested on
+routinary trajectories (high overlaps). (B)Spatial autocorrelation of the models’ accuracies in corresponding overlaps quantified
+via the Moran’s index. For low overlaps, such as 0-40%, model Cexhibits clustered accuracy (large Moran’s index). (C)Spatial
+distribution of ACC@5 iin Boston for I,CandMin the 0-40% overlap. Notably, for CandM, areas with higher accuracies are
+concentrated in proximity to downtown (upper centre) and Boston Logan International Airport (upper right). Maps: Stamen
+Maps.
+Spatial properties of models’ accuracy
+To investigate potential spatial dependencies in the accuracy of I,CandM, we compute ACC@5 specifically for
+the subset of test transitions originating from a location i. We refer to it as ACC@5 i. In Figure 3A, we present
+the spatial distributions of ACC@5 ifor the city of Boston. We find similar distributions for Seattle and NYC (see
+Supplementary Note 2).
+In scenarios with low trajectory overlap (0-40%), the ACC@5 idistributions for MandCare consistently shifted
+to higher values compared to I(see Figure 3A). While model Cperforms best for trajectories with 0-20% overlap,
+model Mshows the highest performance in the 20-40% overlap range, benefiting from collective information from C.
+As trajectory overlap increases, the ACC@5 idistributions for MandIbecome more similar, while the distribution
+forCwidens and remains skewed towards lower accuracy (see Figure 3A).
+Figure 3C shows that when out-of-routine is predominant (0-40% overlap), there is considerable spatial heterogeneity8
+in the distribution of ACC@5 iacross different locations. This is particularly pronounced when using collective
+information for predictions, as in CandM. We quantify this spatial property using Moran’s index [63, 64] and find
+that models CandMexhibit a significant and positive spatial autocorrelation, indicating that locations where the
+models are accurate are spatially close (see Figure 3B-C and Supplementary Figure S4-S5).
+In particular, we observe that locations with high accuracies for CandMare clustered in the proximity of critical
+urban areas. For instance, in Boston around downtown and Logan International Airport (see Figure 3C), in NYC in
+Manhattan, and in Seattle around downtown (see Supplementary Figures S4-S5).
+The observed spatial autocorrelation for CandMsuggests a potential relationship between collective mobility be-
+haviours and spatially clustered urban factors when out-of-routine mobility is predominant. To verify this hypothesis,
+we measure the predictability of collective behaviours from a location ias the entropy of collective mobility:
+S(C)
+i=−/summationtext
+k∈L(C)Cik·log(Cik)
+log|L(C)|∈[0,1] (3)
+where L(C)is the set of unique locations in C.S(C)
+iis high when locations people visited from ihave similar visitation
+probabilities, indicating a diverse range of destinations; S(C)
+iis low when people predominantly visit one location
+from i, indicating a marked collective preference for a specific destination. S(C)
+iis strongly negatively correlated
+with ACC@5 i(Pearson correlation of ρ=−0.85), indicating that locations from which Cprovides the most accurate
+next location predictions are those with the lowest entropy S(C)
+i(see Figure 4A and Supplementary Figures S8-S9).
+Notably, we find that locations with low S(C)
+iare clustered in proximity to specific urban areas, which we hypothesise
+to be locations hosting key commercial, financial, and cultural venues.
+To verify this hypothesis, we first collect from OpenStreetMap [65] the number of points of interest (POIs) in each
+location i,Wi. We then split each city into two areas: one comprising locations within a geographical distance D
+from the location i∗with the maximum number of POIs ( W∗
+i), and the other consisting of locations farther away
+from i∗by a distance greater than D(see Figure 4B for D= 2 km in Boston).
+We find that the distribution of S(C)
+iskews towards lower values when location iis within distance Dtoi∗(orange
+area in Figure 4B). Additionally, individuals’ movements that originate within this distance tend to travel shorter
+distances than those originating farther away (see Figure 4C). These results support our hypothesis that mobility in
+dense areas of POIs is less spatially dispersed, with the probability of travelling to a destination concentrated in a
+small subset of locations. We see similar results in Seattle and NYC (Supplementary Figures S6-7). For statistical
+robustness, we verify that these results are not a consequence of possible biases, such as areas close to POIs having a
+larger sample size of transitions in the dataset (see Supplementary Note 4 and Supplementary Figures S10-14).9
+locations at
+D < 2 kmother areasWi
+W*iDABC
+S(C)iS(C)i
+FIG. 4. Statistical properties of collective mobility in Boston. (A) Accuracy of C(ACC@5 i) from a location iversus its
+entropy S(C)
+i. We find a negative correlation (Pearson ρ=−0.86).(B)Spatial distribution of the number of Points of Interest
+(POIs) per location, Wi(extracted from OpenStreetMap). (Inset) In orange, locations within a distance D= 2 km from the
+location i∗with the largest number of POIs ( W∗
+i). In green, locations farther away from i∗by a distance greater than D.(C)
+Distribution of travel distances, P(r), distinguishing between origins within the two aforementioned areas and fitted with a
+power-law function [19] in the interval of 0 to 10 km. The exponent of γ=−1.45±0.04 underscores the prevalence of localised
+mobility when individuals are in proximity to i∗, while in other areas we have an exponent of γ=−0.92±0.04. This result
+indicates that mobility near POIs tends to be more concentrated and less spatially dispersed towards specific destinations. This
+behaviour is further corroborated by the entropy S(C)
+idistribution, which skews towards lower values and indicates mobility
+directed towards specific tiles. Maps: Stamen Maps.
+Mar. - Apr. Apr. - May May - Jun. Jun. - Jul. Jul. - Aug.
+I C M I C M I C M I C M I C M
+New York 0.484 0.541 0.655 0.390 0.541 0.617 0.358 0.536 0.602 0.325 0.524 0.585 0.290 0.515 0.570
+Boston 0.491 0.632 0.696 0.394 0.609 0.654 0.350 0.620 0.651 0.307 0.619 0.642 0.255 0.615 0.637
+Seattle 0.424 0.578 0.649 0.352 0.582 0.629 0.311 0.583 0.619 0.271 0.557 0.596 0.236 0.543 0.579
+TABLE II. Models accuracy during the COVID-19 pandemics . ACC@5 of I,CandMtrained on trajectories collected
+before March 1st, evaluated on trajectories during and after lockdown every month after the pandemic declaration (March 11th).
+The COVID-19 pandemic acts as a disruptive event that introduces behavioural changes in human mobility. The individual
+model Iloses half of its predictive capabilities, while the models relying on collective behaviours ( CandM) generalise even
+after months, maintaining accuracies comparable to the pre-COVID-19 period.
+Model reliability under COVID-19 restrictions
+The COVID-19 pandemic significantly altered people’s mobility patterns [9, 40, 41, 66, 67], with non-pharmaceutical
+interventions inducing a shift in how people moved and visited locations [9, 10, 68]. In this context, we investigate
+the reliability of the models during these behavioural shifts.
+We train I,C, and Musing trajectories recorded until March 11th, 2020 and evaluate their performance on a test
+set consisting of five months of data collected between March 11th, 2020 (WHO’s pandemic declaration [69]) and
+August 11th, 2020. For each month in the test set, we report models’ ACC@5 in Table II.
+In each city, Iexhibits a notable decline in performance as the months go by, losing 44 .16% of its predictive power
+by the time of testing trajectories collected between July and August. C’s performance also degrades over time but
+more moderately, with an average drop of 4 .51% between the first and last month. Mexhibits a moderate average10
+decrease of 5 .32%, which is slightly worse than Cbut notably better than I. These results highlight that models based
+on individual-level information are less resilient to behavioural shifts than models based on collective information. As
+a consequence, combining individual information with collective one allows for enhanced resilience against disruptive
+behavioural changes.
+DISCUSSION
+Crowds influence individual decisions, a phenomenon extensively documented in studies on collective intelligence,
+social psychology, and behavioural economics [70, 71]. In various scenarios, individuals may face uncertainty or
+possess limited knowledge, prompting them to defer to collective decisions for guidance. We leverage these insights in a
+parameter-free approach to next location prediction that dynamically integrates individual and collective information.
+Our model is designed to harness the power of collective behaviours alongside individual patterns, offering a holistic
+framework for predicting human whereabouts.
+Our model offers a potential solution to the limitations inherent in current state-of-the-art models, including so-
+phisticated deep learning approaches. Indeed, while deep learning models excel in predicting routinary movements
+[17], they suffer from two primary drawbacks: opacity and limited interpretability [1, 17], and difficulties in fore-
+casting out-of-routine choices because of their tendency to memorise patterns observed in individual trajectories [45].
+Our approach overcomes these shortcomings by offering full interpretability and strong performance in out-of-routine
+movement prediction, even during disruptive events like the COVID-19 pandemic [45]. Collective information is par-
+ticularly crucial in anticipating these out-of-routine choices, enabling us to capture patterns and trends that may
+not be apparent at the individual level alone. In the context of the ongoing discourse on mechanistic versus deep
+learning models for human mobility [17, 19], our study suggests the necessity to integrate dynamic mechanisms like
+ours into deep learning frameworks. This integration is essential for achieving predictions that are both interpretable
+and accurate in scenarios involving both routinary and out-of-routine movements.
+Our study additionally reveals that predictions relying on collective information, especially the most accurate ones,
+spatially cluster around urban areas characterised by a dense concentration of points of interest. These areas are
+where the probability of travelling to a destination is highly concentrated within a smaller subset of locations. These
+findings align with recent research on flow generation, underscoring that the presence and nature of points of interest
+play a significant role in shaping human mobility [72]. An intriguing research challenge lies in enhancing our model
+to incorporate an additional mechanism that accounts for the density of points of interest in the area where the
+individual is currently located.
+While conventional predictive models for human mobility often prioritise capturing routine movements, our approach
+paves the road for dynamic models that integrate information at individual and collective levels to enable robust
+predictions even for out-of-routine mobility behaviours.11
+METHODS
+Stop Location Detection
+For our experiments, we use a privacy-enhanced GPS dataset provided by Cuebiq as part of the Data for Good
+COVID-19 Collaborative program. This dataset encompasses privacy-enhanced GPS locations spanning nine months
+(January to August 2020) in New York City, Seattle, and Boston. The data originates from approximately two million
+anonymous users who willingly opted to share their information anonymously for research purposes, adhering to the
+guidelines of the CCPA (California Consumer Privacy Act) compliant framework. In addition to anonymizng the
+data, the data provider removes sensitive points of interest from the dataset, and obfuscates inferred home locations
+to the Census Block Group level.
+We extract individual user stops from the dataset through the following procedure. Initially, we identify each
+temporal sequence of GPS coordinates within a 65-meter radius, where a user stayed for a minimum of 5 minutes
+[73]. Subsequently, we apply the DBSCAN algorithm [74] to identify dense clusters of points within a distance of
+ϵ= ∆ s−5. We define these dense clusters as stop locations. For a more detailed explanation of the GPS data
+processing, refer to [9].
+Points of Interest
+We download from OpenStreetMap (OSM) data about points of interest (POIs) in New York City, Seattle, and
+Boston. POIs describe public venues such as restaurants, and parks in a city. We employ a dictionary of amenities
+covering a large set of public venues (see Supplementary Note 1 for the specific entries used). We compute the number
+of POIs extracted from OSM in each GeoHash tile iand refer to it as Wi. The maps of POIs for Boston, Seattle and
+New York City can be seen in Supplementary Figure S6.
+Origin-destination matrix
+Each individual uin our datasets is associated with a set of consecutive trajectories H(u)={P1, . . . , P N}, each
+capturing the locations visited over a 24-hour period. The origin-destination matrix of ucaptures the transition
+probability, T(u)
+ij/T(u)
+i, between each pair of locations visited by u, where T(u)
+ijis the total number of transitions in
+H(u)from location ito location j, and T(u)
+i=/summationtext
+j∈LT(u)
+ijaccounts for the total transitions from location ito any
+other location in the set L(u)of locations visited by u[62].12
+Train-Test overlap
+To compute the overlap between two trajectories, P(u)={p1, p2, . . . , p n}andR(u)={r1, r2, . . . , r m}, we introduce
+the prefix PiofP(u)as the list of the first i-th locations in P(u), i.e., Pi={p1, . . . , p i}(dropping index(u)for
+simplicity). The definition extends similarly to R. The size of the Longest Common Sub-Trajectory for two prefixes
+PiandRjis denoted as LCST ( fin Equation 4) and is defined as follows:
+f(Pi, Rj) =
+
+
+0, ifi= 0 or j= 0
+f(Pi−1, Rj−1) + 1, ifi, j > 0 and pi=rj
+max( f(Pi−1, Rj), f(Pi, Rj−1)),ifi, j > 0 and pi̸=rj(4)
+We quantify the overlap between a test trajectory Rand the training set as the maximum LCST over all the
+trajectories in the training set:
+max
+P∈H(u)LCST( P, R) (5)
+We normalise the LCST score within the range [0 ,1], and we assign each trajectory to one of the following five
+bins: 0-20%, 20-40%, 40-60%, 60-80%, and 80-100%, based on their LCST score [45]. For instance, a test trajectory
+with an LCST score less than or equal to 0 .2 will be assigned to the bin of trajectories with 0-20% LCST. We exclude
+trajectories with an exact 0% overlap as they are primarily consisting of individuals remaining in the same location,
+for a small set of locations. Refer to Supplementary Note 1 for further details. The distribution of LCST for test
+trajectories is detailed in Supplementary Note 1.
+Reporting summary
+Further information on research design is available in the Nature Portfolio Reporting Summary linked to this article.
+ACKNOWLEDGMENTS
+The authors would like to thank Cuebiq for kindly providing us with the mobility dataset for this research through
+their Data for Good program. L.P. has been supported by 1) PNRR (Piano Nazionale di Ripresa e Resilienza) in
+the context of the research program 20224CZ5X4 PE6 PRIN 2022 “URBAI – Urban Artificial Intelligence” (CUP
+B53D23012770006), funded by European Union – Next Generation EU; 2) EU project H2020 SoBigData++ G.A.
+871042; 3) NextGenerationEU—National Recovery and Resilience Plan (Piano Nazionale di Ripresa e Resilienza,13
+PNRR), Project “SoBigData.it—Strengthening the Italian RI for Social Mining and Big Data Analytics”, prot.
+IR0000013, avviso n. 3264 on 28/12/2021. The work of S.C., R.G., B.L. and M.L. has been supported by the PNRR
+ICSC National Research Centre for High Performance Computing, Big Data and Quantum Computing (CN00000013),
+under the NRRP MUR program funded by the NextGenerationEU. B.L. also acknowledges the support of the PNRR
+project FAIR - Future AI Research (PE00000013), under the NRRP MUR program funded by the NextGenerationEU
+and by the European Union’s Horizon Europe research and innovation program under grant agreement No. 101120237
+(ELIAS).
+Contributions
+M.L. and S.B. designed and developed the model. S.C. processed the data and reviewed the model. M.L., S.B., and
+S.C. performed the experiments. M.L. designed the study. M.L., S.B., S.C., L.P., and B.L. contributed to interpreting
+the results and writing the paper. L.P. coordinated the writing of the paper. R.G. read and approved the paper.
+Competing Financial Interests
+The authors declare no competing financial interests
+Data Availability
+The data used in this work are publicly available from the original references
+Code Availability
+The code to perform the analysis will be available upon request.
+[1] L. Pappalardo, E. Manley, V. Sekara, and L. Alessandretti, Future directions in human mobility science, Nature compu-
+tational science 3, 588 (2023).
+[2] M. Lee and P. Holme, Relating land use and human intra-city mobility, PloS one 10, e0140152 (2015).
+[3] M. B¨ ohm, M. Nanni, and L. Pappalardo, Gross polluters and vehicle emissions reduction, Nature Sustainability 5, 699
+(2022).
+[4] M. Akhtar and S. Moridpour, A review of traffic congestion prediction using artificial intelligence, Journal of Advanced
+Transportation 2021 , 1 (2021).14
+[5] P. Wang, T. Hunter, A. M. Bayen, K. Schechtner, and M. C. Gonz´ alez, Understanding road usage patterns in urban areas,
+Scientific reports 2, 1001 (2012).
+[6] A. Wesolowski, N. Eagle, A. J. Tatem, D. L. Smith, A. M. Noor, R. W. Snow, and C. O. Buckee, Quantifying the impact
+of human mobility on malaria, Science 338, 267 (2012).
+[7] C. Xiong, S. Hu, M. Yang, W. Luo, and L. Zhang, Mobile device data reveal the dynamics in a positive relationship
+between human mobility and covid-19 infections, Proceedings of the National Academy of Sciences 117, 27087 (2020).
+[8] M. U. Kraemer, C.-H. Yang, B. Gutierrez, C.-H. Wu, B. Klein, D. M. Pigott, O. C.-. D. W. Group †, L. Du Plessis, N. R.
+Faria, R. Li, et al. , The effect of human mobility and control measures on the covid-19 epidemic in china, Science 368, 493
+(2020).
+[9] L. Lucchini, S. Centellegher, L. Pappalardo, R. Gallotti, F. Privitera, B. Lepri, and M. De Nadai, Living in a pandemic:
+changes in mobility routines, social activity and adherence to covid-19 protective measures, Scientific reports 11, 1 (2021).
+[10] T. Yabe, B. G. B. Bueno, X. Dong, A. Pentland, and E. Moro, Behavioral changes during the covid-19 pandemic decreased
+income diversity of urban encounters, Nature Communications 14, 2310 (2023).
+[11] E. Moro, D. Calacci, X. Dong, and A. Pentland, Mobility patterns are associated with experienced income segregation in
+large us cities, Nature communications 12, 4633 (2021).
+[12] X. Lu, L. Bengtsson, and P. Holme, Predictability of population displacement after the 2010 haiti earthquake, Proceedings
+of the National Academy of Sciences 109, 11576 (2012).
+[13] P. Deville, C. Linard, S. Martin, M. Gilbert, F. R. Stevens, A. E. Gaughan, V. D. Blondel, and A. J. Tatem, Dynamic
+population mapping using mobile phone data, Proceedings of the National Academy of Sciences 111, 15888 (2014).
+[14] M. C. Gonzalez, C. A. Hidalgo, and A.-L. Barabasi, Understanding individual human mobility patterns, Nature 453, 779
+(2008).
+[15] P. Bosetti, P. Poletti, M. Stella, B. Lepri, S. Merler, and M. De Domenico, Heterogeneity in social and epidemiological
+factors determines the risk of measles outbreaks, Proceedings of the National Academy of Sciences 117, 30118 (2020).
+[16] P. P. Klamser, V. d’Andrea, F. Di Lauro, A. Zachariae, S. Bontorin, A. Di Nardo, M. Hall, B. F. Maier, L. Ferretti,
+D. Brockmann, and M. De Domenico, Enhancing global preparedness during an ongoing pandemic from partial and noisy
+data, PNAS Nexus 2(2023).
+[17] M. Luca, G. Barlacchi, B. Lepri, and L. Pappalardo, A survey on deep learning for human mobility, ACM Computing
+Surveys (CSUR) 55, 1 (2021).
+[18] A. G. Chekol and M. S. Fufa, A survey on next location prediction techniques, applications, and challenges, EURASIP
+Journal on Wireless Communications and Networking 2022 , 29 (2022).
+[19] H. Barbosa, M. Barthelemy, G. Ghoshal, C. R. James, M. Lenormand, T. Louail, R. Menezes, J. J. Ramasco, F. Simini,
+and M. Tomasini, Human mobility: Models and applications, Physics Reports 734, 1 (2018).
+[20] A. De Br´ ebisson, ´E. Simon, A. Auvolat, P. Vincent, and Y. Bengio, Artificial neural networks applied to taxi destination
+prediction, in Proceedings of the 2015th International Conference on ECML PKDD Discovery Challenge (2015) pp. 40–51.
+[21] Q. Liu, S. Wu, L. Wang, and T. Tan, Predicting the next location: A recurrent model with spatial and temporal contexts,
+inThirtieth AAAI conference on artificial intelligence (2016).15
+[22] J. Feng, Y. Li, C. Zhang, F. Sun, F. Meng, A. Guo, and D. Jin, Deepmove: Predicting human mobility with attentional
+recurrent networks, in Proceedings of the 2018 world wide web conference (2018) pp. 1459–1468.
+[23] H. Xue, F. Salim, Y. Ren, and N. Oliver, Mobtcast: Leveraging auxiliary trajectory forecasting for human mobility
+prediction, Advances in Neural Information Processing Systems 34, 30380 (2021).
+[24] D. Ashbrook and T. Starner, Learning significant locations and predicting user movement with gps, in Proceedings. Sixth
+International Symposium on Wearable Computers, (IEEE, 2002) pp. 101–108.
+[25] S. Gambs, M.-O. Killijian, and M. N. del Prado Cortez, Next place prediction using mobility markov chains, in Proceedings
+of the First Workshop on Measurement, Privacy, and Mobility (2012) pp. 1–6.
+[26] F. Calabrese, G. Di Lorenzo, and C. Ratti, Human mobility prediction based on individual and collective geographical
+preferences, in 13th international IEEE conference on intelligent transportation systems (IEEE, 2010) pp. 312–317.
+[27] C. Zhao, A. Zeng, and C. H. Yeung, Characteristics of human mobility patterns revealed by high-frequency cell-phone
+position data, EPJ Data Science 10, 5 (2021).
+[28] C. Song, Z. Qu, N. Blumm, and A.-L. Barab´ asi, Limits of predictability in human mobility, Science 327, 1018 (2010).
+[29] M. De Domenico, A. Lima, and M. Musolesi, Interdependence and predictability of human mobility and social interactions,
+Pervasive and Mobile Computing 9, 798 (2013).
+[30] X. Lu, E. Wetter, N. Bharti, A. J. Tatem, and L. Bengtsson, Approaching the limit of predictability in human mobility,
+Scientific reports 3, 2923 (2013).
+[31] L. Pappalardo, F. Simini, S. Rinzivillo, D. Pedreschi, F. Giannotti, and A.-L. Barab´ asi, Returners and explorers dichotomy
+in human mobility, Nature communications 6, 8166 (2015).
+[32] A. Cuttone, S. Lehmann, and M. C. Gonz´ alez, Understanding predictability and exploration in human mobility, EPJ Data
+Science 7, 1 (2018).
+[33] K. Smolak, K. Si/suppress la-Nowicka, J.-C. Delvenne, M. Wierzbi´ nski, and W. Rohm, The impact of human mobility data scales
+and processing on movement predictability, Scientific Reports 11, 1 (2021).
+[34] L. Scherrer, M. Tomko, P. Ranacher, and R. Weibel, Travelers or locals? identifying meaningful sub-populations from
+human movement data in the absence of ground truth, EPJ Data Science 7, 1 (2018).
+[35] L. Amichi, A. C. Viana, M. Crovella, and A. A. Loureiro, Understanding individuals’ proclivity for novelty seeking,
+inProceedings of the 28th International Conference on Advances in Geographic Information Systems , SIGSPATIAL ’20
+(Association for Computing Machinery, New York, NY, USA, 2020) p. 314–324.
+[36] J. L. Toole, Y.-R. Lin, E. Muehlegger, D. Shoag, M. C. Gonz´ alez, and D. Lazer, Tracking employment shocks using mobile
+phone data, Journal of The Royal Society Interface 12, 20150185 (2015).
+[37] A. Almaatouq, F. Prieto-Castrillo, and A. Pentland, Mobile communication signatures of unemployment, in Social Infor-
+matics: 8th International Conference, SocInfo 2016, Bellevue, WA, USA, November 11-14, 2016, Proceedings, Part I 8
+(Springer, 2016) pp. 407–418.
+[38] H. Barbosa, S. Hazarie, B. Dickinson, A. Bassolas, A. Frank, H. Kautz, A. Sadilek, J. J. Ramasco, and G. Ghoshal,
+Uncovering the socioeconomic facets of human mobility, Scientific reports 11, 8616 (2021).
+[39] S. Centellegher, M. De Nadai, M. Tonin, B. Lepri, and L. Lucchini, The long-term and disparate impact of job loss on
+individual mobility behaviour, arXiv preprint arXiv:2403.10276 (2024).16
+[40] N. Haug, L. Geyrhofer, A. Londei, E. Dervic, A. Desvars-Larrive, V. Loreto, B. Pinior, S. Thurner, and P. Klimek, Ranking
+the effectiveness of worldwide covid-19 government interventions, Nature Human Behaviour 4, 1303 (2020).
+[41] J. Zhang, M. Litvinova, Y. Liang, W. Zheng, H. Shi, A. Vespignani, C. Viboud, M. Ajelli, and H. Yu, The impact of
+relaxing interventions on human contact patterns and sars-cov-2 transmission in china, Science Advances 7, eabe2584
+(2021).
+[42] R. Wilson, E. zu Erbach-Schoenberg, M. Albert, D. Power, S. Tudge, M. Gonzalez, S. Guthrie, H. Chamberlain, C. Brooks,
+C. Hughes, et al. , Rapid and near real-time assessments of population displacement using mobile phone data following
+disasters: The 2015 nepal earthquake, PLoS currents 8(2016).
+[43] B. Hong, B. J. Bonczak, A. Gupta, and C. E. Kontokosta, Measuring inequality in community resilience to natural disasters
+using large-scale mobility data, Nature communications 12, 1870 (2021).
+[44] C. L. Gray and V. Mueller, Natural disasters and population mobility in bangladesh, Proceedings of the National Academy
+of Sciences 109, 6000 (2012).
+[45] M. Luca, L. Pappalardo, B. Lepri, and G. Barlacchi, Trajectory test-train overlap in next-location prediction datasets,
+Machine Learning 112, 4597 (2023).
+[46] W. Mason and D. J. Watts, Collaborative learning in networks, Proceedings of the National Academy of Sciences 109,
+764 (2012).
+[47] B. Jayles, H.-r. Kim, R. Escobedo, S. Cezera, A. Blanchet, T. Kameda, C. Sire, and G. Theraulaz, How social information
+can improve estimation accuracy in human groups, Proceedings of the National Academy of Sciences 114, 12620 (2017).
+[48] J. Becker, D. Brackbill, and D. Centola, Network dynamics of social influence in the wisdom of crowds, Proceedings of the
+national academy of sciences 114, E5070 (2017).
+[49] A. Almaatouq, A. Noriega-Campero, A. Alotaibi, P. Krafft, M. Moussaid, and A. Pentland, Adaptive social networks
+promote the wisdom of crowds, Proceedings of the National Academy of Sciences 117, 11379 (2020).
+[50] M. Kaustia and S. Kn¨ upfer, Peer performance and stock market entry, Journal of Financial Economics 104, 321 (2012).
+[51] W. Pan, Y. Altshuler, and A. Pentland, Decoding social influence and the wisdom of the crowd in financial trading
+network, in 2012 International Conference on Privacy, Security, Risk and Trust and 2012 International Confernece on
+Social Computing (IEEE, 2012) pp. 203–209.
+[52] R. Z. Heimer, Peer pressure: Social interaction and the disposition effect, The Review of Financial Studies 29, 3177 (2016).
+[53] S. Coleman, The effect of social conformity on collective voting behavior, Political analysis 12, 76 (2004).
+[54] J. Becker, E. Porter, and D. Centola, The wisdom of partisan crowds, Proceedings of the National Academy of Sciences
+116, 10717 (2019).
+[55] F. Shi, M. Teplitskiy, E. Duede, and J. A. Evans, The wisdom of polarized crowds, Nature human behaviour 3, 329 (2019).
+[56] J. Surowiecki, The wisdom of crowds (Anchor, 2005).
+[57] J. R. Dyer, A. Johansson, D. Helbing, I. D. Couzin, and J. Krause, Leadership, consensus decision making and collective
+behaviour in humans, Philosophical Transactions of the Royal Society B: Biological Sciences 364, 781 (2009).
+[58] A. W. Woolley, C. F. Chabris, A. Pentland, N. Hashmi, and T. W. Malone, Evidence for a collective intelligence factor in
+the performance of human groups, science 330, 686 (2010).17
+[59] N. Eagle and A. S. Pentland, Eigenbehaviors: Identifying structure in routine, Behavioral ecology and sociobiology 63,
+1057 (2009).
+[60] L. Pappalardo, M. Vanhoof, L. Gabrielli, Z. Smoreda, D. Pedreschi, and F. Giannotti, An analytical framework to nowcast
+well-being using mobile phone data, International Journal of Data Science and Analytics 2, 75 (2016).
+[61] I. Goodfellow, Y. Bengio, and A. Courville, Deep learning (MIT press, 2016).
+[62] C. M. Schneider, V. Belik, T. Couronn´ e, Z. Smoreda, and M. C. Gonz´ alez, Unravelling daily human mobility motifs,
+Journal of The Royal Society Interface 10, 20130246 (2013).
+[63] L. Anselin, Local indicators of spatial association—lisa, Geographical analysis 27, 93 (1995).
+[64] Y. Chen, A new methodology of spatial cross-correlation analysis, PLoS One 10, e0126158 (2015).
+[65] OpenStreetMap contributors, Planet dump retrieved from https://planet.osm.org , https://www.openstreetmap.org
+(2017).
+[66] S. Flaxman, S. Mishra, A. Gandy, H. Unwin, T. Mellan, H. Coupland, C. Whittaker, H. Zhu, T. Berah, J. Eaton,
+M. Monod, A. Ghani, C. Donnelly, S. Riley, M. Vollmer, N. Ferguson, L. Okell, and S. Bhatt, Estimating the effects of
+non-pharmaceutical interventions on covid-19 in europe, Nature 584, 257 (2020).
+[67] M. Chinazzi, J. T. Davis, M. Ajelli, C. Gioannini, M. Litvinova, S. Merler, A. P. y Piontti, K. Mu, L. Rossi, K. Sun, et al. ,
+The effect of travel restrictions on the spread of the 2019 novel coronavirus (covid-19) outbreak, Science 368, 395 (2020).
+[68] L. Napoli, V. Sekara, M. Garc´ ıa-Herranz, and M. Karsai, Socioeconomic reorganization of communication and mobility
+networks in response to external shocks, Proceedings of the National Academy of Sciences 120, e2305285120 (2023).
+[69] W. H. Organization et al. , Who director-general’s opening remarks at the media briefing on covid-19, January 30(2022).
+[70] R. B. Cialdini and R. B. Cialdini, Influence: The psychology of persuasion , Vol. 55 (Collins New York, 2007).
+[71] T. A. Venema, F. M. Kroese, J. S. Benjamins, and D. T. De Ridder, When in doubt, follow the crowd? responsiveness to
+social proof nudges in the absence of clear preferences, Frontiers in psychology 11, 499433 (2020).
+[72] F. Simini, G. Barlacchi, M. Luca, and L. Pappalardo, A deep gravity model for mobility flows generation, Nature commu-
+nications 12, 6576 (2021).
+[73] R. Hariharan and K. Toyama, Project lachesis: Parsing and modeling location histories, in Geographic Information Science ,
+edited by M. J. Egenhofer, C. Freksa, and H. J. Miller (Springer Berlin Heidelberg, Berlin, Heidelberg, 2004) pp. 106–124.
+[74] M. Ester, H.-P. Kriegel, J. Sander, X. Xu, et al. , A density-based algorithm for discovering clusters in large spatial databases
+with noise., in kdd, Vol. 96 (1996) pp. 226–231.APS/123-QED
+Supplementary Information for: Mixing Individual and Collective
+Behaviours to Predict Out-of-Routine Mobility
+Sebastiano Bontorin,1, 2Simone Centellegher,1Riccardo Gallotti,1
+Luca Pappalardo,3Bruno Lepri,1and Massimiliano Luca1,∗
+1Fondazione Bruno Kessler, Via Sommarive 18, 38123 Povo (TN), Italy
+2Department of Physics, University of Trento,
+Via Sommarive 14, 38123 Povo (TN), Italy
+3ISTI - National Research Council,
+Via Giuseppe Moruzzi 1, 56127 Pisa (PI), Italy
+(Dated: April 4, 2024)
+1arXiv:2404.02740v1  [cs.CY]  3 Apr 2024CONTENTS
+1. Dataset Details 3
+1.1. Details on Cuebiq Dataset for Seattle, Boston and NYC 3
+1.2. Collective OD flows 3
+1.3. Distribution of Trajectories Overlap 5
+1.4. Comparison of 0% and 0-20% overlaps. 5
+1.5. OSM Amenities and POIs retrieval 7
+1.6. User pruning of test trajectories 7
+2. Spatial properties of I,MandCaccuracy 8
+3. Statistical properties of Collective mobility Cin proximity to POIs 10
+4. Robustness of the predictive capabilities of collective behaviours. 13
+4.1. Pruning of over-represented users in location iinCestimation. 13
+4.2. Pruning of Collective OD in over-represented locations i. 14
+4.3. Spatial accuracies for Origin and Destination 14
+5. Recurrent Neural Network Implementation 18
+6. Accuracies Tables 18
+∗Corresponding author: mluca@fbk.eu
+21. DATASET DETAILS
+In this Section, we report additional details regarding the dataset used in this study.
+1.1. Details on Cuebiq Dataset for Seattle, Boston and NYC
+The location data is provided by Cuebiq Inc., a location intelligence and measurement
+company. The dataset was shared within the Cuebiq Data for Good program, which pro-
+vides access to de-identified and privacy-enhanced mobility data for academic and research
+purposes.
+The location data provided consists of privacy-enhanced GPS locations for research pur-
+poses, from January 2020 to September 2020, and includes only users who have opted-in to
+share their data anonymously. The data is General Data Protection Regulation (GDPR)
+and California Consumer Privacy Act (CCPA) compliant. Furthermore, to increase and
+preserve users’ privacy, Cuebiq obfuscates home and work locations to the Census Block
+Group level. The data is collected through the Cuebiq Software Development Kit (SDK)
+which collects user locations through GPS and Wi-Fi signals in Android and iOS devices.
+city users # points
+Seattle 270K 12M
+Boston 375K 11M
+NYC 1,5M 140M
+TABLE I: Dataset statistics. Total number of users and number of spatio-temporal
+points p= (i, t) in the Cuebiq dataset for the cities of Seattle, Boston and New York City.
+Numbers have been approximated.
+1.2. Collective OD flows
+3Flow
+countFlow
+countFlow
+count
+log10log10log10BostonSeattleNYCSupplementary Figure S 1:OD Flows. Visualisation of collective flows between
+Geo Hashes (level 6) in the Cuebiq dataset for Boston, Seattle and NYC in the period
+from January 3rd to March 1st, 2020.
+41.3. Distribution of Trajectories Overlap
+Percentage of novel transitions never observed during training in a test set are quantified
+via Longest Common Sub-Trajectory (LCST) score [ ?]. LCST scores distribution are
+displayed in Fig. S2.
+N.Y.C. Boston Seattle010203040% Test Trajectories
+0-20 20-40 40-60 60-80 80-100LCST Score Distribution of Test Set
+Supplementary Figure S 2:Distribution of LCST score of the test trajectories
+for each city. For each city, we report the percentage of test trajectories that ended up
+being in one of the five bins we are evaluating. We can observe a similar distribution
+regardless of the city, with most of the trajectories representing mixed mobility (i.e., 20-80%
+overlap with training) while fully novel (i.e. 0-20% of overlap) and fully observed (i.e.,
+80-100) are the two less represented mobility profiles.
+1.4. Comparison of 0% and 0-20% overlaps.
+Test transitions in trajectories with an exact 0% overlap have most of the origin locations
+concentrated in few tiles (Figure S3A). In Fig. S3B we observe that in test overlap 0% most
+transitions have origin and destination in the same location i. This indicates that on average
+the 64% of the transitions in this overlap are constituted by people that remain in the same
+location. We thus decided to exclude trajectories with 0% overlap as the inclusion of this
+type of transitions distorts our analysis and does not allow a fair comparison between the
+models. We can see in Table II models’ ACC@5 on test trajectories having an exact 0% , as
+5in our dataset are mostly constituted by transitions in few locations which are well predicted
+byC(and in turn also by M), exhibit large accuracy (up to 77% in Boston).
+City0% 0-20% 0% + 0-20%
+I C M I C M I C M
+NYC 0.048 0.688 0.662 0.096 0.416 0.376 0.087 0.468 0.431
+Boston 0.087 0.771 0.736 0.093 0.468 0.407 0.091 0.584 0.532
+Seattle 0.089 0.664 0.635 0.073 0.395 0.34 0.078 0.48 0.433
+TABLE II: Accuracies on 0%, 0-20% and 0% + 0-20% combined. Models’
+accuracies on test trajectories with 0% overlap, with overlap in the 0-20% bin (0%
+excluded) and finally on test trajectories on the full 0-20% with the 0% included.
+A
+B
+Supplementary Figure S 3:Comparison of overlaps 0% and 0-20% test
+trajectories.(A) The cumulative distribution function (CDF) of the number of
+transitions from each location iin the overlaps 0% and 0-20%. (B)Scatter plots (each
+point is a location i) of the fraction of all test transitions (in 0% or 0-20% overlaps)
+from a location versus the % of these transitions having both the origin and the
+destination in the same location i(the individual user remains in the same tile). The
+weighted average of same-tile transitions across different locations is present in legend,
+where the weight for each location is the fraction of test transitions having origin in
+that location.
+61.5. OSM Amenities and POIs retrieval
+OpenStreetMap is a collaborative mapping project that provides rich geographical data,
+including various amenities types and points of interest. The following list outlines the
+specific types of amenities extracted from OSM for our analysis:
+amenities:[’cafe’,’college’,’library’,’university’, ’restaurant’,’pub’,’fast
+food’,’bar’,’bank’,’pharmacy’,’arts centre’,’cinema’,’community centre’,’post
+office’,’marketplace’]
+The number of POIs extracted from OSM in each GeoHash level 6 tile for each city is
+presented as a map in Fig. S6 panel C.
+1.6. User pruning of test trajectories
+We prune over-represented users in the test dataset. We do this by inspection of the
+distribution of the number of transitions for each user. We consider the 95 −thpercentile
+(of transitions per user) as a threshold T∗. The pruning consists in the following procedure:
+if user uhas a total number of transitions T(u)in the test set larger than threshold T(u)> T∗,
+we randomly remove this user’s transitions in the test set until the total number of transitions
+for any user respects the condition T(u)≤T∗.
+72. SPATIAL PROPERTIES OF I,MAND CACCURACY
+AOverlaps spatial accuracy distributionsSpatial accuracy auto-correlationSpatial accuracy
+Moran’s IndexNull model
+Moran’s IndexB
+SpatialAccuracy-Seattle0-40%C
+M - Individual-CollectiveC - CollectiveI - IndividualACC@5i
+Supplementary Figure S 4:Spatial distributions of accuracies - Seattle.
+Distribution of accuracies for the individual I,the collective Cand model Mwhich
+combines individual and collective information, in predicting a transition from a Geo
+Hash 6 tile. (A) Spatial accuracies across different overlaps: as the test set includes
+more novel and out-of-routine mobility (e.g., 0-20% and 20-40% overlaps), model M
+aided by collective information Cperforms better. While the individual model I
+provides better predictions when it has seen more trajectories in training, and is
+tested on recurrent individual patterns. (B)Spatial autocorrelation of the models’
+accuracies in corresponding overlaps quantified via the Moran Index. For larger
+out-of-routine behaviours like 0-20% and 20-40% overlaps, model Cexhibits clustered
+accuracy (large Moran Index), a property also of model Mwhere collective behaviour
+improves the predictive capabilities. (C)Map of spatial accuracies ACC@5 iin the
+overlap 0-40% in Seattle for models I,CandM. Maps: Stamen Maps
+8AOverlaps spatial accuracy distributionsSpatial accuracy auto-correlationSpatial accuracy
+Moran’s IndexNull model
+Moran’s IndexB
+SpatialAccuracy-NYC0-40%C
+M - Individual-CollectiveC - CollectiveI - IndividualACC@5i
+Supplementary Figure S 5:Spatial distributions of accuracies - NYC.
+Distribution of accuracies for the individual I,the collective Cand model Mwhich
+combines individual and collective information, in predicting a transition from a Geo
+Hash 6 tile. (A) Spatial accuracies across different overlaps: as the test set includes
+more novel and out-of-routine mobility (e.g., 0-20% and 20-40% overlaps), model M
+aided by collective information Cperforms better. While the individual model I
+provides better predictions when it has seen more trajectories in training, and is
+tested on recurrent individual patterns. (B)Spatial autocorrelation of the models’
+accuracies in corresponding overlaps quantified via the Moran Index. For larger
+out-of-routine behaviours like 0-20% and 20-40% overlaps, model Cexhibits clustered
+accuracy (large Moran Index), a property also of model Mwhere collective behaviour
+improves the predictive capabilities. (C)Map of spatial accuracies ACC@5 iin the
+overlap 0-40% in NYC for models I,CandM. Maps: Stamen Maps
+93. STATISTICAL PROPERTIES OF COLLECTIVE MOBILITY CIN PROXIM-
+ITY TO POIS
+Area at D < 2.0 km
+from WmaxjOther areasBostonSeattleNYCA
+BC
+Supplementary Figure S 6:Statistical properties of Collective mobility and
+proximity of Points of Interests. We separate the cities into tiles within a distance D
+from the attractiveness centre (location with largest number of POIs Wmax
+j) and other areas
+with distance greater than D. (A) the distribution of travel distances ( P(r)), distinguishing
+between origins within D = 2 km from the area with highest number of POIs ( Wmax
+j) and
+other origins. Distribution are fitted with a power-law function P(r)∼r−γin the interval of
+0 to 10 Km. The different exponents γhighlight a more localised mobility in proximity of
+POIs. B)Entropy SC
+idistributions for locations in the two areas. C)Map of the number of
+POIs ( Wi) in a Geo hash 6 tile i, extracted from OpenStreetMap. (Inset) Areas within a
+distance D= 2 Km from Wmax
+jare shaded in orange. In teal other areas. Albeit this
+separation of the city is solely based on proximity to high POIs areas, it separates collective
+human mobility in two different predictability regimes. Maps: Stamen Maps
+10BostonSeattleNYCBASupplementary Figure S 7:Sensitivity analysis of travel distances P(r)and
+collective SC
+iin proximity of POIs and in other areas. A) Exponents γof power law
+fits (in the range 0 to 10 km) of the travel distributions P(r). In orange the exponents for
+P(r) computed on transitions having location origin within distance D from the tile Wmax
+i,
+andP(r) for origin in other areas. B)The median value and its median absolute deviation
+(MAD) of entropy SC
+idistributions for locations within D from Wmax
+ior in other areas. For
+Seattle and NYC in particular we observe a range of threshold distances D in which we can
+appreciate a separation of exponents and median values. In particular D = 2 Km represents
+a proximity distance where in all cities we observe different statistical properties.
+11Supplementary Figure S 8:Pearson correlation of SC
+iversus ACC@5 i.We
+compute the Pearson correlation ρof accuracy of Cmodel from a tile iACC@5 iin the
+0-40% overlap versus the collective entropy SC
+iin that location. We observe negative
+correlation between the two variables, specifically for Boston ρ=−0.86, Seattle ρ=−0.66
+and NYC ρ=−0.5.
+SCiSeattleBostonNYC
+Supplementary Figure S 9:Collective Entropy SC
+iat Geo Hash level 6. Spatial
+distribution of normalised entropy SC
+iof the Collective OD. Areas in violet are characterised
+by lower entropy, with destination probabilities from location ibeing concentrated in a
+smaller set of tiles. This also results in a larger predictability and a stronger improvement of
+predictions of out-of-routine mobility.
+124. ROBUSTNESS OF THE PREDICTIVE CAPABILITIES OF COLLECTIVE BE-
+HAVIOURS.
+Areas in Fig. 6 with high density of POIs and in which novel mobility is better predicted,
+are also areas characterised by larger number of transitions in the dataset. We conducted
+a robustness test to verify that the accuracy improvements in these urban areas are not
+attributable to probabilities Cwhich may benefit from a larger sample size. Specifically,
+we reduce and control the collective information that can be accessed by our model Mby
+pruning the set of transitions from these over-represented locations used to estimate the
+collective OD. In the following, we describe in detail this process.
+log10(Ti)log10(Ti)
+Seattle total ﬂows  from
+a Geohash6 origin iTiSeattle total ﬂows  from
+a Geohash6 origin i
+()TiTmaxi=418before pruningafter pruning on P-50
+Ti= # of transitions from 
+an origin i used to estimate 
+the Collective OD Ci
+(Ti)
+TiABC
+Supplementary Figure S 10:Sub-sampling of Collective OD flows and reduction
+of sample-size effects. A) the number for total transitions in the training dataset from a
+Geo hash tile ifor Seattle, computed as Ti=/summationtext
+jTijwhere Tijis the flow count of
+transitions from location ito location j. B) The cumulative distribution function of Ti
+highlights that several orders of magnitude separate few locations from the remaining areas.
+The 25-th and 50-th percentiles are highlighted. C) After the pruning process in Algorithm
+1 the value Tiin all tiles is approximately similar. (Here Tmax
+i= 418)
+4.1. Pruning of over-represented users in location iinCestimation.
+First, we remove biases introduced by over-represented users in the OD. If a user uhas a
+number of transitions from an origin location ilarger than the 50 −thpercentile of users in
+location i(which we define as Tu−50
+i), we prune its transitions in iup to the threshold Tu−50
+i.
+After pruning, the number of transitions for each user in location iis therefore T(u)
+i≤Tu−50.
+134.2. Pruning of Collective OD in over-represented locations i.
+Second, we focus on the total number of transitions in the training set from location i
+available to reconstruct probabilities Ci. If the number of training transitions from location
+iexceeds the median (50 −thpercentile) of all locations (which we refer to as Tmax), we
+uniformly and randomly pruned the subset of training transitions from location iuntil this
+threshold was reached ( Ti< Tmax). This process allows to perform next location predictions
+with collective Ciwhere the probabilities have been computed with a comparable amount
+of information across all tiles i. The process of pruning origins is presented in Algorithm 1.
+Data: Set of training transitions Difor collective OD estimation from origin i
+Data: Size of the training set from location i:Ti=|Di|=/summationtext
+jTij
+Data: Percentile X(in the analysis X= 50%)
+Result: Pruned collective OD ¯Ci
+Compute CDF and determine percentile Xtransitions PX;
+foreach origin ido
+ifTiis larger than Xpercentile transitions PX(Tmax)then
+Sample uniformly PXtransitions from Di, as sub-sampled set ¯Di;
+Estimate new pruned collective probabilities ¯Ciusing sub sample ¯Di;
+end
+end
+Algorithm 1: Pruning Collective OD Estimation. Pruning algorithm to remove bias
+of collective OD Cibeing estimated with a larger sample size in locations close to high
+density of POIs.
+Moreover in Fig. S10 we present the effect of pruning over-represented origins in the
+training dataset. We show the case of Seattle, where the number of available flows Ti
+from Geo Hashes ispans different orders of magnitude for different areas in the original
+dataset. After computing the CDF and percentiles (panel B) we prune the set of training
+transitions following algorithm 1 based on the median value as threshold. The resulting set
+of comparable flows Tiacross tiles after a pruning procedure is in panel C. All CDF and
+percentiles used for the set of three cities are reported in Fig. 11.
+4.3. Spatial accuracies for Origin and Destination
+This random sub-sampling process was repeated for a number of samples Nsamples =
+10, generating sub-datasets from which Nsamples collective Markov models Cihave been
+14SeattleBostonNYC
+TiTiTiSupplementary Figure S 11:Cumulative distribution of transition per origin in
+the train dataset. 25-th and 50-th percentile CDF values are indicated.
+¯M(N)¯M(2)¯M(1)I¯C(1)¯C(2)¯C(N)
+CN samplesPruningAccuracy
+on transitions
+from origin iACC@5(1)iACC@5(2)iACC@5(N)iavg(ACC@5i)Average
+spatial accuracy
+iavg(ACC@5i)
+Supplementary Figure S 12:Sub-sampled ¯C(i)and computation of average
+spatial accuracy from pruned ODs. Procedure of generation of N samples of pruned
+collective ODs and ¯C(i), and computation of average value of accuracy from an origin
+location i(ACC@5 i) across the sub-sampled models.
+computed. From the sub-sampled ¯C, different models Mhave been tested on the dataset
+and a final average on spatial accuracy in each Geo Hash 6 tile has been obtained. We
+indicate sub sample imodel as ¯C(i). This sampling procedure and computation of average
+spatial accuracy is reported in Fig. 12
+In Figure S13, we report the spatial accuracies of Musing pruned ¯C. Here we adopt
+exclusively novel transitions extracted from the overlap 0 −40%, i.e. instances in which the
+correct destination jfrom a location iin the test has never been seen in I(u)
+ifor user u. This
+is done to investigate the spatial dependencies of pruned collective information ¯Cto aid the
+Mmodel when individual patterns can not aid by definition because they lack the necessary
+information. Therefore, eventual heterogeneity in accuracy observed can be attributable
+15A
+SeattleBostonNYCAccuracy of
+ from a Geo6
+originM
+Accuracy of
+ to a Geo6
+destinationM
+<ACC@5>A
+BSupplementary Figure S 13:Spatial accuracy of Mmodel on novel mobility
+with pruned ¯Cin Seattle, Boston and NYC. The accuracy of Mmodel in predicting a
+novel transition (never seen in a individual u’s historical trajectories H(u)) from an origin in
+a Geo Hash iis presented in panel (A). In panel (B)the accuracy in predicting a location
+as destination of a test transition is shown. It’s worth noting that the sample size used to
+estimate Ciexhibits strong differences, with central areas being more densely sampled. To
+mitigate this potential bias, we employed a stochastic sub sampling process to estimate Ci.
+Thus, spatial heterogeneity in ACC@5 icannot be attributed to differences in the density
+and richness of the dataset used for estimating Ciprobabilities. Maps: Stamen Maps
+Seattle
+NYC
+Boston
+Supplementary Figure S 14:Pearson coefficient between ACC @5i(Destination
+i) and Wi.Correlation between accuracy in predicting a destination location and the
+number of POIs in that location for the three cities. We observe that, specifically for Boston
+and Seattle, the best predicted destinations in the regime of novel mobility (overlap 0-40%)
+are the locations having the largest number of POIs. A lower Pearson is observed for New
+York City, where also locations with lower density of POIs are well predicted as destinations.
+16exclusively to collective information. We present accuracies both from an origin location i
+(panel A) and the accuracy in estimating correctly a destination to a tile j(panel B) using
+the model Mbuilt from Collective OD pruned ¯C, as described in Algorithm 1 and Figure S10.
+Spatial accuracies presented in Figure S13 are obtained as the mean value of ACC@5 i
+across the ensemble of sub sampled models for each location. We observe that the enhanced
+ACC@5 iaccuracy in of MandCin proximity to areas with high density of POIs is still
+present even after pruning the information with which Ciis computed. Therefore the im-
+provement in accuracy can not be attributed to the number of transitions in the training
+dataset used to estimate Ciprobabilities. Moreover we observe that the best predicted des-
+tinations j, with high ACC@5 j, seem to also be clustered around high POIs areas. Therefore
+we compute the Pearson correlation between the accuracy ACC@5 jof model Min predict-
+ing correctly a a location jas a destination and the number of POIs Wjin that destination.
+In Fig. S14 we show these scatter plots for Seattle, Boston and NYC. Areas with large
+number of POIs tend to be the ones also better predicted as destinations by the collective
+behaviours. This trend in particular is more pronounced for Boston and Seattle, with a
+ρ= 0.58 and ρ= 0.62 respectively.
+175. RECURRENT NEURAL NETWORK IMPLEMENTATION
+RNNs are commonly used as baselines for tasks in which sequential information is in-
+volved. Given a sequence as input, an RNN performs the same task for each element and the
+output depends on the previous computation. Each computation involves three parameters:
+•xithe input at the ithstep
+•hithe hidden layer at the ithstep
+•yithe output of the ithstep
+There are many different types of recurrent neural networks and for this work, we leveraged
+an Elman RNN as implemented in [ ?]. The computation performed by the networks at
+with ngates are the following:
+hi=σh(Whi+Uhihi−1+bhi),for each i∈ {1, . . . , n −1}
+yi=σy(Whn−1+bn−1)
+To train the RNN, we fine-tuned the following hyperparameters: learning rate (0.001 for
+New York, 0.005 for Seattle and Boston), hidden size (750), embedding size (400), and
+epochs (250 with early stop mechanism). We use Adam as an optimizer.
+6. ACCURACIES TABLES
+Full Set 0-20 20-40 40-60 60-80 80-100
+I C M RNN I C M RNN I C M RNN I C M RNN I C M RNN I C M RNN
+Geo 6NYC 0.608 0.503 0.678 0.649 0.096 0.416 0.376 0.169 0.319 0.398 0.468 0.328 0.572 0.453 0.637 0.599 0.801 0.546 0.817 0.925 0.966 0.698 0.948 0.979
+Boston 0.706 0.643 0.753 0.746 0.093 0.468 0.407 0.155 0.32 0.454 0.492 0.366 0.604 0.537 0.68 0.637 0.831 0.669 0.847 0.928 0.977 0.839 0.929 0.98
+Seattle 0.645 0.549 0.697 0.694 0.073 0.395 0.34 0.148 0.314 0.397 0.461 0.343 0.581 0.471 0.646 0.625 0.808 0.584 0.824 0.936 0.971 0.781 0.918 0.969
+Geo 7NYC 0.475 0.329 0.530 0.494 0.063 0.221 0.222 0.108 0.244 0.229 0.333 0.26 0.508 0.305 0.547 0.529 0.757 0.424 0.768 0.77 0.951 0.616 0.939 0.969
+Boston 0.562 0.446 0.607 0.582 0.07 0.264 0.254 0.103 0.259 0.285 0.364 0.277 0.551 0.394 0.594 0.583 0.787 0.534 0.794 0.801 0.962 0.745 0.919 0.97
+Seattle 0.530 0.412 0.571 0.548 0.05 0.223 0.214 0.099 0.255 0.262 0.344 0.275 0.524 0.368 0.56 0.54 0.764 0.504 0.77 0.779 0.958 0.74 0.916 0.966
+TABLE III: Full accuracies table. ACC@5 results are presented for both Geo Hash 6
+and Geo Hash 7 tessellations.
+18

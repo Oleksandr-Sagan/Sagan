@@ -1,0 +1,613 @@
+arXiv:2404.02451v1  [cs.CY]  3 Apr 2024The SocietalImplicationsofBlockchain Proliferation
+CoryCherven
+Canisius College
+Department ofComputerScience
+chervenc@canisius.edu
+ABSTRACT
+Blockchainanditsdistributedledgertechnologyhavefar- reaching
+implicationsforconsumersacrosstheworld.Cryptocurren cieslike
+XRPworktosolvekeyissuesintheremittanceindustry,targ eting
+corridors like Mexico where foreign remittance fuels econo mies.
+Blockchain’s libertarian principles have the potential to change
+livesinthethirdworld,replacingcorruptinfrastructure withtrust-
+basedsolutions.Whilethistechnologycanbeusedtosigniﬁ cantly
+improvelives,ithasawealthofdestructiveapplications. Bitcoin’s
+blockchain and nefarious websites like the Silk Road have fu eled
+an underground market of drugs, money laundering, and terro r-
+ism, complicating digital currency legislation. The negat ive envi-
+ronmental eﬀects of cryptocurrency may also contribute sig niﬁ-
+cantly to global climate change. Negatives aside, cryptocu rrency
+still proves to be a valuable commodity in technological dev elop-
+ment.
+ACMReference format:
+CoryCherven.2024.TheSocietal Implications ofBlockchain Prolif eration.
+InProceedings ofThe 150th Anniversary ofCanisius College,
+,March 2020, Buﬀalo,NY(CC ’20), 6pages.
+https://doi.org/10.1145/nnnnnnn.nnnnnnn
+INTRODUCTION
+The development of blockchain technology has created a new
+framework for doing immense societal good. A great beneﬁt of
+blockchain is its eﬀects of the remittance industry. Billio ns of dol-
+larsﬂowwithinandbetweencountrieseveryyear,currently within
+a system designed and maintained by the Society of Worldwide
+Interbank Financial Telecommunication(SWIFT). This anti quated
+system acts as a tracking system for money as it ﬂows through
+member banks (like post oﬃces) but relies heavily on its memb er
+banks’ infrastructures. As a result, it has proven to be imme nsely
+slowandtransactionsaccumulatefeesanddelayateachstep .Blockchain
+technology enables funds to be sent in real time with little d elay,
+few fees,andwithoutrelying uponthirdpartiestofacilita tetrans-
+fers. Cryptocurrencies like XRP [2] are working to solve the an-
+tiquation of SWIFT’s network by leveraging localcryptocur rency
+markets to instantaneously convert currency from the initi al ﬁat,
+transfer it,and convert ittothedestination ﬁat[13].
+These beneﬁts of blockchain can also be felt in the third worl d
+where citizens lack trust in their governments and their ban king
+systems. There are many intuitive applications for blockch ain to
+aid these peoplesuch as: using micro-transactions to sell b ack so-
+larenergytothegridandreducecosts[1],storingmoneyind ecen-
+tralizedwallets outsideof thegovernment’s control [14], and as a
+meanstostoreimportantandimmutableidentiﬁcationrecor dslike
+IDs,medicalrecords,etc.[1].Blockchain,particularlyi tsdecentral-
+ized nature, can protect resources and information outside of thecontrolofanysinglegovernment, allowingthird-worldcit izensto
+conﬁdentlyprotectthemselves.
+Unfortunately,blockchain’slackofcentralitybringswit hitmany
+detrimentaleﬀectsonsocietyaswell.Bitcoin[9]hasprove n tobe
+a useful resource in online illicit marketplaces like the Si lk Road
+which sell drugs, weapons, and many other nefarious goods an d
+services[7].Bydetachingidentitiesandlocalitiesfromd igitalbank
+accounts,cryptocurrenciesonblockchainscanevade money laun-
+deringregulationandgovernmentoversight[12][3].These curren-
+ciescanbefunneledtofundterrorismabroadwhileprotecti ngthe
+identities ofdonorsandterroristregimes [4].Additional ly,theim-
+mense electrical consumption of computers running blockch ain
+software (particularly with proof-of-work blockchains, s ee glos-
+sary)contributestorapidclimatechangeandenvironmenta ldegra-
+dation[8].
+Thankfully, many of the negatives of blockchain are counter -
+actedbywidespreadgovernmentregulation.Bytracingbloc kchain
+transactions at their entry points (currency exchanges), g overn-
+mentsliketheUnitedStatescanfollowtheblockchain’sser ialized
+records to see where the money moves. By tagging identities t o
+these exchange accounts, governments can eﬀectively trace laun-
+dering and illicit transactions (including terrorism) [11 ][6].While
+theseregulationsoftenunderminetheoriginalgoalofBitc oin(and
+many other cryptocurrencies) to be anonymous, they still en able
+blockchain technology’s use for good in remittance and in ai ding
+theunbanked.Thisregulationhelpstoensurethatblockcha intech-
+nologydoesmoregoodandsocietythanharmandfacilitatesc om-
+mercial and communal growth.
+BACKGROUND
+OnJanuary3,2009,apeer-to-peer(P2P)paymentsystemknow n
+asBitcoinwentlive[10].Itsinventor,pseudonymouslytit led“Satoshi
+Nakamoto,”createdtheprotocoltoallowforP2Ptransfersw ithout
+theneedforatrustedthird party(likeabanking institutio n) inin-
+stigatingapaymentbetweentwoparties.Nakamoto[9]envis ioned
+acompletelysecureandanonymousmeanstotransfermoneyth at
+reliedoncomputingpowertoverifyatransaction’slegitim acy.The
+resultingtoken,Bitcoin,producedanupheavalinthewayth atdata
+couldmove and be veriﬁed. Other digital currencies followe d suit
+includingLitecoin,Ripple,Dash,Dogecoin,andPeercoin[ 6]which
+oftenreappliedSatoshi’s vision withtweaks, always utili zingsim-
+ilartechnology.Withtheriseofthedigitalcurrency andBi tcoin’s
+climb to legitimacy in 2013 [10], it became evident what posi tive
+and negative impacts the new technology would bring and that
+legislationwas necessary.
+There are many negatives that arise from an anonymous P2P
+network.Anonymityhasspurredthegrowthofthe“eBayofill icit
+drugs” [7], allowed for money laundering [12], funded terro rism
+[10],andbegunwarmingtheearth[8].Thankfully,thetrace abilityCC’20,March 2020,Buﬀalo, NY,
+Cory Cherven
+of blockchain and regulation of exchanges has helped counte ract
+this anonymity and curbedcrime.
+Regulators of Bitcoin have avoided completely banning cryp -
+tocurrencies in most countries as they identify cryptocurr ency’s
+beneﬁts. Cryptocurrencies like Ripple (XRP) [2] are workin g to
+overhaul legacy systems and reduce remittance fees to impov er-
+ished economies. Startups like BitPesa [10] are looking to r educe
+transaction fees and aid the unbanked in Africa. There remai ns
+anuntappedpotentialtoembedpersonalrecords(health,ba nking,
+identity) into blockchaintorevolutionize banking, votin g, andim-
+migration issues thatoccurunderunreliable governments [ 1].
+GLOSSARY
+Node–a computer hosting an instance of the Bitcoin protocol,re-
+sponsible for verifying transactions. Anybody can host a no deon
+thedecentralizedBitcoinnetwork.
+Block–a chunk of data containing an assortment of information,
+particularly some or all the transactions since the last blo ck was
+accepted bythenetwork’s nodes.
+Diﬃculty –how diﬃcult it is to mine a block. This increases and
+decreases to ensure that a block is veriﬁed about every ten mi n-
+utes.
+Mining–the process by which the network veriﬁes the transac-
+tions of a given block. All the computers (CPUs) on the networ k
+attempttoproduceanSHA-256hashoftheblockwithasuﬃcien t
+number of zeros at the beginning (this is determined by the di f-
+ﬁculty) by iterating a nonce variable in the block and rehash ing
+until it has enough zeros. By solving this hash, the winning C PU
+veriﬁes the transactions on the block and sends the block to t he
+other nodestobeaccepted.
+ProofofWork(PoW) –theprocessofcreatingthehashwhenmin-
+ing,provesthattheworkhasbeendonetoverifytheblock,re sults
+in thereceiptof thereward.
+Reward (incentive) –eachblockminedhas aspecialﬁrsttransac-
+tion where the miner (or group of miners) is awarded a speciﬁc
+number of Bitcoins. This value halves aboutevery four years and
+is currently 12.5 Bitcoins (February 2020) (this keeps the s upply
+cappedat21,000,000BTC).
+Consensus –theprocessbywhich thenetworkagrees onitsstate.
+Afterablockismined,thenetworkmustverifythatnocoinsh ave
+been double-spent and append that block to the blockchain. T he
+networkallowsforseveralchainstoformbuttheonlyhonest chain
+(the one considered valid) is the longest one. Any errant cha ins
+causedbyattackerswilldieoﬀwhenconsequentblockscanno tbe
+addedtoit and it becomestooshort.
+Public/Private Keys –a Bitcoin owner can identify their Bitcoin
+"wallet"byapublickey(usedforexchanging thecoins)whic hcan
+beseenbyanybody.Theyproveownershipofthosecoinsbyapr i-
+vate key in order to initiate a transaction. These keys are 25 6-bit
+numbers.
+Blockchain –Alivingledgerconsisting ofallofthepreviouslyac-
+cepted blocks. A full blockchain can be traced back to the ﬁrs t
+transactionandshowseachsetoftransactionsnecessaryto getthe
+networktoitscurrentstate.Thestructureofthenetworkma kesit
+sothat,onceatransactionhasoccurred,itcannotbeundone with-
+out recalculating every subsequent block. This results in a highlyrobust,securesystemthatcouldonlybehackedifmostnodes mis-
+behavedandcommittedtoverifyinginvalidblocks.Thismak esthe
+Bitcoin network more secure as it gets more decentralized (w ith
+morenodes) [9][10].
+Smart Contracts –digital contracts that complete a speciﬁed ac-
+tion automatically when their terms are satisﬁed, often inc lude
+payment after a number ofsteps arecompleted[14].
+MoneyLaundering –“themethodbywhichallproceedsofcrime
+areintegratedintothebankingsystemsandbusinessenviro nments
+oftheworld”[12].
+Remittance –"Theprocessofsendingmoneytoremoveanobliga-
+tion.This is most often donethrough anelectronic network, wire
+transfer ormail" [11].
+ILLICIT MARKETPLACES
+In 2011,Bitcoin spurredthe creation of one of the most sophi s-
+ticatedonlineillicitmarketplaceshostedontheTORnetwo rk:Silk
+Road,the“eBayofillicitdrugs”[7].Itscreator,RossUlbr icht,grew
+thewebsiteinto a$1.2billiondrugring, hinging onthesucc ess of
+Bitcoin’s anonymous P2P transactions [10]. Even after the w eb-
+site was brought down by the FBI in 2013, numerous websites
+sproutedupinits placetocontinueits goal[7].Fortunatel y,there
+stillremain many traceablecomponentstoSilk Road’ssucce ssors,
+namely their use of the postal service to transport drugs. Th ese
+ﬂawshaveresultedinariseindrugseizuresatportsofentry (par-
+ticularlyinAustralia)andimprovedtheabilityfortheDEA totrack
+downdealers intheUS [10] [7].
+In 2012,Small [10] reports, a well-known and revered gyneco l-
+ogist, Dr. Olivia Bolles, utilized the anonymity of Bitcoin on the
+Silk Road to vend controlled substances as “MDPro.” She and h er
+partner, Alexandra Gold, accumulated 610 transactions in a few
+months, catching the eye of the DEA. Bolles used a personal P. O.
+box as the return address on her sales, however, which led to t he
+DEAtracingthedrugsbacktothesource.Asimilarstoryunwo und
+for the website’s founder Ross Ulbricht, or “Dead Pirate Rob erts.”
+The FBI tricked Ulbricht into directing them toward a system ad-
+ministrator,CurtisClarkGreen,forabuyerforbulkcocain e.When
+UlbrichtbecameawarethatGreenhadbeencaughtbytheFBI,h e
+hired an agent to kill Green–this spiraled into Ulbricht’s e ventual
+capturein apubliclibraryonOctober1,2013.
+Theseanecdotessuggestthat,althoughBitcoin’sanonymit yap-
+pears to pose an unfair advantage for criminals in the drug tr ade,
+the native traceability provided by the public Bitcoin bloc kchain
+ispotentiallyeasiertotracethancash-onlydrugtransact ions[10].
+Bitcoin continues to catalyze the market–many replacement s for
+the Silk Road have since risen and fallen including Black Mar ket
+Reloaded and Silk Road 2.0. There is, however, a beneﬁt to the
+growthofinternet cartels:reducedviolenceand safer prod uct.Di-
+rect P2P drug transactions over the internet reduce the need for
+narco-traﬃckers and gangs in facilitating drug distributi on. Ac-
+cordingtoJamesMartinofMacquarieUniversity[7],thisma ycur-
+tail much of the violence associated with illicit drugs and, with
+more direct transactions, reduce costs and increase the pur ity of
+product,reducing therisk of overdoses oncuttingagents li ke fen-
+tanyl.The Societal Implications of Blockchain ProliferationCC’20,March 2020,Buﬀalo, NY,
+Ultimately, drug distribution is not a new problem. The natu re
+of Bitcoin has only digitized it, unintentionally oﬀering a greater
+meansforthefederalgovernmenttocontrolit.Martin[7]re marks
+thattheratingsystememployedbytheSilkRoadimprovespro duct
+purity,protectingthecustomerfrom commoncuttingagents .The
+blockchainoﬀers a valuabletooltotracethesupplychain ba ck to
+itssourcebyfollowingthetransactionsacrossthevarious blocksof
+theledger.ThesuccessoftheFBIintracingUlbricht(andBo lles,by
+theDEA)shows“thattoday’slawenforcementagencies appea rto
+haveaﬁrmgrasponhowtoconductinvestigationsandsubsequ ent
+prosecutions oflarge-scale illegal onlineactivities” [1 0].
+MONEY LAUNDERING
+From the anonymity capitalized upon by Ross Ulbricht comes
+theopportunityforanotherlow-techcrimetoevolve:money laun-
+dering. Small[10]reportsthat,uponitsinception,
+...a number of studies analyzing the block chain [sic] of
+theBitcoinledgerdemonstratedthattherewereuserswho
+were placing a large amount of money into one account,
+and over thecourseofafew hours,toafew days, transfer-
+ring the money in small increments through hundreds of
+"dummy" accounts beforeitwas recombined.
+Using online casino applications, laundering was also achi eved at
+the time of Bitcoin’s inception. Online casinos that oﬀer pe er-to-
+peer poker games eﬀectively allow a user to intentionally lo se all
+their chips to another player to launder money into their han ds
+[12].AccordingtoStokes[12],in2012,anti-moneylaunder inglaws
+had not yet developed to accommodate digital currencies; as a re-
+sult, cryptocurrencies posed a real risk of bypassing repor ting re-
+quirements.
+Asof2015,moremodernmethodsofmoneylaunderingpreven-
+tionhave beenlaunched which paralleltraditionaltracing mecha-
+nisms. Small [10] refers to Bitcoin much as the marked bills u sed
+to trace stolen ﬁat currencies. By tracing the Bitcoin throu gh the
+publickeysofusers,governmentscanfollowthecurrencyin tothe
+hands of a publicly identiﬁable public key, such as that of a b usi-
+ness. Once the Bitcoins reach a known party, agents can use th at
+informationtoﬁndtheresponsibleparty.Nakamotowasawar eof
+this issue at Bitcoin’s inception, stating “[t]he risk is th at if the
+owner ofakeyisrevealed, linking couldreveal othertransa ctions
+that belongedtothesameowner” [9].
+A simple approach to the laundering issue is regulation at th e
+exchangelevel.Stokes[12]suggeststhat,whileBitcoinla cksiden-
+tifying information within its ledger, if states impose reg ulations
+where ﬁat money enters and exits the system, they can target a
+great deal of laundering. As we will touch upon later, New Yor k
+State’s BitLicense [11] is an introduction to exchange-sid e regu-
+lations that require customer information to be tied to Bitc oin’s
+(and other cryptocurrencies’) addresses. Thus, anytime la undered
+money touchesaknownaccount’saddress (whichislikelyala rge
+portion of them) it becomes trackable. There are some websit es,
+however, that allow people to purchase cryptocurrency dire ctly
+fromindividuals(like“localbitcoins.com”)whichmaysti llsubvert
+this regulation.
+Its traceability aside, there have been numerous cases thus far
+ofmoneylaunderingutilizingcryptocurrency.Accordingt oDyntuandDykyi[3],inMayof2013,acompanyentitledLibertyRese rve
+which maintained a system of electronic transactions laund ered
+morethan$6billionacrosstheworld.Thecompanyhadmillio nsof
+users which transferred money using their proprietary cryp tocur-
+rency the “Liberty Dollar (LD),” directing the payment back into
+USD at the endpoints. The Silk Road’s Bitcoin transactions w ere
+alsocompletedusingatypeofmoneylaunderingobfuscation enti-
+tled“toggle-switch.”Withit,alltransactionswerequasi -randomly
+directedtotheintended user over many steps [10].
+Much like with the drug trade, the anonymity of Bitcoin and
+othercryptocurrencieshasproventobecircumventable,as “[a]nyone
+cananalyze theblockchain [sic] and followthe trailof a sin gular
+bitcoin”[10].Still,toolsexistlike“toggleswitch”andD arkWallet
+which mix transactions and complicate the tracking process [3].
+Websites ontheTOR network likeSilk RoadblockIP informati on
+as well, another eﬀort to make tracing laundering diﬃcult on the
+Bitcoinnetwork.Regulations like “BitLicense” aid in trac kingand
+solving the issue of laundering, but it still remains quite p ossible
+withtheuseofvariousnefarioustacticsontheblockchaina ndwith
+directbitcoinexchanges (onsites like“localbitcoins.co m”).
+FUNDINGTERRORISM
+Another signiﬁcant risk that has arisen in the ﬁght against t er-
+rorism is the use of cryptocurrencies to donate to terrorist orga-
+nizations’eﬀorts.Bitcoin’scriticsbelievethatitsanon ymityposes
+thepossibilityofcircumventingcounterterrorismeﬀorts [10].Small
+[10] notes that eﬀorts to track down Osama bin Laden succeede d
+by locating his personal courier. Had Osama bin Laden used Bi t-
+coin as a means of funding, he would have needed fewer courier s
+totransfer physical money–thus, hemaynever have beenloca ted
+by the CIA. Often, mandatory reporting of suspicious moneta ry
+transfers provides governments with clues toward ﬁnding te rror-
+istcells–Bitcoincouldbypass thesemeasures.
+MuchlikethepreviousrisksofBitcoinandcryptocurrency, Bit-
+coin’s abilityto fund terrorism stems from its anonymity. I t, how-
+ever, fails (in someregard) toreplace current systems used byter-
+roristcellstotransfermoneyknownas“hawala”(“transfer ”inAra-
+bic) which operates as a black-market version of Western Uni on
+[10].Hawalais natively less traceablethanBitcoinasther e isn’t a
+publictransactionledger builtinto thesystem where law en force-
+ment can sniﬀ it out.There are currently goodcontrols emplo yed
+bytheUSAtocounterhawalawhichincludestronglegalpenal ties
+worldwide for performing hawala transfers. Given this intr acka-
+bility of hawala relative to Bitcoin, it makes less sense to e mploy
+Bitcoin’s system.
+Still, with access to hawala in addition to cash couriers (li ke
+thoseemployed by bin Laden), money transfer, and cryptocur ren-
+cies, the funding network for terrorism becomes far more ext en-
+sive. Teichmann [4] notes some intrinsic issues with Bitcoi n facil-
+itating terrorism: it is diﬃcult to transfer 1,000,000 euro s without
+being spotted and destination markets could be illiquid and inca-
+pabletofacilitatetransfertothelocalcurrency.Thelack ofbanking
+regulations, however, works in terrorism’s favor where mar kets
+supportit,andanonymity addstothebeneﬁts.Cash isvery bu lky
+and often diﬃcult to hide, hence why we often see photos in the
+media of large rooms full of laundered bills. Bitcoin is digi tal andCC’20,March 2020,Buﬀalo, NY,
+Cory Cherven
+ascompactasthepaperthataprivatekeycanbestoredon,whi ch
+is far easier tomove across borders.
+Bitcoinholisticallyhasbeneﬁtsintheundergroundmarket sused
+to support terrorism. Supporters that do not have access to ( or
+that do not want to risk) hawala can easily transfer Bitcoin. Te-
+ichmann [4] notes that ransom fees are often best transacted in
+Bitcoin(muchlikeransomware employed oncomputers)and th at
+Bitcoin is often directly convertible into weapons and muni tions
+via the black market accessible by the TOR network (like the S ilk
+Road).Byusingexclusivelypublicnetworksandoperatingi ncoun-
+trieswithmorerelaxedregulation(likeSlovakia,whichha sBitcoin
+ATMs),terroristscanhideundergovernments’radarswhile amass-
+ingwealththathawalamaynototherwisesupport.Teichmann [4]
+andSmall[10]bothacknowledgethecapabilitiesofBitcoin tosup-
+portterrorism insomecapacity.
+ENERGY CONSUMPTION AND GLOBAL
+WARMING
+In 2018, Camila Mora et al. [8] published a paper on the poten-
+tial for Bitcoin emissions to contribute to global warming. Given
+thatBitcoinrequiresitsminerstocomputecomplexhashes a tran-
+dom,itrequires asigniﬁcant degreeofcomputingpowertove rify
+transaction legitimacy. Mora et al. [8] estimate that Bitco in usage
+in 2017 emitted 69 million tons of carbon dioxide. Should Bit coin
+adoptionincreaseasforecasted,itis“capableofproducin genough
+emissions to exceed 2°C of global warming in just a few decade s”
+[8]. Unless the algorithms behind Bitcoin or the energy sour ces
+usedarechanged,thiscouldhavedevastatingconsequences .Based
+on the best Bitcoin hardware available in 2016, it is estimat ed to
+consume 3.38 Terawatt hours of electricity to mine Bitcoin e ach
+year. To put that into context, in 2014, Jamaica’s 2.72 milli on peo-
+pleconsumed3.03 TWhofelectricity[5].
+Bitcoin’s infrastructure is reliant on a series of nodes tha t ac-
+cumulate copies of the blockchain and millions of miners whi ch
+verifythetransactionsontheblockchain.Inordertomaint ainthe
+network’s average mining rate of one block per ten minutes, t he
+networkincreasesthediﬃcultyoftheminingprocess[9].As more
+miners jump onboard the Bitcoin network, it takes more compu t-
+ing power to mine the same number of Bitcoin, resulting in mor e
+electrical demand–this issue is also exacerbated by the hal ving of
+Bitcoinrewards formining every fouryears [8].
+Although Bitcoin’s entire network was estimated to consume
+73.12TWh in 2019, Zbinden and Kondova [14] suggest that this
+is an acceptable expense in order to oﬀset the energy used by t he
+bankingindustrythatBitcoinstrivestoreplace;thisincl udesCredit
+cards,datacenters,oﬃces,vaults,etc.whichresultinabo ut100TWh
+ofenergyconsumptionannually.Inadditiontopotentialin creases
+in block size (resulting in fewer blocks) as occurred with th e Bit-
+coinClassicforkandincreasedenergyeﬃciency,Zbindenan dKon-
+dova [14] state that this energy use will only improve. Bitco in,
+however has not succeeded in replacing the current banking i n-
+frastructure. At the current rate of Bitcoin adoption, Mora et al.
+[8] estimate that Bitcoin will create an energy demand capab le of
+producingenoughemissionstoraiseglobaltemperatures2d egrees
+over the next few decades at the slowest rate of adoption or in as
+soonas 11 years.REMITTANCE
+Bitcoin and other cryptocurrencies are poised to make great ,
+positive changes in the world of remittance, a $400 billion i ndus-
+try.According toTianyi Qiu et al., currently,money remitt ance is
+handledbytheSocietyofWorldwideInterbankFinancialTel ecom-
+munication (SWIFT). SWIFT’s interbank messaging system co m-
+pletesapproximately24milliontransactionsdaily.Thecu rrentsys-
+tem relies on partnerships with independent banks to comple te
+the remittance, pushing transactions through ﬁve institut ions be-
+fore reaching their destinations–accumulating fees and de lays as
+themoney moves. OnlytheSWIFTmessaging system (likea ship -
+ment tracker) is immediate [13], the actual movement of fund s
+is far slower. The cryptocurrency XRP [2] has been working to
+solve the cost and delays of remittance by synchronizing the pay-
+ment and messaging directly between two banks (or currencie s)
+[13].Redeﬁningremittanceprotocolisalsoonthedocketfo rbusi-
+nesses like BitPesa, which, Small says, is targeting Africa (speciﬁ-
+cally Kenya) where remittance fees are far in excess of the no rm
+(11%vs 9%,BitPesa is lookingtocharge 3%)[10].
+In Mexico, the remittance industry plays a large role in fuel -
+ing local economies, especially after the manufacturing gr owth
+and migration of farmers resulting from the North Atlantic F ree
+Trade Agreement (NAFTA). According to Zbinden and Kondova
+[14],thepayments ﬂowing intoMexicocurrentlytotal$28bi llion,
+10%ofMexico’stotalGDPgrowthrate.Averageglobalremitt ance
+costsasof2019were7%viaproviderslikeWesternUnion.Tha nks
+to the ubiquity of the Bitso and Volabit exchanges in Mexico a nd
+theircryptocurrencyremittanceapplications,low-costo ptionsare
+alreadyarising.
+Costsarenottheonlyelementofremittancebeingimprovedb y
+cryptocurrency.The SWIFT infrastructure utilized by most banks
+forremittance isextremely antiquatedand delayed.Quiet a l.[13]
+note that, in some regions, money transfers using the SWIFT p ro-
+tocolcan take up to ﬁve days. In a SWOT (strengths, weaknesse s,
+opportunities, threats) analysis of the SWIFT messaging sy stem,
+they show that SWIFT’s greatest issue is its lack of control o ver
+themoney transferring process:
+...the real security and transaction time and cost for the
+paymentstobesettledmightentirelydependonthesender
+banks, intermediatebanks andreceiving banks.Theerrors
+[sic] could occurwithin these processing banks which are
+outofcontrolof SWIFT [13].
+This system, which has much room for error, couldbe greatly i m-
+proved byinvolving cryptoassets.
+ThecryptocurrencyRipple(XRP) [2]proposesameanstoover -
+haul or replace the SWIFT messaging system with a P2P system
+based upon distributed ledger technology (DLT). Using a pub lic
+blockchain, much like Bitcoin, Ripple has designed several remit-
+tanceproductsthatsourceliquidityoncryptocurrencyexc hanges
+oneither end ofa transactiontotransfer money. Indoingso, they
+synchronize the messaging ﬂow (transaction information, s tatus,
+etc.)withtheactualﬂowofvalue(theXRPcurrency) [13].Wi thin
+milliseconds,twobanksareconnectedandasettlementeith ersuc-
+ceeds or fails between them; the banks are also provided with a
+wealth of information before the transaction such as estima tedThe Societal Implications of Blockchain ProliferationCC’20,March 2020,Buﬀalo, NY,
+time, transaction fees, and exchange rates. Should there be diﬀer-
+ent routes the settlement could take, multiple quotes will b e pro-
+vided, and the sending institution can choose the best rate a vail-
+able.Asof2018,morethan100institutionsandmorethan75c oun-
+trieshavebegunusingRippletechnologyforremittance–61 banks
+aloneinJapan[13].InNovemberof2019,a$50millioninvest ment
+madebyRippleintoMoneyGramhassecuredtheuseoftheirtec h-
+nology in several corridors, particularly the USD-MXN corr idor
+(remittance betweentheUS and Mexico).This technology’s g reat-
+estthreats,claimQuietal.[13],comefromadvancementsin other
+cryptocurrencies, showing that blockchain will certainly develop
+into a valuabletechnologyforremittance.
+AIDING THETHIRD WORLD
+AfricaandMexicoaretwoimportanttestinggroundsforBitc oin
+andothercryptocurrenciesbeyondremittance.Africaisst illdevel-
+oping into the modern world–since it lacks many infrastruct ures
+including electrical, banking, and the internet, new techn ologies
+areneededtocompensate.SeanButton[1]suggests thatBitc oin’s
+microlending capacities (many small transactions) could a id with
+thesedeﬁcitsbyallowingthesaleofexcesselectricitybac ktogrids
+and providing access to loans and credit. Both Africa and Mex ico
+suﬀerfromgreatpoliticalunrestandagenerallackoftrust toward
+banking institutions; Bitcoin allows for a store of value se parate
+the government, one that is far more stable [14] [1]. Blockch ain
+can immutably house identity documents for refugees and imm i-
+grants,hosttrustworthyvoting,andorganizeshippingusi ngsmart
+contracts,allowingforbetter supplychain management [1] .
+Poverty inMexicoposesagreat opportunityforblockchaini m-
+provement. Zbinden and Kondova [14] cite that only 15 people
+own 5% of Mexico’s wealth with 43.6% of peopleliving below th e
+national poverty line. In 2005,less than 25% of peoplein the capi-
+talusedformalﬁnancialservices(banks,ﬁnancialinstitu tions,etc.)
+due to high fees, distrust, and a lack of documentation. Alth ough
+63% of Mexico City’s unbanked residents own their houses, th ey
+cannot legally prove ownership due to a lack of documentatio n.
+Governmentcorruptionisagreatcauseofthisunbankingand pub-
+lic distrustinﬁnancial institutions.
+Zbinden and Kondova [14] report that Mexico, in 2017, has be-
+guninvestingin“BlockchainHACKMX”whichlooksforblockc hain
+solutions to corruption. The program has initiated a “smart ” pub-
+lic tender which is a cashless smart-contract approach to po pu-
+lar votes on important government decisions–it will, howev er, be
+hosted in a private, government-controlled blockchain tha t could
+still be subject to manipulation. Mexico’s supportive Fint ech (ﬁ-
+nancial technology) regulations have spurred the prolifer ation of
+140,000 Bitso ATMs which allow the unbanked to have Bitcoin
+wallets and complete currency remittance. This pro-Fintec h, pro-
+cryptocurrency environment in Mexico has great potential t o im-
+prove publictrustin thegovernment’s behavior.
+InAfrica,startupslikeBitHubAfricaarepushingtolaunch cryp-
+tocurrency applications that aid in microlending, energy a ccess,
+and crypto adoption. Button [1] notes that cryptocurrency l oans
+detachindividualsfromuntrustworthycentralauthoritie sinthese
+corrupt countries and reduces administration fees. Crypto curren-
+cies provide a great solution for the 80% of Sub-Saharan Afri cansthat are unbanked, as supportedby Bitcoin trading 33% highe r in
+Nigeria in 2017 than elsewhere in the world (greater conﬁden ce
+placedincryptocurrency).Theimmutabilityoftheblockch ainposes
+a great opportunityto store identiﬁcation records like bio metrics,
+pictures,IDnumbers,bankinginformation,educationalcr edentials,
+etc. This would allow documents to follow displaced citizen s and
+reduceidentity fraud.Voting,just likeinMexico, couldbe embed-
+dedinto a blockchainwhereby ID is veriﬁed, and votes aretal lied
+immutably on the blockchain. Via smart contracts, shipping con-
+tractscanbecloselytrackedandcompletedasmanufacturin gbur-
+dens shift from China into Africa.
+There is a great wealth of beneﬁts that could come to African
+and Mexican (and other) societies as a result of the prolifer ation
+of blockchain technology. Such technology removes corrupt gov-
+ernmentsfromarbitrationandenablescitizenstofeelconﬁ dentin
+their money, vote,and documentsecurity.
+LEGALHURDLES
+Thebiggest hurdles for blockchain development are legal on es.
+Sondereggerstatesthat“Bitcoinispoisedtothreatenthev eryfoun-
+dationuponwhichﬁatcurrencyandmonetarypolicyrest:cen tral-
+ized control” [11]. This scares any government whose econom y
+is driven by a central bank–it takes away the government’s co n-
+trol. As mentioned, Bitcoin is often a haven for criminal act ivity
+and its decentralization makes it very diﬃcult to inﬂuence. Fears
+of rapid deﬂation caused the by ﬁxed Bitcoin supply lead expe rts
+to denounce its success as a currency [11]. Many countries ha ve
+continued to allow Bitcoin to ﬂourish with limited restrict ions by
+classifying its risks and taxation; at least 10 countries, h owever,
+have enacted complete (or near-complete) bans including Ch ina,
+Iceland,Russia, and numerous others[6].
+In 2013,theUS Department of the Treasury’s Financial Crime s
+Enforcement Network (FinCEN) issued guidelines regarding vir-
+tual currency. According to Sonderegger [11], Its guidelin es im-
+posed rules upon all entities creating, obtaining, exchang ing, or
+otherwisedealing in digital currencies–establishing tha tthese en-
+tities are subject to the rules governing normal money trans mis-
+sion.Thisbeganrequiringthatexchangesﬁlewiththefeder algov-
+ernment and complywith extremely complex statelicensing. The
+2014 case SEC v. Shavers ruled that Bitcoin is in fact (an inve st-
+ment of) money in the US, showing that Bitcoin could be consid -
+ered a security though it does not perfectly fall into the bou nds
+of the “Howey Test” used to determine security status. The In ter-
+nalRevenueServicehasagreedthat,regardlessofBitcoin’ sunclear
+status,itwillbetaxedasaninvestment.Manystateshavead dition-
+allyinstatedplanslikeNewYork’s“BitLicense”whichregu lateany
+money laundering and cybersecurity risks inherent in crypt ocur-
+rency via closesurveillance oftheexchanges.
+Internationally,responsestocryptocurrencyhavevaried widely
+from monitoring to a total ban. According to Jan Lansky [6],o nly
+three countries have elected not to regulate (Croatia, Irel and, and
+Japan), yet eleven countries have completely banned them. S on-
+deregger[11]suggests,however,amiddle-groundapproach toreg-
+ulation which mirrors the Chinese approach to cryptocurren cies
+where:(1)theyarenotacurrency(rather,acommodity),(2) banks
+andﬁnancialinstitutionscannottransactusingthem,(3)e xchangesCC’20,March 2020,Buﬀalo, NY,
+Cory Cherven
+arelegal(withgovernmentoversight),and(4)thepopulati onmust
+assume all of the risk. The only variation is that, unlike Chi na,
+cryptocurrencyshouldbeallowedinthepricingandpurchas ingof
+goodsand services. As discussed,however, barring ﬁnancia l insti-
+tutionsfromusingcryptocurrenciesposesabigriskforcur rencies
+like Ripple (XRP) [2] which plan to revolutionize the remitt ance
+industryand aidcompromised governments’ citizens.
+CONCLUSIONS
+Blockchaintechnologyispoisedtomakegreatpositivechan ges
+insocietyiflegislaturesarepreparedtoconsiderthechal lenges of
+asocietywhereanonymousP2Ptransactionsarethenorm.Und er
+the guise of complete anonymity, the potential for expansiv e on-
+line illicit marketplaces to emerge arises [10] [7], money i s more
+easily launderable [12], terrorists can secure private fun ding [4],
+and heavy mining costs drive carbon emissions and global war m-
+ing[8].Whilemanyofthesethreatsofcryptocurrencycanbe coun-
+teracted by strong regulation and the traceability of block chain
+technology, some risks are still inevitable byproducts of a dvance-
+ments (particularlycarbonemissions, which are unlikelyt o slow).
+Thankfully, there are other consensus protocols, like Ripp le’s [2]
+whichdonotdependonineﬃcientminingandhaverelativelyl ow
+carbonemissions comparedtoproof-of-workconsensus.
+Governments should tolerate these pitfalls for the beneﬁts in
+remittance [13] [10] and for thepotential to improve corrup tgov-
+ernments [14] [1] brought by blockchain technology. The tec hno-
+logical implications of theunmodiﬁableblockchainprovid emany
+great opportunities for the unbanked, for citizens of corru pt gov-
+ernments, and for those refugees and migrants whose identit ies
+must be as mobile as themselves. There is still a lot of room to
+develop a legal standpoint on cryptocurrency which does not im-
+pedeon its free growth, and plenty more debate surrounding t op-
+icsofcybercrime(ransomware,botnetting,andthesecurit yofdis-
+tributed ledger technology), cryptocurrencies as investm ent vehi-
+cles,and–especially–thebeneﬁtsofcryptocurrencyforﬁr st-world
+citizens (likeRipple’s Xpring initiative).
+Though they come with complex consequences, digital curren -
+cies provide a great opportunityfor growth across the world and,
+asayoungtechnology,theyremainvastlyunexplored.Furth erde-
+velopment will certainly expose greater ﬂaws and beneﬁts to the
+technologyand additional legislative challenges tobeove rcome.
+REFERENCES
+[1] Sean Button. 2018. Cryptocurrency and Blockchains in Em erging Economies.
+Software Quality Professional 20, 3(06 2018), 39–46.
+[2] Brad Chase and Ethan MacBrough. 2018. Analysis of the XRP Ledger
+Consensus Protocol. CoRRabs/1802.07242 (2018). arXiv:1802.07242
+http://arxiv.org/abs/1802.07242
+[3] V.DyntuandO.Dykyi.2018.CRYPTOCURRENCYINTHESYSTEM OFMONEY
+LAUNDERING. Baltic Journal of EconomicStudies 4,5 (2018), 75–81.
+[4] Johannes T. Fabian Maximilian. 2018. Financing terrori sm through cryptocur-
+rencies–adangerforEurope? JournalofMoneyLaunderingControl 21,4(2018),
+513–519.
+[5] Steve Huckle and Martin White. 2016. Socialism and the Bl ockchain. Future
+Internet8,4(2016), 49.
+[6] Jan Lansky. 2018. Possible State Approaches to Cryptocu rrencies. Journal of
+SystemsIntegration 9,1 (2018), 19–31.
+[7] James Martin. 2014. Lost on the Silk Road: Online drug dis tribution and
+the ‘cryptomarket’. Criminology & Criminal Justice 14, 3 (2014), 351–367.
+https://doi.org/10.1177/1748895813505234[8] Camilo Mora, Randi L. Rollins, Katie Taladay, Michael B. Kantar, Mason K.
+Chock,MioShimada,andErikC.Franklin.2018. Bitcoinemis sionsalone could
+push global warming above 2°C. Nature Climate Change 8, 11 (11 2018), 931–
+933.
+[9] SatoshiNakamoto.2015. Bitcoin:Apeer-to-peerelectr oniccashsystem. (2015).
+http://nakamotoinstitute.org/bitcoin/
+[10] S.Small.2015. Bitcoin:theNapsterofcurrency. HoustonJournalofInternational
+Law37, 2(2015), 581.
+[11] D.Sonderegger.2015. Aregulatoryandeconomicperple xity:Bitcoinneedsjust
+a bit of regulation. Washington University Journal of Law & Policy 47 (2015),
+175.
+[12] Robert Stokes. 2012. Virtual money laundering: the cas e of Bitcoin and the
+Lindendollar. Information & CommunicationsTechnology Law 21,3 (2012), 221
+– 236.
+[13] R.ZhangT.QiuandY.Gao.2019. Ripplevs.SWIFT:Transf ormingCrossBorder
+RemittanceUsingBlockchainTechnology. ProcediaComputerScience 147(2019),
+428–434.
+[14] F. Zbinden and G. Kondova. 2019. Economic Development i n Mexico and the
+Role of Blockchain. Advances in Economicsand Business 7, 1(2019), 55–64.
